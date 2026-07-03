@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Session 1 · Neural Network Fundamentals — Interactive Proofs</title>
+  <meta name="description" content="Four foundational deep-learning claims, each proved live in your browser: activations, depth, embeddings, and generalization." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">Session 1 · NN Fundamentals <small>— proved live in your browser</small></div>
+      <a class="jump" href="#s1">Activations</a>
+      <a class="jump" href="#s2">Depth</a>
+      <a class="jump" href="#s3">Embeddings</a>
+      <a class="jump" href="#s4">Generalization</a>
+      <button id="theme-btn" title="Toggle theme">☾</button>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <header class="hero">
+      <h1>Four claims about neural nets.<br />Each one proved, live.</h1>
+      <p class="lede">No pre-baked plots — every model below is trained in your browser as you watch,
+        on data generated on the spot. Change a slider, flip a switch, hit re-run, and the proof
+        re-derives itself. Watch what happens when <em>only the activation changes</em>.</p>
+      <div class="pillrow">
+        <a class="pill" href="#s1">S1·1 — Activations exist for a reason</a>
+        <a class="pill" href="#s2">S1·2 — Depth without nonlinearity is a lie</a>
+        <a class="pill" href="#s3">S1·3 — Embeddings learn similarity from nothing</a>
+        <a class="pill" href="#s4">S1·4 — Data closes the memorization gap</a>
+      </div>
+    </header>
+
+    <!-- ============================ S1-1 ============================ -->
+    <section class="demo" id="s1">
+      <span class="tag">S1 · 1</span>
+      <h2>Activations exist for a reason</h2>
+      <div class="cbp">
+        <div><b>Claim.</b> <span>A model with no nonlinearity can only draw a straight boundary, so it cannot separate two concentric rings. Add one ReLU hidden layer and it can wrap the ring.</span></div>
+        <div><b>Build.</b> <span>~300 noisy 2-D points — inner ring = class 0, outer ring = class 1 (not linearly separable). Train (a) a single linear layer + sigmoid, (b) one ReLU hidden layer.</span></div>
+        <div><b>Proof.</b> <span>The linear boundary is a straight line stuck near ~55%. The ReLU boundary wraps the ring to ~99%. Only the activation changed.</span></div>
+      </div>
+
+      <div class="controls">
+        <label class="ctrl">Noise <span class="v" id="s1-noise-val">0.12</span>
+          <input type="range" id="s1-noise" min="0.02" max="0.30" step="0.01" value="0.12" /></label>
+        <label class="ctrl">Hidden units (model B) <span class="v" id="s1-hidden-val">16</span>
+          <input type="range" id="s1-hidden" min="2" max="32" step="1" value="16" /></label>
+        <label class="ctrl switch"><input type="checkbox" id="s1-relu-toggle" checked /> ReLU in model B</label>
+        <span class="epoch">epoch <span id="s1-epoch">0</span></span>
+        <button class="run" id="s1-run">↻ New data &amp; re-train</button>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h4>Linear + sigmoid <span class="metric orange" id="s1-lin-acc">—</span></h4>
+          <canvas class="sq" id="s1-lin"></canvas>
+        </div>
+        <div class="card">
+          <h4><span id="s1-relu-title">One ReLU hidden layer</span> <span class="metric teal" id="s1-relu-acc">—</span></h4>
+          <canvas class="sq" id="s1-relu"></canvas>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h4>Training loss</h4>
+        <canvas class="wide" id="s1-loss"></canvas>
+      </div>
+
+      <div class="takeaway"><b>Takeaway.</b> Flip the ReLU switch off: model B becomes a stack of linear layers and its boundary snaps back to a straight line, right next to model A. The capacity was always there — the nonlinearity is what lets it <em>bend</em>.</div>
+      <details class="math"><summary>Why a linear model can only draw a line</summary>
+        <p>A linear layer computes <code>z = w·x + b</code>. Its decision boundary is the set where
+        <code>z = 0</code> — a single hyperplane (a straight line in 2-D). A closed ring boundary
+        is not a line, so no single hyperplane can separate inside from outside. A ReLU hidden layer
+        gives you a sum of many "hinges" (<code>max(0, wᵢ·x + bᵢ)</code>) that can be composed into a
+        curved, closed region.</p>
+      </details>
+    </section>
+
+    <!-- ============================ S1-2 ============================ -->
+    <section class="demo" id="s2">
+      <span class="tag">S1 · 2</span>
+      <h2>Depth without nonlinearity is a lie</h2>
+      <div class="cbp">
+        <div><b>Claim.</b> <span>Five stacked linear layers collapse to a single linear map, so a 5-layer linear net is no stronger than 1 layer. Both fail the ring identically. Insert ReLUs between the same five layers and it suddenly solves it.</span></div>
+        <div><b>Build.</b> <span>Same ring data; train 1 linear layer, 5 linear layers (no activations), and 5 layers + ReLU.</span></div>
+        <div><b>Proof.</b> <span>The 1-layer and 5-linear boundaries are the same line at the same accuracy. ReLU breaks the tie. And the five weight matrices multiply into <em>one</em> matrix.</span></div>
+      </div>
+
+      <div class="controls">
+        <span class="epoch">epoch <span id="s2-epoch">0</span></span>
+        <button class="run" id="s2-run">↻ New data &amp; re-train</button>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h4>1 linear layer <span class="metric orange" id="s2-lin1-acc">—</span></h4>
+          <canvas class="sq" id="s2-lin1"></canvas>
+        </div>
+        <div class="card">
+          <h4>5 linear layers <span class="metric orange" id="s2-lin5-acc">—</span></h4>
+          <canvas class="sq" id="s2-lin5"></canvas>
+        </div>
+        <div class="card">
+          <h4>5 layers + ReLU <span class="metric teal" id="s2-relu5-acc">—</span></h4>
+          <canvas class="sq" id="s2-relu5"></canvas>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h4>The collapse, numerically — W₁·W₂·W₃·W₄·W₅</h4>
+        <div class="matstrip">
+          <div class="matbox"><canvas id="s2-w0"></canvas><small>W₁ 2×4</small></div>
+          <span class="op">·</span>
+          <div class="matbox"><canvas id="s2-w1"></canvas><small>W₂ 4×4</small></div>
+          <span class="op">·</span>
+          <div class="matbox"><canvas id="s2-w2"></canvas><small>W₃ 4×4</small></div>
+          <span class="op">·</span>
+          <div class="matbox"><canvas id="s2-w3"></canvas><small>W₄ 4×4</small></div>
+          <span class="op">·</span>
+          <div class="matbox"><canvas id="s2-w4"></canvas><small>W₅ 4×1</small></div>
+          <span class="op">=</span>
+          <div class="matbox eff"><canvas id="s2-weff"></canvas><small>W_eff 2×1</small></div>
+        </div>
+        <p id="s2-eff-note" style="color:var(--muted);font-size:13px;margin:12px 2px 0"></p>
+      </div>
+
+      <div class="takeaway"><b>Takeaway.</b> Composing linear maps is still a linear map: <code>W₅(W₄(…W₁x)) = (W₅W₄W₃W₂W₁)x</code>. Stacking depth buys you nothing until a nonlinearity sits between the layers. Depth is only powerful <em>because</em> of the activations.</div>
+      <details class="math"><summary>The one-line proof</summary>
+        <p>Let each layer be <code>hᵢ = Wᵢ hᵢ₋₁ + bᵢ</code> with no activation. Substituting repeatedly,
+        the output is <code>W_eff x + b_eff</code> where <code>W_eff = W₅W₄W₃W₂W₁</code> — a single
+        matrix, shown above. Any number of linear layers is <em>exactly</em> one linear layer, so it
+        can never beat the 1-layer model.</p>
+      </details>
+    </section>
+
+    <!-- ============================ S1-3 ============================ -->
+    <section class="demo" id="s3">
+      <span class="tag">S1 · 3</span>
+      <h2>Embeddings learn similarity from nothing but next-token</h2>
+      <div class="cbp">
+        <div><b>Claim.</b> <span>Trained only to predict the next token in a tiny synthetic grammar, the embedding table clusters related tokens — even though similarity was never supplied.</span></div>
+        <div><b>Build.</b> <span>A toy language with categories (animals: cat dog cow; fruits: apple mango grape; verbs: eat chase see) and templates, so same-category tokens share next-token distributions. Train a tiny embedding→softmax model.</span></div>
+        <div><b>Proof.</b> <span>Project the learned embeddings to 2-D — same-category tokens land together, and every token's nearest neighbour is same-category.</span></div>
+      </div>
+
+      <div class="controls">
+        <label class="ctrl">Embedding dim <span class="v" id="s3-dim-val">8</span>
+          <input type="range" id="s3-dim" min="2" max="16" step="1" value="8" /></label>
+        <span class="epoch">epoch <span id="s3-epoch">0</span></span>
+        <button class="run" id="s3-run">↻ New corpus &amp; re-train</button>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <h4>Sample sentences the model reads (it only ever sees prev → next pairs)</h4>
+        <div class="sentences" id="s3-sentences"></div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h4>Embeddings projected to 2-D (PCA)</h4>
+          <canvas class="sq" id="s3-embed"></canvas>
+        </div>
+        <div class="card">
+          <h4>Cosine similarity between tokens</h4>
+          <canvas class="sq" id="s3-heat"></canvas>
+        </div>
+      </div>
+      <div class="grid2" style="margin-top:16px">
+        <div class="card">
+          <h4>Nearest neighbour by embedding</h4>
+          <table class="nn" id="s3-nn"></table>
+        </div>
+        <div class="card">
+          <h4>Next-token loss</h4>
+          <canvas class="wide" id="s3-loss"></canvas>
+        </div>
+      </div>
+
+      <div class="takeaway"><b>Takeaway.</b> Nobody told the model that <code>cat</code> and <code>dog</code> are alike. It discovered it because they appear in the same slots and predict the same next words. Similarity <em>emerged</em> from next-token statistics — the whole premise behind word2vec and modern LLM embeddings.</div>
+      <details class="math"><summary>Why shared context ⇒ shared embedding</summary>
+        <p>The model turns a token into logits via <code>logits = E[token]·W + b</code>. Two tokens that
+        must produce the same next-token distribution need to land on nearly the same logits, which
+        pushes their embedding rows <code>E[·]</code> toward each other. Distributional similarity in,
+        geometric similarity out.</p>
+      </details>
+    </section>
+
+    <!-- ============================ S1-4 ============================ -->
+    <section class="demo" id="s4">
+      <span class="tag">S1 · 4</span>
+      <h2>Memorization vs generalization — and data closes the gap</h2>
+      <div class="cbp">
+        <div><b>Claim.</b> <span>A high-capacity model on tiny data drives train accuracy to ~100% while held-out accuracy stays low. Growing the dataset closes that gap.</span></div>
+        <div><b>Build.</b> <span>A learnable noisy 2-D classification with a held-out test split; train the same over-parameterized ReLU net at train sizes 20, 200, and 2000.</span></div>
+        <div><b>Proof.</b> <span>The train/test gap is huge at n=20 (train→100%, test poor) and shrinks as data grows. The gap-vs-size curve trends straight down.</span></div>
+      </div>
+
+      <div class="controls">
+        <label class="ctrl">Capacity (units/layer) <span class="v" id="s4-hidden-val">40</span>
+          <input type="range" id="s4-hidden" min="8" max="64" step="4" value="40" /></label>
+        <span class="epoch">epoch <span id="s4-epoch">0</span></span>
+        <button class="run" id="s4-run">↻ New data &amp; re-train</button>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h4>n = 20 <span class="metric"><span class="metric blue" id="s4-20-tr">—</span> / <span class="metric orange" id="s4-20-te">—</span></span></h4>
+          <canvas class="sq" id="s4-b20"></canvas>
+        </div>
+        <div class="card">
+          <h4>n = 200 <span class="metric"><span class="metric blue" id="s4-200-tr">—</span> / <span class="metric orange" id="s4-200-te">—</span></span></h4>
+          <canvas class="sq" id="s4-b200"></canvas>
+        </div>
+        <div class="card">
+          <h4>n = 2000 <span class="metric"><span class="metric blue" id="s4-2000-tr">—</span> / <span class="metric orange" id="s4-2000-te">—</span></span></h4>
+          <canvas class="sq" id="s4-b2000"></canvas>
+        </div>
+      </div>
+      <p style="color:var(--muted);font-size:12.5px;margin:8px 2px 0"><span style="color:var(--accent);font-weight:700">■</span> train accuracy &nbsp;&nbsp; <span style="color:var(--warn);font-weight:700">■</span> test accuracy</p>
+
+      <div class="card" style="margin-top:16px">
+        <h4>Generalization gap (train − test accuracy) over training</h4>
+        <canvas class="wide" id="s4-gap"></canvas>
+      </div>
+
+      <div class="takeaway"><b>Takeaway.</b> Same model, same capacity — the only thing that changed is how much data it saw. At n=20 it <em>memorizes</em> (wiggly boundary, big gap); at n=2000 it <em>generalizes</em> (smooth boundary, tiny gap). This is the course's north star: <em>data is everything</em>.</div>
+      <details class="math"><summary>Why more data closes the gap</summary>
+        <p>An over-parameterized net can fit any labelling of a tiny set, including its noise, so
+        train accuracy hits 100% while the boundary contorts around individual points — that contortion
+        doesn't match unseen data, so test accuracy lags. More samples constrain the boundary toward the
+        true structure, shrinking the train−test gap. Capacity enables memorization; data forces
+        generalization.</p>
+      </details>
+    </section>
+
+    <!-- ============================ glossary ============================ -->
+    <section class="demo glossary">
+      <h2>Glossary</h2>
+      <dl>
+        <dt>Linear map</dt><dd>A transform <code>x ↦ Wx + b</code>. Its decision boundary is always a flat hyperplane (a line in 2-D).</dd>
+        <dt>Activation</dt><dd>A nonlinear function (ReLU, sigmoid, tanh) applied between layers. Without it, depth collapses.</dd>
+        <dt>Decision boundary</dt><dd>The surface where the model switches its predicted class — the shaded fronts in the plots.</dd>
+        <dt>Embedding</dt><dd>A learned vector per token. Geometry (distance/angle) encodes learned similarity.</dd>
+        <dt>Softmax</dt><dd>Turns raw scores into a probability distribution over classes/tokens.</dd>
+        <dt>Generalization gap</dt><dd>Train performance minus held-out test performance. Large = memorizing.</dd>
+      </dl>
+    </section>
+
+    <footer>
+      Built for ERA V5 · Session 1. Everything trains client-side in vanilla JS — no libraries, no backend.
+      Open <code>js/nn.js</code> to read the ~30-line autograd-free engine behind every plot.
+    </footer>
+  </div>
+
+  <script src="js/nn.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/plot.js"></script>
+  <script src="js/demos.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Netlify configuration.
+# The site is a static page living in a subfolder, with no build step.
+[build]
+  publish = "session-1-assignments"
+  command = ""

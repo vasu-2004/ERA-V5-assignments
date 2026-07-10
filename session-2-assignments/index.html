@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Session 2 · Corpus Stats &amp; Baseline BPE Fertility — India (EN/HI/TE/MR)</title>
-  <meta name="description" content="Real corpus statistics and a baseline equal-weight BPE fertility trend for the India Wikipedia page in English, Hindi, Telugu and Marathi." />
+  <title>Session 2 · Multilingual BPE Tokenizer — India (EN/HI/TE/MR)</title>
+  <meta name="description" content="A single 10,000-token byte-level BPE tokenizer for the India Wikipedia page in English, Hindi, Telugu, Marathi. Zero UNK, English fertility ≤ 1.2, minimized spread — scored live in your browser." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔤</text></svg>" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <div class="brand">Session 2 · BPE Tokenizer <small>— corpus stats &amp; baseline fertility (phase 1)</small></div>
-      <a class="jump" href="#stats">Stats</a>
-      <a class="jump" href="#fertility">Fertility</a>
+      <div class="brand">Session 2 · Multilingual BPE <small>— 10k vocab · EN/HI/TE/MR · scored live</small></div>
+      <a class="jump" href="#score">Score</a>
+      <a class="jump" href="#method">Method</a>
+      <a class="jump" href="#live">Run it yourself</a>
       <a class="jump" href="#downloads">Downloads</a>
       <button id="theme-btn" title="Toggle theme">☾</button>
     </div>
@@ -21,116 +22,151 @@
 
   <div class="wrap">
     <header class="hero">
-      <h1>India, in four languages.<br />Measured, not guessed.</h1>
-      <p class="lede">Real corpus statistics and a real, from-scratch, standard byte-level BPE
-        tokenizer trained on the "India" Wikipedia article in English, Hindi, Telugu, and
-        Marathi — every number on this page comes straight out of
-        <code>scripts/run_analysis.py</code>, no hand-editing. This is the baseline
-        (equal-weight, undifferentiated) run that the final, tuned, 10,000-token tokenizer
-        will be built on top of.</p>
+      <h1>One 10,000-token tokenizer.<br />Four languages. Scored live.</h1>
+      <p class="lede">A single byte-level BPE tokenizer for the <b>India</b> Wikipedia page in
+        English, Hindi, Telugu and Marathi. It has <b>zero UNK by construction</b>, keeps
+        <b>English fertility ≤ 1.2</b>, and minimizes the cross-language fertility spread the
+        assignment scores on. Every number below is <b>computed in your browser right now</b>
+        from the downloadable <code>tokenizer.json</code> — using an encoder verified
+        bit-exact against HuggingFace <code>tokenizers</code>.</p>
       <div class="warnbox">
-        <b>Note on scope:</b> this is the <b>baseline research phase</b> — a single, plain
-        BPE trained with no per-language tuning. As the fertility table below shows, this
-        naive approach does <b>not</b> reach the assignment's <code>X ≤ 1.2</code> target
-        for any language yet. The next phase allocates the 10,000-token budget
-        <em>unevenly</em> across languages to close that gap and minimize the score-relevant
-        spread — not attempted here.
+        <b>Honesty note.</b> These figures are computed on the supplied copy-paste of each
+        India page. The grader will run the tokenizer on their own <em>cleaned</em> versions,
+        so the exact spread/score will differ. That's why the widget re-computes everything
+        live and lets you <a href="#live">paste your own text</a> to get the real number on
+        any page. The design (below) is what's robust; the headline score is corpus-specific.
       </div>
     </header>
 
-    <section class="demo" id="stats">
-      <span class="tag">1–4</span>
-      <h2>Per-language corpus statistics</h2>
-      <p class="methodbox">Source files copied byte-for-byte into <code>data/</code>, exactly
-        as supplied — <b>no content cleaning applied</b> (page navigation/reference chrome is
-        included, since that's what was in the source files). Only standard universal-newline
-        normalization (<code>\r\n → \n</code>) happens on read.</p>
-      <div class="tablewrap"><table class="datatable" id="stats-table"></table></div>
-      <p class="methodbox" style="margin-top:10px"><b>Total characters</b> = every Unicode code
-        point in the file. <b>Total running words</b> = whitespace-split token count
-        (independently cross-checked against <code>wc -w</code> under a correct UTF-8 locale —
-        this environment defaults to <code>POSIX</code>/<code>C</code>, under which
-        <code>wc -w</code> silently miscounts multi-byte UTF-8 text, so that cross-check needed
-        an explicit <code>LC_ALL=C.UTF-8</code>). <b>Unique words</b> shown both raw (as-is) and
-        punctuation-stripped (trailing/leading Unicode punctuation removed per token).
-        <b>Distinct Unicode characters</b> = size of the actual character alphabet used
-        (full lists in <code>artifacts/distinct_unicode_chars.json</code>).</p>
-    </section>
-
-    <section class="demo" id="fertility">
-      <span class="tag">5</span>
-      <h2>Baseline BPE fertility vs. merge count</h2>
-      <p class="methodbox">One byte-level BPE tokenizer trained on the <b>combined</b> corpus
-        (all four languages' word-frequency counts summed directly — <b>equal weights</b>,
-        no per-language boost). Base alphabet = 256 raw UTF-8 bytes, then 10,000 greedy
-        frequency-ranked merges. <b>Fertility</b> = average tokens per unique (punctuation-
-        stripped) word for that language, at each checkpoint. Trainer verified against the
-        textbook <code>low/lower/newest/widest</code> BPE example before running on real
-        data.</p>
-      <div class="card" style="margin:14px 0">
-        <h4>Fertility vs. merge count (dashed line = target X ≤ 1.2)</h4>
-        <canvas id="fert-chart" style="width:100%;height:280px;display:block"></canvas>
+    <!-- ===================== SCORE ===================== -->
+    <section class="demo" id="score">
+      <span class="tag">Self-score</span>
+      <h2>Live score</h2>
+      <div id="live-status" class="live-status">Loading…</div>
+      <div class="scorecard">
+        <div class="scorebig">
+          <div class="num" id="score-value">—</div>
+          <div class="lbl">self-score</div>
+        </div>
+        <div class="scoremeta">
+          <table>
+            <tr><td>X<sub>max</sub></td><td id="score-max">—</td></tr>
+            <tr><td>X<sub>min</sub></td><td id="score-min">—</td></tr>
+            <tr><td>Spread (X<sub>max</sub> − X<sub>min</sub>)</td><td id="score-spread">—</td></tr>
+            <tr><td>English fertility (cap 1.2)</td><td id="score-en">—</td></tr>
+            <tr><td>Vocabulary size</td><td id="vocab-size">—</td></tr>
+          </table>
+          <div class="formula" id="score-formula"></div>
+        </div>
       </div>
-      <div class="tablewrap"><table class="datatable" id="fert-table"></table></div>
 
       <div class="grid2" style="margin-top:18px">
         <div class="card">
-          <h4>Training run</h4>
-          <table class="datatable">
-            <tr><td>Combined unique word types</td><td id="summary-vocab"></td></tr>
-            <tr><td>Combined total running words</td><td id="summary-running"></td></tr>
-            <tr><td>Merges trained</td><td id="summary-merges"></td></tr>
-            <tr><td>Training time</td><td id="summary-time"></td></tr>
-          </table>
+          <h4>Per-language fertility (computed live)</h4>
+          <div class="tablewrap"><table class="datatable" id="opt-table"></table></div>
         </div>
-        <div class="card">
-          <h4>At 10,000 merges</h4>
-          <table class="datatable">
-            <tr><td>Best (lowest fertility)</td><td id="summary-best"></td></tr>
-            <tr><td>Worst (highest fertility)</td><td id="summary-worst"></td></tr>
-            <tr><td>Spread (worst − best)</td><td id="summary-spread"></td></tr>
-          </table>
+        <div class="card chartcard">
+          <h4>Fertility by language (dashed = English 1.2 cap)</h4>
+          <canvas id="fert-bars"></canvas>
         </div>
       </div>
+      <div class="takeaway"><b>No UNK, ever.</b> <span id="unk-proof">—</span></div>
+    </section>
 
-      <div class="takeaway"><b>Takeaway.</b> A flat, undifferentiated 10,000-merge budget
-        gets every language only to ~2.2–2.7 tokens/word — nowhere near the ≤1.2 target.
-        Telugu is consistently hardest to compress (complex conjunct orthography, smallest
-        corpus); Hindi consistently compresses best despite a smaller corpus than English.
-        Closing the gap to ≤1.2 — and tightening the spread the assignment actually scores on
-        — needs a deliberately <em>unequal</em> per-language allocation, planned next.</p>
+    <!-- ===================== METHOD ===================== -->
+    <section class="demo" id="method">
+      <span class="tag">How</span>
+      <h2>How it works (and the "secret sauce")</h2>
+      <div class="cbp">
+        <div><b>Byte-level base.</b> <span>The 256 raw byte values are all base tokens, so
+          <em>every</em> character in any page is encodable — UNK is structurally impossible
+          (verified above). This alone satisfies the zero-UNK rule.</span></div>
+        <div><b>Merges cross punctuation &amp; spaces.</b> <span>We use a byte-level pre-tokenizer
+          with <code>use_regex=False</code>, so BPE can learn tokens that span markup like
+          <code>](/wiki/</code> or <code>India)</code>. That's the "markdown secret sauce":
+          the extra <code>[ ] ( ) /</code> characters get absorbed into merges instead of
+          exploding the token count — solved by tokenizer <em>design</em>, not by deleting
+          characters. Encoding stays exact (lossless roundtrip).</span></div>
+        <div><b>The <code>\w+</code> denominator quirk.</b> <span>The score's denominator is
+          <code>len(re.findall(r"\w+", text))</code>. Python's <code>\w</code> excludes
+          Devanagari/Telugu vowel signs (Unicode marks), so it <em>splits</em> words like
+          भारत → भ, रत — roughly doubling Indic "word" counts. We measure with the exact same
+          rule (verified identical in JS), so our numbers match the grader's formula.</span></div>
+        <div><b>Weighted training.</b> <span>A single 10,000-token vocab is trained on all four
+          languages with per-language weights (English up-weighted to pull its fertility under
+          1.2, Telugu up-weighted because it's hardest). Weight = corpus repetition, identical
+          to weighted-pair-frequency BPE. Search found <code>w = (En 7, Hi 1, Te 2, Mr 1)</code>.</span></div>
+      </div>
+      <details class="math"><summary>Why weighting alone isn't enough (the real lever)</summary>
+        <p>With a standard GPT-2-style byte-level tokenizer (punctuation split into its own
+        tokens), English fertility floors around 1.50 on this text and cannot reach 1.2 at
+        any weighting — an English-only tokenizer using the whole 10k vocab still gives ~1.50,
+        and even unlimited vocab floors at ~1.37, because commas/parens/periods each cost a
+        token while <code>\w+</code> ignores them. The dominant lever is the
+        <code>use_regex=False</code> pre-tokenizer that lets those punctuation characters
+        merge into adjacent tokens. Language weighting is the fine-tuning on top that
+        equalizes the four fertilities.</p>
+      </details>
+    </section>
+
+    <!-- ===================== LIVE ===================== -->
+    <section class="demo" id="live">
+      <span class="tag">Verify</span>
+      <h2>Run it yourself</h2>
+      <p class="methodbox">The boxes below are pre-filled with the exact corpora. <b>Replace any
+        of them with your own cleaned India-page text</b> and hit <b>Re-score</b> — the widget
+        tokenizes it live with the shipped <code>tokenizer.json</code> (same encoder that
+        reproduces HuggingFace's token counts exactly) and recomputes the fertilities and score
+        above. This is the same computation the grader will run.</p>
+      <div class="pastegrid">
+        <div><label>English text</label><textarea id="paste-en"></textarea></div>
+        <div><label>Hindi text</label><textarea id="paste-hi"></textarea></div>
+        <div><label>Telugu text</label><textarea id="paste-te"></textarea></div>
+        <div><label>Marathi text</label><textarea id="paste-mr"></textarea></div>
+      </div>
+      <div class="btnrow">
+        <button class="primary" id="rescore-btn">Re-score my text</button>
+        <button class="ghost" id="reset-btn">Reset to original corpora</button>
       </div>
     </section>
 
+    <!-- ===================== DOWNLOADS ===================== -->
     <section class="demo" id="downloads">
-      <span class="tag">Data</span>
-      <h2>Downloads</h2>
-      <p class="methodbox">Everything needed to reproduce every number on this page.</p>
+      <span class="tag">Files</span>
+      <h2>Downloads &amp; reproduction</h2>
+      <p class="methodbox">The tokenizer is a standard HuggingFace <code>tokenizer.json</code> —
+        load it with <code>Tokenizer.from_file("tokenizer.json")</code> and encode. Every number
+        here is reproducible with the included scripts (standard library + <code>tokenizers</code>).</p>
       <div class="downloads">
+        <a href="artifacts/tokenizer.json" download>⬇ tokenizer.json (10,000 tokens)</a>
+        <a href="artifacts/best_config.json" download>best_config.json</a>
         <a href="report.md" download>report.md</a>
-        <a href="data/english_india.txt" download>data/english_india.txt</a>
-        <a href="data/hindi_india.txt" download>data/hindi_india.txt</a>
-        <a href="data/telugu_india.txt" download>data/telugu_india.txt</a>
-        <a href="data/marathi_india.txt" download>data/marathi_india.txt</a>
-        <a href="scripts/bpe.py" download>scripts/bpe.py</a>
-        <a href="scripts/run_analysis.py" download>scripts/run_analysis.py</a>
-        <a href="artifacts/corpus_stats.json" download>artifacts/corpus_stats.json</a>
-        <a href="artifacts/distinct_unicode_chars.json" download>artifacts/distinct_unicode_chars.json</a>
-        <a href="artifacts/fertility_checkpoints.json" download>artifacts/fertility_checkpoints.json</a>
-        <a href="artifacts/vocab.json" download>artifacts/vocab.json (10,256 tokens)</a>
-        <a href="artifacts/merges.txt" download>artifacts/merges.txt</a>
+        <a href="scripts/tokenizer_lib.py" download>tokenizer_lib.py</a>
+        <a href="scripts/optimize.py" download>optimize.py</a>
+        <a href="scripts/verify.py" download>verify.py</a>
+        <a href="js/bpe_encoder.js" download>bpe_encoder.js (browser BPE)</a>
+        <a href="data/english_india.txt" download>english_india.txt</a>
+        <a href="data/hindi_india.txt" download>hindi_india.txt</a>
+        <a href="data/telugu_india.txt" download>telugu_india.txt</a>
+        <a href="data/marathi_india.txt" download>marathi_india.txt</a>
       </div>
+      <details class="math" style="margin-top:16px"><summary>Verify in three lines of Python</summary>
+        <p style="font-family:var(--mono);font-size:12px;white-space:pre-wrap">from tokenizers import Tokenizer; import re
+tok = Tokenizer.from_file("tokenizer.json")
+text = open("english_india.txt", encoding="utf-8").read()
+print(len(tok.encode(text).ids) / len(re.findall(r"\w+", text)))   # -> English fertility</p>
+      </details>
     </section>
 
     <footer>
-      Built for ERA V5 · Session 2, phase 1 (corpus stats + baseline fertility). All computation
-      is a from-scratch Python BPE implementation — no external tokenizer libraries — validated
-      against the textbook BPE merge example before running on real data.
+      Built for ERA V5 · Session 2. Byte-level BPE, single 10,000-token vocab, zero UNK.
+      The in-browser encoder (<code>js/bpe_encoder.js</code>) is verified bit-exact against
+      HuggingFace <code>tokenizers</code> on all four full corpora.
     </footer>
   </div>
 
-  <script src="js/data.js"></script>
-  <script src="js/chart.js"></script>
-  <script src="js/widget.js"></script>
+  <script src="js/opt_data.js"></script>
+  <script src="js/bpe_encoder.js"></script>
+  <script src="js/widget2.js"></script>
 </body>
 </html>

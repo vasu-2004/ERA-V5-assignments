@@ -1,0 +1,30 @@
+{
+  "method": "byte-level BPE, ByteLevel(use_regex=False), weighted by corpus repetition",
+  "pretokenizer_note": "merges cross spaces/punctuation; every char encodable (exact roundtrip); zero UNK by construction",
+  "vocab_size": 10000,
+  "best_weights": {
+    "en": 7,
+    "hi": 1,
+    "te": 2,
+    "mr": 1
+  },
+  "fertility_final_wholedoc": {
+    "en": 1.1792610853007175,
+    "hi": 1.1795930788627076,
+    "te": 1.2014299332697806,
+    "mr": 1.1919476314492856
+  },
+  "spread_final": 0.022168847969063155,
+  "score_final": 45108.34308555455,
+  "x_max_lang": "te",
+  "x_min_lang": "en",
+  "en_within_1_2": true,
+  "words": {
+    "en": 31641,
+    "hi": 23002,
+    "te": 10490,
+    "mr": 14207
+  },
+  "configs_evaluated": 34,
+  "search_seconds": 109.977374792099
+}

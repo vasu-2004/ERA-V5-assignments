@@ -1,44 +1,52 @@
-# Session 2 — Multilingual BPE Tokenizer (India Wikipedia: EN / HI / TE / MR)
+# Session 2 — Multilingual BPE Tokenizer (India: EN / HI / TE / MR)
 
-**Status: phase 1 (corpus stats + baseline fertility research).** See
-[`report.md`](report.md) for the full write-up, or open [`index.html`](index.html) for an
-interactive version of the same tables and a live chart.
+A single **10,000-token byte-level BPE tokenizer** for the *India* Wikipedia page in English,
+Hindi, Telugu and Marathi. **Zero UNK** by construction, **English fertility ≤ 1.2**,
+cross-language fertility spread minimized.
 
-## What's here
+- **Live widget:** open [`index.html`](index.html) — it re-tokenizes the corpora *in your
+  browser* from the shipped `tokenizer.json` and shows the fertilities and self-score. You can
+  paste your own cleaned page text and re-score.
+- **Tokenizer:** [`artifacts/tokenizer.json`](artifacts/tokenizer.json) (standard HuggingFace
+  format). Load with `Tokenizer.from_file(...)`.
+- **Full write-up:** [`report.md`](report.md).
 
-- `data/` — the four source corpora (English/Hindi/Telugu/Marathi "India" Wikipedia page
-  text), copied byte-for-byte as supplied, no cleaning.
-- `scripts/bpe.py` — a from-scratch byte-level BPE trainer + encoder (no external
-  tokenizer libraries), validated against the textbook `low/lower/newest/widest` example.
-- `scripts/run_analysis.py` — reproduces every number in `report.md` / `index.html`.
-  Run with `cd scripts && python3 run_analysis.py` (standard library only, ~45s).
-- `artifacts/` — machine-readable outputs: per-language stats, distinct-character lists,
-  the full fertility-checkpoint table, and the trained baseline vocab (`vocab.json`,
-  10,256 tokens = 256 base bytes + 10,000 merges) + `merges.txt`.
-- `report.md` — the two requested tables (corpus stats; fertility at merge checkpoints
-  500/1000/2000/.../10000) plus full methodology notes.
-- `index.html` + `css/`, `js/` — an interactive widget presenting the same data.
+## Result (on the supplied corpora — see report for the honesty caveat)
 
-## Headline result (baseline, equal-weight, undifferentiated BPE)
-
-At a flat 10,000-merge budget shared equally across all four languages with no
-per-language tuning, fertility (avg. tokens per unique word) lands at:
-
-| Language | Fertility @ 10,000 merges |
+| Language | Fertility X = tokens / `\w+` words |
 |---|---:|
-| Hindi   | 2.1886 |
-| Marathi | 2.3310 |
-| English | 2.4688 |
-| Telugu  | 2.6793 |
+| English | 1.1793 ✓ (≤ 1.2) |
+| Hindi | 1.1796 |
+| Marathi | 1.1919 |
+| Telugu | 1.2014 |
 
-None reach the assignment's `X ≤ 1.2` target — expected, since this is the *naive*
-control condition. Closing that gap (and minimizing the score-relevant spread across
-languages) requires a deliberately unequal per-language merge allocation, which is the
-next phase of this work, not attempted here.
+Spread = 0.0222 → **self-score ≈ 45,108**. Weights: `En 7, Hi 1, Te 2, Mr 1`.
 
-## How to view
+## Why it satisfies the rules
+
+- **Zero UNK:** byte-level base (all 256 byte values are tokens) ⇒ every character encodable
+  (exact roundtrip verified on all four corpora + a stress string).
+- **Handles markup ("secret sauce"):** a `use_regex=False` byte-level pre-tokenizer lets merges
+  cross punctuation/spaces, so `India](/wiki/India)` compresses instead of exploding the count —
+  solved by design, nothing deleted.
+- **Correct metric:** fertility denominator is `len(re.findall(r"\w+", text))`; our JS
+  word-counter matches Python's exactly (including that `\w` splits Devanagari/Telugu at vowel
+  signs).
+- **Exactly 10,000 tokens**, shared across all four languages.
+
+## Reproduce / verify
 
 ```bash
-cd session-2-assignments
+cd scripts && pip install tokenizers
+python3 optimize.py   # trains + saves artifacts/tokenizer.json
+python3 verify.py     # reloads the file, proves zero-UNK, confirms the numbers
+```
+
+The in-browser encoder [`js/bpe_encoder.js`](js/bpe_encoder.js) is verified **bit-exact**
+against HuggingFace `tokenizers` on all four full corpora.
+
+## View locally
+
+```bash
 python -m http.server 8000   # then open http://localhost:8000
 ```

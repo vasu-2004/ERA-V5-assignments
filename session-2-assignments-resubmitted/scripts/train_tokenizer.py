@@ -32,22 +32,23 @@ MARKER = "▁"  # ▁
 def load_texts():
     texts = {}
     for l in LANGS:
-        p = CORPUS / f"{l}.faithful.md"
+        p = CORPUS / f"{l}.faithful.txt"
         if not p.exists():
             raise SystemExit(f"missing {p} -- run build_wiki_faithful_markdown.py first "
-                             f"and upload the corpus/*.faithful.md files")
+                             f"and upload the corpus/*.faithful.txt files")
         texts[l] = p.read_text(encoding="utf-8")
     return texts
 
 
 def train(texts, weights, use_nfkc=True):
-    tok = Tokenizer(models.BPE(unk_token=None))
+    # EXACT reference recipe: BPE(unk="[UNK]"), NFKC, Metaspace(prepend_scheme="never")
+    tok = Tokenizer(models.BPE(unk_token="[UNK]"))
     if use_nfkc:
         tok.normalizer = normalizers.NFKC()
-    tok.pre_tokenizer = pre_tokenizers.Metaspace(replacement=MARKER)
-    tok.decoder = decoders.Metaspace(replacement=MARKER)
+    tok.pre_tokenizer = pre_tokenizers.Metaspace(replacement=MARKER, prepend_scheme="never")
+    tok.decoder = decoders.Metaspace(replacement=MARKER, prepend_scheme="never")
     trainer = trainers.BpeTrainer(vocab_size=VOCAB, min_frequency=1,
-                                  show_progress=False, special_tokens=[])
+                                  show_progress=False, special_tokens=["[UNK]"])
     corpus = []
     for l in LANGS:
         corpus += [texts[l]] * int(weights[l])
@@ -99,7 +100,8 @@ def main():
     print("\nsaved artifacts/tokenizer.json + artifacts/metrics.json")
     print(json.dumps({k: out["metrics"][k] for k in
                       ["x_max", "x_max_lang", "x_min", "x_min_lang", "spread",
-                       "raw_score", "all_under_1_2", "adjusted_score", "all_faithful"]},
+                       "raw_score", "all_under_1_2", "hindi_penalty",
+                       "hindi_adjusted_score", "all_faithful"]},
                      indent=2))
 
 

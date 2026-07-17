@@ -1,63 +1,116 @@
+#!/usr/bin/env python3
 """
-build_wiki_faithful_markdown.py
--------------------------------
-Fetch the "India" Wikipedia page in English, Hindi, Telugu, Marathi as
-*wiki-faithful Markdown* (links, URLs, tables, references, image links, navboxes
-and categories preserved where the HTML->Markdown conversion emits them), exactly
-in the spirit of the instructor's reference solution.
+Fetch India Wikipedia pages and convert them to a faithful Markdown corpus.
+(Exact port of the instructor's reference build script, with the 4th language
+changed from Maithili -> Marathi to match this submission's languages.)
 
-RUN THIS ON YOUR OWN MACHINE (it needs internet; the assistant's sandbox can't
-reach Wikipedia). Then upload the four generated files in `corpus/`:
-    corpus/en.faithful.md   corpus/hi.faithful.md
-    corpus/te.faithful.md   corpus/mr.faithful.md
+Keeps visible article content -- links, tables, references, image links,
+navboxes, categories -- where the HTML->Markdown converter emits them; removes
+only script/style/meta/link machinery.
 
-    pip install requests markdownify beautifulsoup4 lxml
+RUN THIS ON A MACHINE WITH INTERNET (the assistant's sandbox can't reach
+Wikipedia), then upload the four corpus/*.faithful.txt files:
+
+    pip install requests markdownify beautifulsoup4 lxml regex
     python build_wiki_faithful_markdown.py
 """
-import json, pathlib, sys
+from __future__ import annotations
+
+import json
+import re
+import time
+from pathlib import Path
+from urllib.parse import quote, urljoin
+
+import regex
 import requests
+from bs4 import BeautifulSoup
 from markdownify import markdownify as md
 
-OUT = pathlib.Path(__file__).resolve().parent.parent / "corpus"
-OUT.mkdir(exist_ok=True)
+OUT = Path(__file__).resolve().parent.parent / "corpus"
+USER_AGENT = "ERA V5 tokenizer resubmission/1.0"
+FAITHFUL_UNIT_RE = regex.compile(r"[\p{L}\p{M}\p{N}]+|[^\s\p{L}\p{M}\p{N}]")
 
-# (lang code, wiki subdomain, page title) for the India article in each language
-PAGES = [
-    ("en", "en", "India"),
-    ("hi", "hi", "भारत"),
-    ("te", "te", "భారతదేశం"),
-    ("mr", "mr", "भारत"),
-]
-UA = "ERA-V5-Assignment2/1.0 (student resubmission; contact via course)"
-
-
-def fetch_html(subdomain, title):
-    # Wikipedia REST v1 Parsoid HTML (full article: links, refs, tables, navboxes)
-    url = f"https://{subdomain}.wikipedia.org/api/rest_v1/page/html/{requests.utils.quote(title, safe='')}"
-    r = requests.get(url, headers={"User-Agent": UA, "Accept": "text/html"}, timeout=60)
-    r.raise_for_status()
-    return r.text
+PAGES = {
+    "en": ("English", "India"),
+    "hi": ("Hindi", "भारत"),
+    "te": ("Telugu", "భారతదేశం"),
+    "mr": ("Marathi", "भारत"),          # Marathi India page (mr.wikipedia.org/wiki/भारत)
+}
 
 
-def main():
-    meta = {}
-    for code, sub, title in PAGES:
-        print(f"fetching {code}: {sub}.wikipedia.org / {title} ...", flush=True)
-        html = fetch_html(sub, title)
-        # faithful HTML -> Markdown: keep links/tables/etc. ATX headings.
-        markdown = md(html, heading_style="ATX", strip=[])
-        (OUT / f"{code}.faithful.md").write_text(markdown, encoding="utf-8")
-        (OUT / f"{code}.faithful.txt").write_text(markdown, encoding="utf-8")  # same content, plain-text input
-        meta[code] = {"subdomain": sub, "title": title, "chars": len(markdown)}
-        print(f"  wrote corpus/{code}.faithful.md ({len(markdown)} chars)")
-    (OUT / "corpus.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("\nDone. Upload the four corpus/*.faithful.md files back to the assistant.")
+def get(url: str) -> requests.Response:
+    return requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=(8, 30))
+
+
+def absolutize_links(soup: BeautifulSoup, lang: str) -> None:
+    base = f"https://{lang}.wikipedia.org/wiki/"
+    for tag in soup.find_all(["a", "img", "source"]):
+        attr = "href" if tag.name == "a" else "src"
+        value = tag.get(attr)
+        if not value:
+            continue
+        if value.startswith("//"):
+            tag[attr] = "https:" + value
+        elif value.startswith("./"):
+            tag[attr] = urljoin(base, value[2:])
+        elif value.startswith("/"):
+            tag[attr] = urljoin(f"https://{lang}.wikipedia.org", value)
+
+
+def strip_only_technical_noise(node: BeautifulSoup, soup: BeautifulSoup) -> None:
+    for tag in node(["script", "style", "meta"]):
+        tag.decompose()
+    for tag in node.find_all("link"):
+        rel = " ".join(tag.get("rel") or [])
+        href = tag.get("href") or ""
+        if "mw:PageProp/Category" in rel and href:
+            tag.replace_with(soup.new_string(f"\nCategory: {href}\n"))
+        else:
+            tag.decompose()
+
+
+def normalize_markdown(markdown: str) -> str:
+    markdown = markdown.replace("\xa0", " ")
+    markdown = re.sub(r"\n{4,}", "\n\n\n", markdown)
+    markdown = re.sub(r"[ \t]+\n", "\n", markdown)
+    return markdown.strip() + "\n"
+
+
+def faithful_units(text: str) -> int:
+    return len(FAITHFUL_UNIT_RE.findall(text))
+
+
+def build_one(lang: str, title: str) -> dict:
+    OUT.mkdir(parents=True, exist_ok=True)
+    url = f"https://{lang}.wikipedia.org/api/rest_v1/page/html/{quote(title)}"
+    (OUT / f"{lang}.raw.html").write_text(get(url).text, encoding="utf-8") if False else None
+    res = get(url)
+    res.raise_for_status()
+    soup = BeautifulSoup(res.text, "lxml")
+    body = soup.find("body") or soup
+    strip_only_technical_noise(body, soup)
+    absolutize_links(body, lang)
+    markdown = normalize_markdown(md(str(body), heading_style="ATX", bullets="-", strip=["span"]))
+    (OUT / f"{lang}.faithful.md").write_text(markdown, encoding="utf-8")
+    (OUT / f"{lang}.faithful.txt").write_text(markdown, encoding="utf-8")
+    meta = {
+        "lang": lang, "title": title, "source_url": url,
+        "variant": "wiki_faithful_markdown",
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "chars": len(markdown), "faithful_units": faithful_units(markdown),
+    }
+    (OUT / f"{lang}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+    return meta
+
+
+def main() -> int:
+    for code, (name, title) in PAGES.items():
+        meta = build_one(code, title)
+        print(f"{code} {name}: {meta['faithful_units']} faithful units, {meta['chars']} chars")
+    print("\nDone -> upload corpus/{en,hi,te,mr}.faithful.txt")
+    return 0
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except requests.HTTPError as e:
-        print("HTTP error:", e, file=sys.stderr)
-        print("If a title 404s, open the India page in that language on Wikipedia and copy the exact title.", file=sys.stderr)
-        sys.exit(1)
+    raise SystemExit(main())

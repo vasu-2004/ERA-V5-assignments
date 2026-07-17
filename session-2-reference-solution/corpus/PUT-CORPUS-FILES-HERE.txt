@@ -1,0 +1,1 @@
+Upload the corpus here: en.faithful.txt hi.faithful.txt te.faithful.txt mr.faithful.txt (and .md if you have them).

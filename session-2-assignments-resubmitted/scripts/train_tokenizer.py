@@ -10,7 +10,7 @@ Recipe (matches the instructor's reference solution):
   Pretokenizer: Metaspace (marker ▁)   -- keeps Indic characters intact instead
                 of exploding them into UTF-8 bytes like ByteLevel does
   Decoder:      Metaspace
-  Weights:      per-language corpus repetition (default {en:3, hi:4, te:4, mr:2})
+  Weights:      per-language corpus repetition (default {en:3, hi:4, te:4, mai:2})
 
 Run AFTER the corpus exists (see build_wiki_faithful_markdown.py):
     python train_tokenizer.py            # trains with default weights
@@ -24,7 +24,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 CORPUS = ROOT / "corpus"
 ART = ROOT / "artifacts"
 ART.mkdir(exist_ok=True)
-LANGS = ["en", "hi", "te", "mr"]
+LANGS = ["en", "hi", "te", "mai"]
 VOCAB = 10000
 MARKER = "▁"  # ▁
 
@@ -71,7 +71,7 @@ def main():
     texts = load_texts()
     use_nfkc = not args.no_nfkc
 
-    best_w = {"en": 3, "hi": 4, "te": 4, "mr": 2}
+    best_w = {"en": 3, "hi": 4, "te": 4, "mai": 2}
     tok, m = score_weights(texts, best_w, use_nfkc)
     print("default weights", best_w, "->",
           {l: round(m["per_language"][l]["fertility"], 4) for l in LANGS},
@@ -82,7 +82,7 @@ def main():
     if args.search:
         rng = [1, 2, 3, 4, 5, 6]
         for we, wh, wt, wm in itertools.product(rng, rng, rng, rng):
-            w = {"en": we, "hi": wh, "te": wt, "mr": wm}
+            w = {"en": we, "hi": wh, "te": wt, "mai": wm}
             t, mm = score_weights(texts, w, use_nfkc)
             better = (mm["all_under_1_2"], -mm["spread"]) > (best["all_under_1_2"], -best["spread"])
             if mm["all_faithful"] and better:

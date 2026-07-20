@@ -6,15 +6,15 @@ from tokenizers import Tokenizer
 from faithful_metric import evaluate
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-LANGS = ["en", "hi", "te", "mr"]
-NAME = {"en": "English", "hi": "Hindi", "te": "Telugu", "mr": "Marathi"}
+LANGS = ["en", "hi", "te", "mai"]
+NAME = {"en": "English", "hi": "Hindi", "te": "Telugu", "mai": "Maithili"}
 
 
 def main():
     tok = Tokenizer.from_file(str(ROOT / "artifacts" / "tokenizer.json"))
     texts = {}
     for l in LANGS:
-        p = ROOT / "corpus" / f"{l}.faithful.md"
+        p = ROOT / "corpus" / f"{l}.faithful.txt"
         if not p.exists():
             raise SystemExit(f"missing {p} -- fetch the corpus first")
         texts[l] = p.read_text(encoding="utf-8")

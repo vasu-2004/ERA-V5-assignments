@@ -1,0 +1,64 @@
+{
+  "languages_trained": {
+    "en": "English",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "mai": "Maithili"
+  },
+  "weights": {
+    "en": 2,
+    "hi": 3,
+    "te": 4,
+    "mai": 3
+  },
+  "recipe": {
+    "model": "BPE",
+    "unk_token": "[UNK]",
+    "vocab_size": 10000,
+    "min_frequency": 1,
+    "normalizer": "NFKC",
+    "pretokenizer": "Metaspace(prepend_scheme=never)",
+    "decoder": "Metaspace(prepend_scheme=never)"
+  },
+  "metrics": {
+    "per_language": {
+      "en": {
+        "tokens": 114363,
+        "faithful_units": 186367,
+        "fertility": 0.613644046424528,
+        "faithful_roundtrip": false
+      },
+      "hi": {
+        "tokens": 51102,
+        "faithful_units": 88359,
+        "fertility": 0.57834516008556,
+        "faithful_roundtrip": false
+      },
+      "te": {
+        "tokens": 21880,
+        "faithful_units": 36292,
+        "fertility": 0.6028876887468313,
+        "faithful_roundtrip": false
+      },
+      "mai": {
+        "tokens": 3703,
+        "faithful_units": 5808,
+        "fertility": 0.6375688705234159,
+        "faithful_roundtrip": true
+      }
+    },
+    "x_max": 0.6375688705234159,
+    "x_max_lang": "mai",
+    "x_min": 0.57834516008556,
+    "x_min_lang": "hi",
+    "spread": 0.0592237104378559,
+    "raw_score": 16885.129158689087,
+    "all_under_1_2": true,
+    "hindi_penalty": 1.0,
+    "hindi_adjusted_score": 16885.129158689087,
+    "english_penalty": 1.0,
+    "english_adjusted_score": 16885.129158689087,
+    "worst_case_adjusted_score": 16885.129158689087,
+    "all_faithful": false
+  }
+}

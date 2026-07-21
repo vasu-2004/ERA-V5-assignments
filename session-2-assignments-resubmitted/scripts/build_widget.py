@@ -167,7 +167,8 @@ function blobFallback(json,note){
   try{var blob=new Blob([json],{type:'application/json'});var url=URL.createObjectURL(blob);
     var a=document.createElement('a');a.href=url;a.download='tokenizer.json';document.body.appendChild(a);a.click();
     setTimeout(function(){a.remove();URL.revokeObjectURL(url);},1500);note.textContent='Downloading tokenizer.json…';}
-  catch(e){note.innerHTML='Download blocked here — use the backup link above.';}
+  catch(e){ try{window.open('__RAW_URL__','_blank');}catch(_){}
+    note.innerHTML='Opened tokenizer.json in a new tab — use Save As, or the backup link above.'; }
 }
 $('dl-btn').addEventListener('click',function(){
   var json=b64utf8($('tok').textContent); var note=$('dl-note');
@@ -189,9 +190,9 @@ RAW_URL = ("https://raw.githubusercontent.com/vasu-2004/ERA-V5-assignments/"
 data_b64 = base64.b64encode(json.dumps(payload, ensure_ascii=False).encode("utf-8")).decode()
 tok_b64 = base64.b64encode(tok_text.encode("utf-8")).decode()
 JS = JS.replace("__RECIPE__", json.dumps(RECIPE))
-html = (BODY.replace("__CSS__", css).replace("__DATA_B64__", data_b64)
-        .replace("__RAW_URL__", RAW_URL).replace("__JS__", JS)
-        + f'\n<script id="tok" type="text/plain">{tok_b64}</script>\n')
+html = BODY.replace("__CSS__", css).replace("__DATA_B64__", data_b64).replace("__JS__", JS)
+html = html.replace("__RAW_URL__", RAW_URL)  # after JS insertion so links inside JS resolve too
+html += f'\n<script id="tok" type="text/plain">{tok_b64}</script>\n'
 (ROOT / "standalone.html").write_text(html, encoding="utf-8")
 (ROOT / "index.html").write_text(html, encoding="utf-8")
 print("wrote standalone.html + index.html", len(html), "bytes; score", round(m["raw_score"]),

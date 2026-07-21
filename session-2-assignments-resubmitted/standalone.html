@@ -297,7 +297,8 @@ function blobFallback(json,note){
   try{var blob=new Blob([json],{type:'application/json'});var url=URL.createObjectURL(blob);
     var a=document.createElement('a');a.href=url;a.download='tokenizer.json';document.body.appendChild(a);a.click();
     setTimeout(function(){a.remove();URL.revokeObjectURL(url);},1500);note.textContent='Downloading tokenizer.json…';}
-  catch(e){note.innerHTML='Download blocked here — use the backup link above.';}
+  catch(e){ try{window.open('https://raw.githubusercontent.com/vasu-2004/ERA-V5-assignments/6602bba1c577f3a93d8dc54bf7ef1c81ba611463/session-2-assignments-resubmitted/artifacts/tokenizer.json','_blank');}catch(_){}
+    note.innerHTML='Opened tokenizer.json in a new tab — use Save As, or the backup link above.'; }
 }
 $('dl-btn').addEventListener('click',function(){
   var json=b64utf8($('tok').textContent); var note=$('dl-note');

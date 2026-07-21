@@ -290,16 +290,24 @@ function renderVocab(q){
 }
 renderVocab('');
 $('vocab-search').addEventListener('input',function(){renderVocab(this.value);});
-// direct download of the embedded tokenizer.json (same-origin blob -> saves directly)
+// download the embedded tokenizer.json. Inside the claude.ai artifact sandbox
+// use the runtime downloads capability; on a plain host (Netlify/local) fall
+// back to a same-origin blob download.
+function blobFallback(json,note){
+  try{var blob=new Blob([json],{type:'application/json'});var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download='tokenizer.json';document.body.appendChild(a);a.click();
+    setTimeout(function(){a.remove();URL.revokeObjectURL(url);},1500);note.textContent='Downloading tokenizer.json…';}
+  catch(e){note.innerHTML='Download blocked here — use the backup link above.';}
+}
 $('dl-btn').addEventListener('click',function(){
-  try{
-    var json=b64utf8($('tok').textContent);
-    var blob=new Blob([json],{type:'application/json'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');a.href=url;a.download='tokenizer.json';
-    document.body.appendChild(a);a.click();
-    setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1500);
-  }catch(e){ $('dl-note').innerHTML='Download blocked by the browser sandbox &mdash; use the backup link above.'; }
+  var json=b64utf8($('tok').textContent); var note=$('dl-note');
+  if(window.claude&&window.claude.downloads&&typeof window.claude.downloads.save==='function'){
+    window.claude.downloads.save({filename:'tokenizer.json',data:json})
+      .then(function(){note.textContent='Saved tokenizer.json ✓';})
+      .catch(function(err){var c=err&&err.code;
+        if(c==='declined'){note.textContent='Download cancelled — click the button again to retry.';}
+        else{blobFallback(json,note);}});
+  } else { blobFallback(json,note); }
 });
 // theme
 $('theme-btn').addEventListener('click',function(){var r=document.documentElement,c=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',c);this.innerHTML=c==='dark'?'☀︎':'☾';});

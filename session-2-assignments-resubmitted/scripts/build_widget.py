@@ -106,11 +106,10 @@ python evaluate_tokenizer.py             # print the faithful-unit fertilities +
       <code>Tokenizer.from_file("tokenizer.json")</code> and encode &mdash; that reproduces every
       number above (verified: reloading the file gives identical fertilities).</p>
     <div class="btnrow">
-      <a class="primary" id="dl-raw" href="__RAW_URL__" download="tokenizer.json" target="_blank" rel="noopener"
-         style="text-decoration:none;display:inline-block;padding:9px 18px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;font-size:13.5px">&#8595; Download tokenizer.json (10,000 tokens)</a>
+      <button class="primary" id="dl-btn">&#8595; Download tokenizer.json (10,000 tokens)</button>
     </div>
-    <p class="methodbox" style="margin-top:8px">Direct file link (public, opens the raw JSON &mdash; right-click &rarr; Save if it displays):<br/>
-      <a href="__RAW_URL__" target="_blank" rel="noopener" style="word-break:break-all">__RAW_URL__</a></p>
+    <p class="methodbox" id="dl-note" style="margin-top:8px">The full 10,000-token tokenizer is embedded in this page &mdash; the button saves it directly, no network needed.
+      Backup direct link: <a href="__RAW_URL__" target="_blank" rel="noopener" style="word-break:break-all">__RAW_URL__</a></p>
     <details class="math" style="margin-top:14px"><summary>Verify in three lines of Python</summary>
       <p style="font-family:var(--mono);font-size:12px;white-space:pre-wrap">from tokenizers import Tokenizer; import regex
 tok = Tokenizer.from_file("tokenizer.json")
@@ -161,6 +160,17 @@ function renderVocab(q){
 }
 renderVocab('');
 $('vocab-search').addEventListener('input',function(){renderVocab(this.value);});
+// direct download of the embedded tokenizer.json (same-origin blob -> saves directly)
+$('dl-btn').addEventListener('click',function(){
+  try{
+    var json=b64utf8($('tok').textContent);
+    var blob=new Blob([json],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download='tokenizer.json';
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1500);
+  }catch(e){ $('dl-note').innerHTML='Download blocked by the browser sandbox &mdash; use the backup link above.'; }
+});
 // theme
 $('theme-btn').addEventListener('click',function(){var r=document.documentElement,c=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',c);this.innerHTML=c==='dark'?'☀︎':'☾';});
 })();
@@ -172,7 +182,8 @@ data_b64 = base64.b64encode(json.dumps(payload, ensure_ascii=False).encode("utf-
 tok_b64 = base64.b64encode(tok_text.encode("utf-8")).decode()
 JS = JS.replace("__RECIPE__", json.dumps(RECIPE))
 html = (BODY.replace("__CSS__", css).replace("__DATA_B64__", data_b64)
-        .replace("__RAW_URL__", RAW_URL).replace("__JS__", JS))
+        .replace("__RAW_URL__", RAW_URL).replace("__JS__", JS)
+        + f'\n<script id="tok" type="text/plain">{tok_b64}</script>\n')
 (ROOT / "standalone.html").write_text(html, encoding="utf-8")
 (ROOT / "index.html").write_text(html, encoding="utf-8")
 print("wrote standalone.html + index.html", len(html), "bytes; score", round(m["raw_score"]),

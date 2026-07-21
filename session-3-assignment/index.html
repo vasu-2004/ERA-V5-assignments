@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Bharat-40B — Data, Eval &amp; Tokenizer Plan</title>
+<meta name="description" content="A decision-first plan for a 40B India-first model: data mix, cleaning, evaluation, per-language fertility targets, and a 256k tokenizer — with the reasoning behind each number."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪔</text></svg>"/>
+<style>
+:root{--bg:#fbf9f5;--panel:#fff;--ink:#1c1a17;--muted:#6b6459;--line:#e7e1d6;--accent:#c8632a;--accent2:#1f7a5a;--warn:#b8860b;--mono:ui-monospace,Menlo,Consolas,monospace;--sans:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;--maxw:920px}
+@media(prefers-color-scheme:dark){:root{--bg:#14120f;--panel:#1c1a16;--ink:#ece7de;--muted:#a49a8a;--line:#2c2822;--accent:#e8814a;--accent2:#4cbf95}}
+:root[data-theme=dark]{--bg:#14120f;--panel:#1c1a16;--ink:#ece7de;--muted:#a49a8a;--line:#2c2822;--accent:#e8814a;--accent2:#4cbf95}
+:root[data-theme=light]{--bg:#fbf9f5;--panel:#fff;--ink:#1c1a17;--muted:#6b6459;--line:#e7e1d6;--accent:#c8632a;--accent2:#1f7a5a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px 72px}
+header.top{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:9}
+.top .in{max-width:var(--maxw);margin:0 auto;padding:9px 22px;display:flex;align-items:center;gap:14px;font-size:13px}
+.top b{letter-spacing:-.01em}.top .sp{margin-left:auto}
+#th{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;width:32px;height:28px;cursor:pointer}
+h1{font-size:clamp(27px,5vw,40px);line-height:1.08;letter-spacing:-.025em;margin:38px 0 6px}
+.sub{color:var(--muted);font-size:17px;max-width:60ch;margin:0 0 20px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;background:var(--accent);padding:2px 8px;border-radius:6px;letter-spacing:.03em}
+h2{font-size:20px;letter-spacing:-.02em;margin:34px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+h2 .n{color:var(--accent);font-family:var(--mono);font-size:13px;margin-right:8px}
+h3{font-size:15px;margin:16px 0 4px}
+p{margin:6px 0}
+.lead{font-size:14.5px}
+small,.mut{color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0 4px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi .v{font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--accent)}
+.kpi .l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0}
+th,td{text-align:left;padding:6px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+.tw{overflow-x:auto}
+ul{margin:6px 0;padding-left:18px}li{margin:2px 0;font-size:13.5px}
+code{font-family:var(--mono);font-size:12px;background:color-mix(in srgb,var(--ink) 8%,transparent);padding:1px 5px;border-radius:5px}
+.box{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent2);border-radius:0 10px 10px 0;padding:11px 15px;margin:12px 0;font-size:13.5px}
+.box b{color:var(--accent2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:680px){.kpis{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
+footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="in"><b>Bharat-40B</b> <span class="mut">· data, eval &amp; tokenizer plan</span><span class="sp"></span><button id="th" title="theme">☾</button></div></header>
+<div class="wrap">
+
+<span class="tag" style="margin-top:32px;display:inline-block">ERA V5 · Session 3</span>
+<h1>Bharat-40B: an India-first plan</h1>
+<p class="sub">A 40B model that reasons from an Indian frame and is genuinely strong at coding, agentic work, and Indian-language use. This is the <em>data, evaluation and tokenizer</em> plan — every number is an estimate, stated with the reasoning that produced it.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="v">40B</div><div class="l">MoE, ~8B active</div></div>
+  <div class="kpi"><div class="v">~8T</div><div class="l">pre-train tokens</div></div>
+  <div class="kpi"><div class="v">256k</div><div class="l">vocab size</div></div>
+  <div class="kpi"><div class="v">12 + code</div><div class="l">languages in scope</div></div>
+</div>
+<div class="box"><b>Thesis.</b> "India-first" is not "English model + Indic translations." It means Indian context, knowledge and values are the <em>default frame</em>: Indian English &amp; code-mixing are first-class, the token budget is spent so Indic scripts are cheap, and both the training data and the private evals are built around Indian domains (law, UPI/finance, agriculture, health, governance, JEE/NEET/UPSC). Coding + agentic strength comes from verifiable-reward RL, not scale alone.</div>
+
+<h2><span class="n">1</span>Model shape &amp; targets</h2>
+<p class="lead">40B <b>MoE (~8B active)</b> over a dense 40B: India needs cheap inference on modest/edge infra, and sparse activation buys quality-per-FLOP. Target quality is Gemma-4-class as a <em>reference for data ambition</em>, not an eval target. We over-train (~200 tok/param, ~8T) because the model is inference-bound in deployment — spend train compute to shrink serving cost.</p>
+
+<h2><span class="n">2</span>Languages in scope — and why these</h2>
+<p class="lead">Chosen by speakers × script diversity × data availability. Scripts are shared where possible (Devanagari covers Hindi/Marathi/…), so coverage is cheaper than the language count suggests.</p>
+<div class="tw"><table>
+<tr><th>Tier</th><th>Languages</th><th>Script family</th><th>Why</th></tr>
+<tr><td><b>Anchor</b></td><td>English, Hindi</td><td>Latin, Devanagari</td><td>Reasoning/coding lingua franca; largest Indic base + Devanagari hub</td></tr>
+<tr><td><b>Core</b></td><td>Bengali, Marathi, Telugu, Tamil, Kannada, Gujarati</td><td>Bengali, Devanagari, Dravidian, Gujarati</td><td>~70% of non-Hindi speakers; all major script families</td></tr>
+<tr><td><b>Extended</b></td><td>Malayalam, Punjabi, Odia, Urdu</td><td>Dravidian, Gurmukhi, Odia, Perso-Arabic</td><td>Script coverage completeness; Urdu = code-mixing bridge</td></tr>
+<tr><td><b>+ Code</b></td><td>Python, JS/TS, SQL, C/C++, Java, Bash</td><td>—</td><td>Coding + agentic tool-use core</td></tr>
+</table></div>
+<p class="mut" style="font-size:12.5px">Romanized Indic + code-mixing (Hinglish, Tanglish, Manglish) are treated as first-class, not noise — they are how most Indians actually type.</p>
+
+<h2><span class="n">3</span>Data — pre-training (~8T tokens)</h2>
+<div class="tw"><table>
+<tr><th>Bucket</th><th class="n">Share</th><th class="n">≈Tok</th><th>Primary sources</th><th>Why</th></tr>
+<tr><td>English (web + curated)</td><td class="n">30%</td><td class="n">2.4T</td><td>Filtered CommonCrawl, curated web, public-domain books, docs</td><td>Reasoning backbone; coding/API docs</td></tr>
+<tr><td>Code</td><td class="n">22%</td><td class="n">1.8T</td><td>The Stack v2 (permissive only), notebooks, competitive-prog, PR/diff traces</td><td>Coding + agentic core</td></tr>
+<tr><td>Indic (12 langs)</td><td class="n">22%</td><td class="n">1.8T</td><td>Sangraha/IndicCorp, news, Wikipedia, ASR-mined text (Shrutilipi), books, bilingual govt docs</td><td>India-first; scarce → upsample + synthetic</td></tr>
+<tr><td>Math / science / reasoning</td><td class="n">10%</td><td class="n">0.8T</td><td>Textbooks (incl. NCERT), arXiv, proofs, synthetic chain-of-thought</td><td>Math/science strength</td></tr>
+<tr><td>Agentic / tool-use</td><td class="n">6%</td><td class="n">0.5T</td><td>Function-calling &amp; web-nav traces, multi-step tasks (largely synthetic, sandbox-verified)</td><td>Agentic strength</td></tr>
+<tr><td>India knowledge &amp; culture</td><td class="n">5%</td><td class="n">0.4T</td><td>Indian history/civics/law/economy, Indian English, regional context</td><td>The "Indian frame"</td></tr>
+<tr><td>Parallel / transliteration</td><td class="n">5%</td><td class="n">0.3T</td><td>Samanantar/BPCC pairs, transliteration, code-mixed corpora</td><td>Cross-lingual transfer + code-mixing</td></tr>
+</table></div>
+<div class="box"><b>The scarcity reality (the hard part).</b> Genuinely high-quality Indic text is ~2 orders of magnitude smaller than English — perhaps a few hundred B real tokens across all 12. We hit 1.8T honestly by: (a) <b>upsampling</b> the cleanest Indic 2–4× (watch memorization); (b) <b>synthetic augmentation</b> — translate high-quality English reasoning/code into Indic with a strong MT model + quality-filter, generate India-context Q&amp;A, add Indic code comments; (c) <b>ASR-mining</b> spoken Indian content into text; (d) cross-lingual transfer from the English/code backbone. We <em>do not</em> pad with low-quality scraped Indic web — that would poison fluency.</p></div>
+
+<h2><span class="n">4</span>Data — post-training &amp; alignment</h2>
+<div class="two">
+<div>
+<h3>SFT (~3M examples)</h3>
+<ul>
+<li>Multilingual instructions — native-authored for anchor/core, verified-synthetic for the rest</li>
+<li>Code: instruct + repo-level + agentic SWE-style + Indic-commented code</li>
+<li>Tool-use / function-calling / multi-step agents</li>
+<li>India tasks: law &amp; rights, UPI/finance, agriculture advisory, public health, govt-scheme navigation, JEE/NEET/UPSC</li>
+<li>Code-mixing (Hinglish/Tanglish) and long-context</li>
+</ul>
+</div>
+<div>
+<h3>RL / alignment</h3>
+<ul>
+<li><b>RLVR</b> (verifiable rewards) — the coding/agentic engine: unit-tests for code, checkers for math, task-success in sandboxes for agents</li>
+<li>DPO/GRPO on preference data from <b>Indian annotators</b></li>
+<li>Constitution encoding Indian <b>pluralism &amp; values</b>; non-Western-default framing</li>
+<li>Safety for Indian context: communal harmony, elections, medical/legal caution, misinformation</li>
+</ul>
+</div>
+</div>
+
+<h2><span class="n">5</span>Data cleaning — per objective</h2>
+<div class="tw"><table>
+<tr><th>Objective</th><th>Cleaning that matters most</th></tr>
+<tr><td>All data</td><td>Exact + fuzzy dedup (MinHash-LSH); quality classifier + perplexity filter; PII scrub; toxicity/NSFW filter; <b>decontamination</b> vs every eval set</td></tr>
+<tr><td>Indic quality</td><td>Robust language-ID incl. romanized/code-mixed; script↔language consistency; Unicode NFC + matra/nukta/ZWJ normalization; aggressive dedup (small corpus → high dup risk)</td></tr>
+<tr><td>Synthetic Indic</td><td>Round-trip &amp; reference-free quality scoring to drop MT-garbage; cap synthetic share per language to avoid translationese collapse</td></tr>
+<tr><td>Code</td><td>Permissive-license only; secret/key removal; near-dedup; compile/lint/quality gates; strip auto-generated &amp; vendored files</td></tr>
+<tr><td>Math/agentic</td><td>Verify answers/traces (executable check) before keeping; reject unverifiable synthetic</td></tr>
+</table></div>
+<p class="mut" style="font-size:12.5px">All of the above runs on <b>cloud</b> (Spark/Ray over object storage), not local machines — per the session guidance.</p>
+
+<h2><span class="n">6</span>Testing against the objectives — private, India-first evals</h2>
+<p class="lead">We define <b>held-out private benchmarks</b> (contamination-proof) per objective; public sets are directional only.</p>
+<div class="tw"><table>
+<tr><th>Objective</th><th>How we test</th></tr>
+<tr><td>India-frame &amp; values</td><td><b>BharatBench</b> (private): Indian history/civics/geo/law/economy/current-affairs + "whose-perspective" framing probes; native rubric scoring</td></tr>
+<tr><td>Indic languages</td><td>Per-language MMLU-style + generation fluency + translation + code-mixing; native-speaker raters; <b>fertility tracked as a first-class metric</b></td></tr>
+<tr><td>Coding</td><td>HumanEval/MBPP/LiveCodeBench (directional) + private SWE-style agentic repo tasks + Indic-comment code</td></tr>
+<tr><td>Agentic</td><td>τ-bench-style tool-use + private Indian agents: rail booking, tax filing, govt-portal nav, UPI dispute</td></tr>
+<tr><td>Math/science</td><td>GSM8K/MATH (directional) + private JEE/NEET/board-exam sets</td></tr>
+<tr><td>Safety</td><td>Indian-context red-team: communal, electoral, medical/legal, misinformation</td></tr>
+</table></div>
+
+<h2><span class="n">7</span>Fertility targets → tokenizer size</h2>
+<p class="lead">Fertility = tokens per word. An English-centric tokenizer (Llama-class) spends <b>3–6 tokens/word</b> on Indic scripts — Indic users pay 3–5× the cost and lose effective context. India-first means <b>buying that back with vocab</b>. Targets below are for a script-balanced 256k tokenizer with byte fallback and digit splitting:</p>
+<div class="tw"><table>
+<tr><th>Language / domain</th><th class="n">Target tok/word</th><th class="n">Naïve (Llama-ish)</th><th>Note</th></tr>
+<tr><td>English</td><td class="n">1.15–1.25</td><td class="n">~1.3</td><td>Near-optimal already</td></tr>
+<tr><td>Hindi / Marathi (Devanagari)</td><td class="n">1.4–1.6</td><td class="n">3–4</td><td>Shared Devanagari subwords</td></tr>
+<tr><td>Bengali / Gujarati / Punjabi / Odia</td><td class="n">1.5–1.8</td><td class="n">4–5</td><td>Own scripts, moderate morphology</td></tr>
+<tr><td>Telugu / Tamil / Kannada / Malayalam</td><td class="n">1.9–2.2</td><td class="n">5–6</td><td>Agglutinative + complex conjuncts → higher <em>per-word</em>, but words carry more; ~parity per <em>character</em></td></tr>
+<tr><td>Urdu</td><td class="n">1.5–1.8</td><td class="n">4–5</td><td>Perso-Arabic</td></tr>
+<tr><td>Code</td><td class="n">~1.3</td><td class="n">~1.4</td><td>Indent/identifier-aware</td></tr>
+<tr><td>Math</td><td class="n">1.2–1.5</td><td class="n">2–3</td><td>Digit-splitting, symbol tokens</td></tr>
+<tr><td>Agentic (JSON/tool)</td><td class="n">efficient</td><td class="n">—</td><td>Structured-syntax tokens</td></tr>
+</table></div>
+<div class="box"><b>Why 256k (not 32k, not 512k).</b> To hit ≤~2 tok/word across four script families + English + code + math <em>simultaneously</em>, you need slots per script. Rough allocation: ~70k English/code/math, ~20k digits/symbols/JSON/special + byte fallback, ~165k Indic (shared across scripts where possible). <b>Cost:</b> at hidden≈5k the embedding+softmax is ~1.3B params tied — ~3% of 40B. <b>Benefit:</b> for an India-first workload, Indic sequences shrink ~2.5–3×, directly cutting inference cost and extending usable context. At 40B the embedding overhead is cheap; the per-token savings on the <em>actual</em> traffic are not. 32k would betray Indic users; ≥512k wastes params on rare tokens and slows softmax. <b>256k is the India-first sweet spot</b> — and, not coincidentally, where strong multilingual tokenizers (Gemma-class) already sit.</div>
+<p class="mut" style="font-size:12.5px">Tokenizer training data is <b>rebalanced</b> (low-resource Indic upsampled) so their fertility isn't sacrificed to English frequency; byte-fallback guarantees zero UNK; numbers are split to digits for math.</p>
+
+<h2><span class="n">8</span>The headline numbers, in one breath</h2>
+<p class="lead">A <b>40B MoE (~8B active)</b> over-trained on <b>~8T tokens</b> — 30% English, 22% code, 22% Indic (12 languages, honestly reached via upsampling + verified synthetic), 10% math/science, 6% agentic, 5% India-knowledge, 5% parallel — cleaned on cloud with dedup/quality/decontamination and Indic-specific normalization; aligned with <b>RLVR</b> for coding/agentic and Indian-annotator preferences for values; measured on <b>private India-first benchmarks</b>; and served through a <b>256k script-balanced tokenizer</b> that keeps Indic fertility ≤~2 tokens/word so the model is cheap where India actually uses it.</p>
+
+<footer>ERA V5 · Session 3 — data, evaluation &amp; tokenizer plan for an India-first 40B model. Numbers are reasoned estimates. Built with the ERA / The School of AI course.</footer>
+</div>
+<script>
+document.getElementById('th').addEventListener('click',function(){var r=document.documentElement,c=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',c);this.textContent=c==='dark'?'☀︎':'☾';});
+</script>
+</body>
+</html>

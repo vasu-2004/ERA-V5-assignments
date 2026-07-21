@@ -108,9 +108,8 @@ python evaluate_tokenizer.py             # print the faithful-unit fertilities +
     <div class="btnrow">
       <a class="primary" id="dl-raw" href="__RAW_URL__" download="tokenizer.json" target="_blank" rel="noopener"
          style="text-decoration:none;display:inline-block;padding:9px 18px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;font-size:13.5px">&#8595; Download tokenizer.json (10,000 tokens)</a>
-      <button class="ghost" id="dl-btn">Download (in-page copy)</button>
     </div>
-    <p class="methodbox" style="margin-top:8px">Direct file (public, always works):
+    <p class="methodbox" style="margin-top:8px">Direct file link (public, opens the raw JSON &mdash; right-click &rarr; Save if it displays):<br/>
       <a href="__RAW_URL__" target="_blank" rel="noopener" style="word-break:break-all">__RAW_URL__</a></p>
     <details class="math" style="margin-top:14px"><summary>Verify in three lines of Python</summary>
       <p style="font-family:var(--mono);font-size:12px;white-space:pre-wrap">from tokenizers import Tokenizer; import regex
@@ -162,11 +161,6 @@ function renderVocab(q){
 }
 renderVocab('');
 $('vocab-search').addEventListener('input',function(){renderVocab(this.value);});
-// download
-$('dl-btn').addEventListener('click',function(){
-  var blob=new Blob([b64utf8($('tok').textContent)],{type:'application/json'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tokenizer.json';
-  document.body.appendChild(a);a.click();a.remove();});
 // theme
 $('theme-btn').addEventListener('click',function(){var r=document.documentElement,c=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',c);this.innerHTML=c==='dark'?'☀︎':'☾';});
 })();
@@ -178,8 +172,7 @@ data_b64 = base64.b64encode(json.dumps(payload, ensure_ascii=False).encode("utf-
 tok_b64 = base64.b64encode(tok_text.encode("utf-8")).decode()
 JS = JS.replace("__RECIPE__", json.dumps(RECIPE))
 html = (BODY.replace("__CSS__", css).replace("__DATA_B64__", data_b64)
-        .replace("__RAW_URL__", RAW_URL).replace("__JS__", JS)
-        + f'\n<script id="tok" type="text/plain">{tok_b64}</script>\n')
+        .replace("__RAW_URL__", RAW_URL).replace("__JS__", JS))
 (ROOT / "standalone.html").write_text(html, encoding="utf-8")
 (ROOT / "index.html").write_text(html, encoding="utf-8")
 print("wrote standalone.html + index.html", len(html), "bytes; score", round(m["raw_score"]),

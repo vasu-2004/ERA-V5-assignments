@@ -1,0 +1,4 @@
+corpus/raw/
+corpus/docs.jsonl
+artifacts/cleaned_corpus.jsonl
+__pycache__/

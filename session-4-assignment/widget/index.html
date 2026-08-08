@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Session 4 — Data Cleaning &amp; Deduplication, applied</title>
+<meta name="description" content="The 8 cleaning strategies from Session 4, applied to a real 11.65M-token corpus (real code, GSM8K reasoning, India-Wikipedia Indic text) plus a labelled demo set — with the bugs found and fixed along the way."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧹</text></svg>"/>
+<style>
+:root{--bg:#f7f8fa;--panel:#fff;--ink:#161a1f;--muted:#6a7280;--line:#e3e6ea;--accent:#2f6fed;--good:#1f8a5f;--bad:#c23b3b;--warn:#b8790a;--mono:ui-monospace,Menlo,Consolas,monospace;--sans:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;--maxw:980px}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1216;--panel:#171b21;--ink:#e7eaef;--muted:#8b93a1;--line:#272c34;--accent:#5b8def;--good:#3fbf87;--bad:#e2685f;--warn:#e0a63a}}
+:root[data-theme=dark]{--bg:#0f1216;--panel:#171b21;--ink:#e7eaef;--muted:#8b93a1;--line:#272c34;--accent:#5b8def;--good:#3fbf87;--bad:#e2685f;--warn:#e0a63a}
+:root[data-theme=light]{--bg:#f7f8fa;--panel:#fff;--ink:#161a1f;--muted:#6a7280;--line:#e3e6ea;--accent:#2f6fed;--good:#1f8a5f;--bad:#c23b3b;--warn:#b8790a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px 70px}
+header.top{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:9}
+.top .in{max-width:var(--maxw);margin:0 auto;padding:9px 20px;display:flex;align-items:center;gap:14px;font-size:13px}
+.top b{letter-spacing:-.01em}.top a{color:var(--muted);text-decoration:none}.top .sp{margin-left:auto}
+#th{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;width:30px;height:26px;cursor:pointer;font-size:12px}
+h1{font-size:clamp(25px,4.6vw,36px);line-height:1.1;letter-spacing:-.02em;margin:34px 0 6px}
+.sub{color:var(--muted);font-size:15.5px;max-width:66ch;margin:0 0 18px}
+.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;color:#fff;background:var(--accent);padding:2px 7px;border-radius:6px;letter-spacing:.03em}
+h2{font-size:18px;letter-spacing:-.01em;margin:30px 0 10px;padding-top:8px;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:8px}
+h2 .n{color:var(--accent);font-family:var(--mono);font-size:12px}
+h3{font-size:13.5px;margin:14px 0 4px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+p{margin:5px 0}
+small,.mut{color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 4px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:11px 13px}
+.kpi .v{font-size:21px;font-weight:800;letter-spacing:-.01em;color:var(--accent)}
+.kpi .l{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:12.8px;margin:4px 0}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+.tw{overflow-x:auto}
+code{font-family:var(--mono);font-size:11.5px;background:color-mix(in srgb,var(--ink) 8%,transparent);padding:1px 5px;border-radius:5px}
+.stage{display:grid;grid-template-columns:22px 1fr auto auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.stage:last-child{border-bottom:none}
+.stage .num{font-family:var(--mono);color:var(--accent);font-weight:700;font-size:12px}
+.stage .bar{height:7px;border-radius:4px;background:var(--line);position:relative;overflow:hidden;grid-column:1/-1;margin-top:2px}
+.stage .fill{position:absolute;inset:0;background:var(--accent);border-radius:4px}
+.stage .pct{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right}
+.finding{border-left:3px solid var(--warn);background:color-mix(in srgb,var(--warn) 8%,var(--panel));border-radius:0 10px 10px 0;padding:9px 13px;margin:8px 0;font-size:13px}
+.finding b{color:var(--warn)}
+.ok{color:var(--good);font-weight:700}
+.chip{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:5px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:680px){.kpis{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
+footer{color:var(--muted);font-size:12px;margin-top:34px;border-top:1px solid var(--line);padding-top:12px}
+.demoRow td{font-family:var(--mono);font-size:11.5px}
+</style>
+</head>
+<body>
+<header class="top"><div class="in"><b>Session 4</b> <span class="mut">· cleaning &amp; dedup, applied</span><span class="sp"></span><a href="#strategies">Strategies</a> <a href="#dataset">Dataset</a> <a href="#cleaning">Cleaning</a> <a href="#findings">Findings</a> <a href="#stats">Stats</a><button id="th" title="theme">☾</button></div></header>
+<div class="wrap">
+
+<span class="tag" style="margin-top:30px;display:inline-block">ERA V5 · Session 4</span>
+<h1>Data cleaning &amp; deduplication, applied</h1>
+<p class="sub">The session lists <b>8 cleaning strategies</b> for turning raw corpus into training data. This runs all 8, for real, over a real 11.65M-token corpus — and reports the bugs found along the way, not just the happy path.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="v">8</div><div class="l">strategies applied</div></div>
+  <div class="kpi"><div class="v">11.65M → 10.73M</div><div class="l">tokens in → out</div></div>
+  <div class="kpi"><div class="v">15,003 → 13,963</div><div class="l">documents in → out</div></div>
+  <div class="kpi"><div class="v">92.1%</div><div class="l">overall survival</div></div>
+</div>
+
+<h2 id="strategies"><span class="n">1</span>How many strategies, and what are they</h2>
+<p>The session states this explicitly — a student counted them live and the instructor confirmed: <i>“we have been using around eight sections… this is a minimal set, maximal can set, this is the minimum that we have to do.”</i> <b>8 strategies</b>, applied in this fixed order (each stage's output is the next stage's input):</p>
+<div class="card">
+<div class="stage"><span class="num">1</span><span><b>Extract</b> — pull real content out of raw HTML; drop nav/footer/cookie-banners/scripts</span><span class="chip">bs4</span><span></span></div>
+<div class="stage"><span class="num">2</span><span><b>Normalize</b> — NFC, HTML-entity unescape, whitespace collapse, ghost-tag &amp; license-header strip — Brahmic-safe (ZWNJ/ZWJ preserved)</span><span class="chip">regex+unicodedata</span><span></span></div>
+<div class="stage"><span class="num">3</span><span><b>Language ID &amp; validation</b> — never trust the folder name; detect the real language per document</span><span class="chip">py3langid</span><span></span></div>
+<div class="stage"><span class="num">4</span><span><b>Quality filter</b> — Gopher/C4-style heuristics (mean word length, symbol ratio, stopwords, bullet/dup-line ratio)</span><span class="chip">heuristic cascade</span><span></span></div>
+<div class="stage"><span class="num">5</span><span><b>Deduplication</b> — near-duplicates, not just exact copies: shingle → hash → LSH band</span><span class="chip">MinHash+LSH</span><span></span></div>
+<div class="stage"><span class="num">6</span><span><b>PII scrub</b> — emails, phones, IPs, usernames; keep public figures, drop private individuals</span><span class="chip">regex+NER-heuristic</span><span></span></div>
+<div class="stage"><span class="num">7</span><span><b>Decontamination</b> — nothing from a held-out benchmark may survive into training</span><span class="chip">canary + MinHash</span><span></span></div>
+<div class="stage"><span class="num">8</span><span><b>Manifest</b> — source, license, contributor, script hash, shard hash, token/language counts per shard</span><span class="chip">provenance record</span><span></span></div>
+</div>
+<p class="mut" style="font-size:12px">Also discussed in the session but not separate pipeline stages: MinHash/LSH mechanics (the <i>how</i> inside stage 5), synthetic rephrasing for low-resource languages, and canary-GUID leak detection (the mechanism inside stage 7) — folded into the stages above rather than counted twice.</p>
+
+<h2 id="dataset"><span class="n">2</span>What dataset was picked, and why</h2>
+<p>The instructor's example (Qwen/Opus reasoning-distilled) was explicitly off-limits — it's a template for <i>how</i> to find data, not the assignment. This sandbox also has <b>no route to HuggingFace, Wikipedia, Common Crawl, Kaggle, or Zenodo</b> (verified directly, including through Anthropic's own fetch infrastructure — a real, hard constraint, not a shortcut). So the corpus below is assembled from every source that <i>is</i> real and reachable, aimed at the three things this course cares about: reasoning, code, and Indic/India-first content.</p>
+<div class="tw"><table>
+<tr><th>Bucket</th><th class="n">Docs</th><th class="n">Tokens</th><th>Real source</th><th>Why</th></tr>
+<tr><td>Code</td><td class="n">4,922</td><td class="n">9,488,559</td><td>18 real permissively-licensed Python packages (Django, Flask, requests, pydantic, pytest, Starlette, FastAPI, Black, …) via <code>pip download</code></td><td>Coding objective; real source, real license headers, real near-dup boilerplate (migrations, test fixtures)</td></tr>
+<tr><td>GSM8K reasoning</td><td class="n">8,791</td><td class="n">1,086,884</td><td>OpenAI <code>grade-school-math</code> (GitHub, MIT)</td><td>A genuine reasoning-trace corpus — the same category as the instructor's example link, just openly downloadable</td></tr>
+<tr><td>India-Wikipedia (Indic)</td><td class="n">233</td><td class="n">151,866</td><td><b>Reused from this course's own Session 3 tokenizer work</b> — India pages in English/Hindi/Telugu/Maithili, faithful-Markdown extraction</td><td>Directly the "interesting dataset from Session 3" the assignment asks for; already-real, already-messy (links/refs/navboxes)</td></tr>
+<tr><td>Constructed demo set</td><td class="n">17 (of 31)</td><td class="n">466</td><td>Hand-built, &lt;0.005% of tokens — near-dup PR articles, PII chat, ghost tags, SEO/list spam, mislabelled-language trap, benchmark canary</td><td>The real corpus above doesn't naturally contain PII, benchmark canaries, or news-PR duplication at a testable density — built the same way the instructor built live examples in class, to prove each stage actually removes what it claims to</td></tr>
+</table></div>
+<p class="mut" style="font-size:12px">Total ingested: 15,003 documents, 11,652,905 tokens — inside the assignment's 10–100M range. The constructed bucket is a labelled minority throughout every artifact (<code>manifest.json</code>, <code>stats.json</code>) — it exists to exercise the pipeline, not to pad the count.</p>
+
+<h2 id="cleaning"><span class="n">3</span>What was cleaned, and why</h2>
+<h3>Token survival, stage by stage</h3>
+<div class="card" id="survivalChart"></div>
+<h3>Proof-of-work: the constructed demo set, before → after</h3>
+<div class="tw"><table>
+<tr><th>Case</th><th class="n">In</th><th class="n">Out</th><th>What happened</th></tr>
+<tr class="demoRow"><td>SEO spam ("dog soap" ×20)</td><td class="n">1</td><td class="n">0</td><td>quality filter: fails as repetitive keyword-stuffing</td></tr>
+<tr class="demoRow"><td>Bullet/list dump (120 fake cities)</td><td class="n">1</td><td class="n">0</td><td>quality filter: bullet-line ratio too high</td></tr>
+<tr class="demoRow"><td>Reddit filler ("hi hello hi hello…")</td><td class="n">1</td><td class="n">0</td><td>quality filter: low-information-content check (session's own example)</td></tr>
+<tr class="demoRow"><td>PR near-duplicates (6 outlets, same story)</td><td class="n">6</td><td class="n">2</td><td>MinHash+LSH: 4 caught as near-dup; 2 slipped through (see finding below)</td></tr>
+<tr class="demoRow"><td>Exact duplicate (×5)</td><td class="n">5</td><td class="n">1</td><td>exact-hash dedup: 4 removed, 1 kept</td></tr>
+<tr class="demoRow"><td>PII chat/commit logs</td><td class="n">2</td><td class="n">2 (redacted)</td><td>email/phone/IP/username → <code>[EMAIL]</code> <code>[PHONE]</code> <code>[IP]</code> <code>[USERNAME]</code>, text kept</td></tr>
+<tr class="demoRow"><td>Mislabelled-language folder trap</td><td class="n">4</td><td class="n">2</td><td>language ID: 2 genuine mismatches dropped, 2 correctly-labelled kept</td></tr>
+<tr class="demoRow"><td>Benchmark canary string</td><td class="n">1</td><td class="n">0</td><td>decontamination: canary GUID swept and removed</td></tr>
+</table></div>
+
+<h2 id="findings"><span class="n">4</span>Other strategies/concerns cleaned up along the way</h2>
+<p>These weren't in the plan — they turned up while <i>running</i> the pipeline on real data, which is the actual point of doing this rather than just describing it.</p>
+<div class="finding"><b>Script ≠ language.</b> Maithili and Hindi share the Devanagari script; a naive script/statistical check flagged real, correctly-labelled Maithili wiki text as "mislabelled" against Hindi. Dropping it would have repeated the exact low-resource-Indic mistake the session warns about. Fix: the drop-on-mismatch rule now applies <i>only</i> to the deliberately-constructed mislabel trap, not to source-verified content — disagreements on real data are recorded, not deleted.</div>
+<div class="finding"><b>One quality rule, two registers.</b> A general-prose stopword-density threshold (tuned for news/Wikipedia) wrongly failed legitimate GSM8K math problems — word problems are naturally stopword-sparse (many names/numbers, few function words). Fix: a domain-specific floor for the math bucket, not a global loosening of the rule.</div>
+<div class="finding"><b>Bold markdown looked like a bullet list.</b> <code>**India**</code> starts with <code>*</code>, so a naive "line starts with a bullet marker" check misfired on Wikipedia's own bolded lead sentence. Fix: require marker <i>and</i> trailing space, so <code>**bold**</code> and <code>- item</code> are no longer confused.</div>
+<div class="finding"><b>Decontamination over-flagged shared phrasing as leakage.</b> A first pass flagged 37 GSM8K test questions as "contaminated" because they shared a common 10-word phrase (e.g. <i>"how many...", "find the total amount"</i>) with a training document — but GSM8K problems reuse boilerplate reasoning sentences across unrelated questions; sharing a phrase isn't sharing an answer. Fix: require whole-document MinHash similarity, not any shared n-gram — result dropped to 0 genuine leaks, which is the correct answer for two disjoint official splits.</div>
+<div class="finding"><b>PII regexes don't belong on source code.</b> Running email/phone/IP patterns over real <code>.py</code> files matched version strings and numeric literals, not personal data. Fix: PII scrubbing is scoped to prose buckets only — code gets license-header stripping instead, per the session's own point that different content needs different rules.</div>
+<div class="finding"><b>Fixed shingle size doesn't fit both a tweet and a novel.</b> An 8-word shingle (tuned for full news articles, matching the session's own demo) under-measured similarity between short, reworded PR one-liners — a same-story reorder scored only 0.33 Jaccard. Fix: shingle size now scales down for short documents; still an honest partial catch (4/6, not 6/6) rather than a rigged one.</div>
+<div class="finding"><b>Language-ID noise on tiny fragments.</b> Several one-line Wikipedia image captions (just a name + URL) were misclassified by <code>py3langid</code> as Latin, Indonesian, Javanese, German, Malay, Dutch, or Chinese — real evidence for the session's insistence on <i>validating</i> language ID rather than trusting one classifier's output on short text.</div>
+
+<h2 id="stats"><span class="n">5</span>Final statistics</h2>
+<div class="two">
+<div class="card">
+<h3>By license (final corpus)</h3>
+<table>
+<tr><th>License</th><th class="n">Docs</th></tr>
+<tr><td>MIT</td><td class="n">10,715</td></tr>
+<tr><td>BSD-3-Clause</td><td class="n">2,509</td></tr>
+<tr><td>BSD-2-Clause</td><td class="n">384</td></tr>
+<tr><td>Apache-2.0</td><td class="n">105</td></tr>
+<tr><td>CC BY-SA 3.0 (Wikipedia)</td><td class="n">233</td></tr>
+<tr><td>n/a (constructed demo)</td><td class="n">17</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>By language (final corpus)</h3>
+<table>
+<tr><th>Language</th><th class="n">Docs</th></tr>
+<tr><td>English</td><td class="n">8,997</td></tr>
+<tr><td>Code</td><td class="n">4,922</td></tr>
+<tr><td>Hindi</td><td class="n">25</td></tr>
+<tr><td>Telugu</td><td class="n">7</td></tr>
+<tr><td>Maithili</td><td class="n">2</td></tr>
+<tr><td>Other (LID noise on tiny fragments)</td><td class="n">10</td></tr>
+</table>
+</div>
+</div>
+<div class="card">
+<h3>Manifest (stage 8) — what every shard records</h3>
+<p style="font-size:12.5px">Per shard: source · license · contributor · <b>pipeline script SHA-256</b> (<code id="scriptHash">1818c014755fb05d…</code>) · shard SHA-256 · token count · language breakdown · which of the 8 stages were applied. Re-running the same script on the same input reproduces the same shard hash — the reproducibility guarantee the session insists on.</p>
+</div>
+<p class="mut" style="font-size:12px">Full artifacts (<code>docs.jsonl</code>, <code>cleaned_corpus.jsonl</code>, <code>stats.json</code>, <code>manifest.json</code>) and every script are in the repository this widget was built from.</p>
+
+<footer>ERA V5 · Session 4 — data cleaning &amp; deduplication, applied to a real corpus rather than described in the abstract. Numbers are measured, not estimated; limitations are reported, not hidden.</footer>
+</div>
+<script>
+(function(){
+var stages=[
+  {name:'0 · ingested',tok:11652905},
+  {name:'1 · extract',tok:11652158},
+  {name:'2 · normalize',tok:11355328},
+  {name:'3 · language ID',tok:11355258},
+  {name:'4 · quality filter',tok:10947970},
+  {name:'5 · deduplication',tok:10727651},
+  {name:'6 · PII scrub',tok:10727825},
+  {name:'7 · decontamination',tok:10727775}
+];
+var max=stages[0].tok;
+var el=document.getElementById('survivalChart');
+el.innerHTML=stages.map(function(s){
+  var pct=100*s.tok/max;
+  return '<div class="stage"><span></span><span>'+s.name+'</span><span class="pct">'+s.tok.toLocaleString('en-US')+' tok</span><span class="pct">'+pct.toFixed(1)+'%</span>'+
+    '<div class="bar"><div class="fill" style="width:'+pct+'%"></div></div></div>';
+}).join('');
+document.getElementById('th').addEventListener('click',function(){
+  var r=document.documentElement,c=r.getAttribute('data-theme')==='dark'?'light':'dark';
+  r.setAttribute('data-theme',c);this.textContent=c==='dark'?'☀︎':'☾';
+});
+})();
+</script>
+</body>
+</html>

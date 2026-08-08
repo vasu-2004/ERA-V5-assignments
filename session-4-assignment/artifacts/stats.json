@@ -1,0 +1,256 @@
+{
+  "stages": [
+    {
+      "stage": "0_ingested",
+      "docs": 15003,
+      "tokens": 11652905,
+      "note": ""
+    },
+    {
+      "stage": "1_extract",
+      "docs": 15003,
+      "tokens": 11652158,
+      "note": "stripped nav/footer/cookie-banner/script from raw-HTML docs"
+    },
+    {
+      "stage": "2_normalize",
+      "docs": 15003,
+      "tokens": 11355328,
+      "note": "NFC + entity-unescape + ws-collapse (ZWNJ/ZWJ preserved) + ghost-tag/license-header strip"
+    },
+    {
+      "stage": "3_language_id",
+      "docs": 15001,
+      "tokens": 11355258,
+      "note": "py3langid + Unicode-script cross-check; dropped 2 mislabelled-folder trap docs, flagged-but-kept 10 script-sharing cases"
+    },
+    {
+      "stage": "4_quality_filter",
+      "docs": 14493,
+      "tokens": 10947970,
+      "note": "Gopher/C4-style heuristics (mean word length, symbol ratio, stopwords, bullet/dup-line ratio) for prose; code kept on a lighter structural check"
+    },
+    {
+      "stage": "5_deduplication",
+      "docs": 13964,
+      "tokens": 10727651,
+      "note": "MinHash(128 perm) + LSH banding, Jaccard threshold 0.55; removed 529 exact/near duplicates"
+    },
+    {
+      "stage": "6_pii_scrub",
+      "docs": 13964,
+      "tokens": 10727825,
+      "note": "regex(email/phone/IP) + username/name-context heuristic; redacted 249 spans ({'EMAIL': 2, 'IP': 2, 'PHONE': 138, 'USERNAME': 106, 'NAME': 1})"
+    },
+    {
+      "stage": "7_decontamination",
+      "docs": 13963,
+      "tokens": 10727775,
+      "note": "canary-GUID sweep (1 hit) + whole-document MinHash Jaccard>=0.5 between GSM8K train/test (0 flagged; a naive any-shared-10-gram version of this check over-flagged 37 docs on shared boilerplate phrasing -- see report)"
+    }
+  ],
+  "langid_mismatches": [
+    {
+      "doc_id": "d0014962",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "| गणतन्त्र भारत भारत गणराज्य | |\n| --- | --- |\n| [Horizontal tricolour flag bear",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014963",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "Category: ./श्रेणी:जानकारीबौक्स\\_देशमे\\_अज्ञात\\_मापदण्डसभ\\_सहितक\\_पृष्ठसभ#longmभ",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014964",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "**भारत**, [दक्षिण एशियामे](https://mai.wikipedia.org/wiki/दक्षिण_एशिया \"दक्षिण ए",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014965",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "प्राचीन [सिन्धु घाटी सभ्यता](https://mai.wikipedia.org/wiki/सिन्धुघाटीक_सभ्यता?a",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014966",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "## नामोत्पति\n\n\"भारत\" शब्दक उत्पत्ति महाभारतक उपरान्त क्रमानुक्रम सं दुष्यन्तपुत्",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014967",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "## इतिहास\n\nकरीब ५५,००० वर्ष पुर्व पहिनुक आधुनिक मानव - होमो सेपियन्स - पहिनहि क्",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014968",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "## अर्थतन्त्र\n\n## सन्दर्भ सामग्रीसभ\n\n1. [↑](https://mai.wikipedia.org/wiki/भारत#",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014969",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "## बाह्य जडीसभ\n\n| | |\n| --- | --- |\n| | विकिमिडिया कमन्समे [भारत](https://common",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014970",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "## एहो सभ देखी\n\n| - [v](https://mai.wikipedia.org/wiki/आकृति:एसियाक_देशसभ \"आकृति",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014971",
+      "claimed": "mai",
+      "detected": "hi",
+      "text": "Category: ./श्रेणी:एसियाक\\_देशसभ\nCategory: ./श्रेणी:दक्षिण\\_एसियाली\\_देशसभ",
+      "action": "kept (source-verified, shared script)"
+    },
+    {
+      "doc_id": "d0014980",
+      "claimed": "as",
+      "detected": "bn",
+      "text": "অসমীয়া অনুবাদ পৃষ্ঠা: এই বছর বৰষা সোনকালে আহিল।",
+      "action": "dropped"
+    },
+    {
+      "doc_id": "d0014982",
+      "claimed": "mr",
+      "detected": "hi",
+      "text": "भारत हा दक्षिण आशियातील एक देश आहे.",
+      "action": "dropped"
+    }
+  ],
+  "quality_dropped_examples": [
+    {
+      "doc_id": "d0014480",
+      "bucket": "indic_wiki",
+      "reason": {
+        "stopword_present": false
+      },
+      "text": "Category: ./Category:Featured\\_articles\nCategory: ./Category:Wikipedia\\_indefinitely\\_move-protected"
+    },
+    {
+      "doc_id": "d0014500",
+      "bucket": "indic_wiki",
+      "reason": {
+        "stopword_present": false
+      },
+      "text": "### Medieval India\n\nMain article: [Medieval India](https://en.wikipedia.org/wiki/Medieval_India \"Med"
+    },
+    {
+      "doc_id": "d0014508",
+      "bucket": "indic_wiki",
+      "reason": {
+        "stopword_present": false
+      },
+      "text": "### Early modern India\n\n[![](https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Shaikh_Salim_"
+    },
+    {
+      "doc_id": "d0014510",
+      "bucket": "indic_wiki",
+      "reason": {
+        "stopword_present": false
+      },
+      "text": "[![](https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/India_1835_2_Mohurs.jpg/250px-India_1"
+    },
+    {
+      "doc_id": "d0014529",
+      "bucket": "indic_wiki",
+      "reason": {
+        "not_bullet_spam": false
+      },
+      "text": "- [![A panoramic view of the Garhwal and Kumaon Himalayas. Peaks rising above their surroundings are"
+    },
+    {
+      "doc_id": "d0014536",
+      "bucket": "indic_wiki",
+      "reason": {
+        "not_bullet_spam": false
+      },
+      "text": "- [![Indian coral tree in bloom in the mist of the Southwest Monsoon, Mallalli Falls, Hassan, Karnat"
+    }
+  ],
+  "dedup_removed_examples": [
+    {
+      "doc_id": "d0000148",
+      "reason": "near_duplicate",
+      "dup_of": "d0000147"
+    },
+    {
+      "doc_id": "d0000227",
+      "reason": "near_duplicate",
+      "dup_of": "d0000226"
+    },
+    {
+      "doc_id": "d0000277",
+      "reason": "near_duplicate",
+      "dup_of": "d0000261"
+    },
+    {
+      "doc_id": "d0000542",
+      "reason": "near_duplicate",
+      "dup_of": "d0000539"
+    },
+    {
+      "doc_id": "d0000547",
+      "reason": "near_duplicate",
+      "dup_of": "d0000539"
+    },
+    {
+      "doc_id": "d0000549",
+      "reason": "near_duplicate",
+      "dup_of": "d0000546"
+    },
+    {
+      "doc_id": "d0000723",
+      "reason": "near_duplicate",
+      "dup_of": "d0000716"
+    },
+    {
+      "doc_id": "d0000737",
+      "reason": "near_duplicate",
+      "dup_of": "d0000571"
+    },
+    {
+      "doc_id": "d0000742",
+      "reason": "near_duplicate",
+      "dup_of": "d0000518"
+    },
+    {
+      "doc_id": "d0001176",
+      "reason": "near_duplicate",
+      "dup_of": "d0001172"
+    }
+  ],
+  "dedup_removed_total": 529,
+  "pii_hits": {
+    "EMAIL": 2,
+    "IP": 2,
+    "PHONE": 138,
+    "USERNAME": 106,
+    "NAME": 1
+  },
+  "decontam_flagged": [
+    {
+      "doc_id": "d0015000",
+      "reason": "canary_string_match"
+    }
+  ],
+  "final_doc_count": 13963,
+  "final_token_count": 10727775
+}

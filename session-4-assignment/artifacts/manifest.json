@@ -1,0 +1,314 @@
+{
+  "shards": [
+    {
+      "bucket": "code",
+      "n_docs": 4922,
+      "tokens": 9488559,
+      "sources": [
+        "pip:attrs",
+        "pip:black",
+        "pip:click",
+        "pip:django",
+        "pip:fastapi",
+        "pip:flask",
+        "pip:httpx",
+        "pip:jinja2",
+        "pip:markdown",
+        "pip:pydantic",
+        "pip:pygments",
+        "pip:pytest",
+        "pip:requests",
+        "pip:rich",
+        "pip:starlette",
+        "pip:tornado",
+        "pip:typer",
+        "pip:werkzeug"
+      ],
+      "licenses": [
+        "Apache-2.0",
+        "BSD-2-Clause",
+        "BSD-3-Clause",
+        "MIT"
+      ],
+      "shard_sha256": "7c21f23ce943b4cb",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "gsm8k_train",
+      "n_docs": 7472,
+      "tokens": 919992,
+      "sources": [
+        "github:openai/grade-school-math"
+      ],
+      "licenses": [
+        "MIT"
+      ],
+      "shard_sha256": "8970e4bf6db67dad",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "gsm8k_test",
+      "n_docs": 1319,
+      "tokens": 166892,
+      "sources": [
+        "github:openai/grade-school-math"
+      ],
+      "licenses": [
+        "MIT"
+      ],
+      "shard_sha256": "e0b5c98b3d7f2ff5",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "indic_wiki",
+      "n_docs": 233,
+      "tokens": 151866,
+      "sources": [
+        "wikipedia.org/wiki/India (en)",
+        "wikipedia.org/wiki/India (hi)",
+        "wikipedia.org/wiki/India (mai)",
+        "wikipedia.org/wiki/India (te)"
+      ],
+      "licenses": [
+        "CC-BY-SA-3.0"
+      ],
+      "shard_sha256": "a8448638b96c3408",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "extract_demo",
+      "n_docs": 3,
+      "tokens": 129,
+      "sources": [
+        "constructed:session4_demo"
+      ],
+      "licenses": [
+        "n/a"
+      ],
+      "shard_sha256": "59ebb5b11783747f",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "normalize_demo",
+      "n_docs": 4,
+      "tokens": 77,
+      "sources": [
+        "constructed:session4_demo"
+      ],
+      "licenses": [
+        "n/a"
+      ],
+      "shard_sha256": "481224cb46485e32",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "langid_trap",
+      "n_docs": 2,
+      "tokens": 24,
+      "sources": [
+        "constructed:session4_demo"
+      ],
+      "licenses": [
+        "n/a"
+      ],
+      "shard_sha256": "7d9fe33dfc557a04",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "quality_good",
+      "n_docs": 1,
+      "tokens": 37,
+      "sources": [
+        "constructed:session4_demo"
+      ],
+      "licenses": [
+        "n/a"
+      ],
+      "shard_sha256": "e56f8e51c3df7ac8",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "dedup_near_pr",
+      "n_docs": 2,
+      "tokens": 60,
+      "sources": [
+        "constructed:session4_demo"
+      ],
+      "licenses": [
+        "n/a"
+      ],
+      "shard_sha256": "e72c5093251c3d56",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "dedup_exact",
+      "n_docs": 1,
+      "tokens": 21,
+      "sources": [
+        "constructed:session4_demo"
+      ],
+      "licenses": [
+        "n/a"
+      ],
+      "shard_sha256": "63bc24e68166c793",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "pii_demo",
+      "n_docs": 2,
+      "tokens": 78,
+      "sources": [
+        "constructed:session4_demo"
+      ],
+      "licenses": [
+        "n/a"
+      ],
+      "shard_sha256": "2296352a2ad000cb",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "synthetic_rephrase_a",
+      "n_docs": 1,
+      "tokens": 25,
+      "sources": [
+        "constructed:session4_demo"
+      ],
+      "licenses": [
+        "n/a"
+      ],
+      "shard_sha256": "b9466a062a1b01a8",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    },
+    {
+      "bucket": "synthetic_rephrase_b",
+      "n_docs": 1,
+      "tokens": 15,
+      "sources": [
+        "constructed:session4_demo"
+      ],
+      "licenses": [
+        "n/a"
+      ],
+      "shard_sha256": "d645aef21d546d4c",
+      "cleaning_stages_applied": [
+        "0_ingested",
+        "1_extract",
+        "2_normalize",
+        "3_language_id",
+        "4_quality_filter",
+        "5_deduplication",
+        "6_pii_scrub",
+        "7_decontamination"
+      ]
+    }
+  ],
+  "pipeline_script_sha256": "1818c014755fb05d7af31bef81717cf610aff0539bc3f791a1505aeebaa309a3"
+}

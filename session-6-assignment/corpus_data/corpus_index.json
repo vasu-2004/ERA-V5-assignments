@@ -1,0 +1,59 @@
+{
+  "description": "Small real corpus carved from Session 4 sources; see tools/build_corpus.py",
+  "canaries": {
+    "eval_math": "CANARY-EVAL-7f3a91c25e8b4d06",
+    "val_web": "CANARY-VAL-2b8e64af10c97d35"
+  },
+  "total_docs": 711,
+  "total_chars": 890360,
+  "lanes": [
+    {
+      "lane": "web_en",
+      "split": "train",
+      "n_docs": 159,
+      "chars": 211042,
+      "file": "web_en.jsonl",
+      "sha256": "7b70431d5d7dd1859e28dbb0f3237461bf1ca0fa3c1e26a26f1b8cbd6e61a619"
+    },
+    {
+      "lane": "val_web",
+      "split": "val",
+      "n_docs": 25,
+      "chars": 52462,
+      "file": "val_web.jsonl",
+      "sha256": "234248ade1370d3943a300299456d8d24978ec071e2940bce45163c4497f36ad"
+    },
+    {
+      "lane": "indic",
+      "split": "train",
+      "n_docs": 137,
+      "chars": 142631,
+      "file": "indic.jsonl",
+      "sha256": "bd71bb200d1a71e97465352edb4e2d0ac54a7fd5b7ec21491ed1e3145b7c427f"
+    },
+    {
+      "lane": "code",
+      "split": "train",
+      "n_docs": 150,
+      "chars": 351203,
+      "file": "code.jsonl",
+      "sha256": "3b28fb36d739453144de269f403b0d27ced7533fa77c658bb2207e94351308d2"
+    },
+    {
+      "lane": "math",
+      "split": "train",
+      "n_docs": 200,
+      "chars": 110757,
+      "file": "math.jsonl",
+      "sha256": "728a9b8e940e126a5245bf75288277aa4f26a784f5d33cb1e49fd518eca93391"
+    },
+    {
+      "lane": "eval_math",
+      "split": "eval",
+      "n_docs": 40,
+      "chars": 22265,
+      "file": "eval_math.jsonl",
+      "sha256": "12d5bc0eb23f529042a9ba6a9030d06a56df19f0090d7722551c7ba767368324"
+    }
+  ]
+}

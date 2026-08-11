@@ -1,0 +1,232 @@
+{
+  "bytes": 72580,
+  "content_hash": "cc053bd3b0962b0b8c9a7479210372bfcb3935b963afcc9335db0208043e4c03",
+  "created_at_utc": "2026-08-11T17:06:25Z",
+  "docs": [
+    {
+      "doc_id": "b516bc467e999835",
+      "end": 437,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 0,
+      "structured": false
+    },
+    {
+      "doc_id": "3028a78e66f8d791",
+      "end": 833,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 437,
+      "structured": false
+    },
+    {
+      "doc_id": "180f459a46c8059d",
+      "end": 1753,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 833,
+      "structured": false
+    },
+    {
+      "doc_id": "9fb8f87bed76880b",
+      "end": 2488,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 1753,
+      "structured": false
+    },
+    {
+      "doc_id": "3f752021a9e15377",
+      "end": 2984,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 2488,
+      "structured": false
+    },
+    {
+      "doc_id": "bfa26efc4d24b356",
+      "end": 3533,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 2984,
+      "structured": false
+    },
+    {
+      "doc_id": "72d12438b480c5e0",
+      "end": 3930,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 3533,
+      "structured": false
+    },
+    {
+      "doc_id": "765c69792a316f38",
+      "end": 4808,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 3930,
+      "structured": false
+    },
+    {
+      "doc_id": "f49a182e6d56f011",
+      "end": 5362,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 4808,
+      "structured": false
+    },
+    {
+      "doc_id": "3350695938f9e73a",
+      "end": 6184,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 5362,
+      "structured": false
+    },
+    {
+      "doc_id": "731aaedaa94e2abd",
+      "end": 6464,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 6184,
+      "structured": false
+    },
+    {
+      "doc_id": "6de7700761dd60e7",
+      "end": 7025,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 6464,
+      "structured": false
+    },
+    {
+      "doc_id": "c707587458c27e0f",
+      "end": 7780,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 7025,
+      "structured": false
+    },
+    {
+      "doc_id": "5cc27251c9f2acb0",
+      "end": 9516,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 7780,
+      "structured": false
+    },
+    {
+      "doc_id": "0bafa9ae10832631",
+      "end": 10705,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 9516,
+      "structured": false
+    },
+    {
+      "doc_id": "b4cec2633c721524",
+      "end": 11897,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 10705,
+      "structured": false
+    },
+    {
+      "doc_id": "810c58e4f192f8e1",
+      "end": 13195,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 11897,
+      "structured": false
+    },
+    {
+      "doc_id": "214b3e2b29cdcd1a",
+      "end": 13460,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 13195,
+      "structured": false
+    },
+    {
+      "doc_id": "6e8c93714801d8df",
+      "end": 14017,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 13460,
+      "structured": false
+    },
+    {
+      "doc_id": "371ab48802122b7b",
+      "end": 14320,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 14017,
+      "structured": false
+    },
+    {
+      "doc_id": "2f0b7f2267cf7dda",
+      "end": 14806,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 14320,
+      "structured": false
+    },
+    {
+      "doc_id": "e31543c39b23cd8f",
+      "end": 15040,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 14806,
+      "structured": false
+    },
+    {
+      "doc_id": "d93296599ffa10d6",
+      "end": 16664,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 15040,
+      "structured": false
+    },
+    {
+      "doc_id": "e5f737f4f5a5ded2",
+      "end": 18145,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:భారతదేశం(te)",
+      "start": 16664,
+      "structured": false
+    }
+  ],
+  "file": "indic-0002.bin",
+  "lane": "indic",
+  "n_docs": 24,
+  "n_tokens": 18145,
+  "policy": "concat_split",
+  "shard_id": "indic-0002",
+  "split": "train",
+  "token_sha256": "68cd715d8c50895bc48f7c3da0b077d0ccbf8d6c38a90b2244afcd8abadd9ff3",
+  "tokenizer_hash": "4bfc6e2141e28a1b2134c5a97c1e0a38c3d716aa9d30fbb0e103f0c584277a48"
+}

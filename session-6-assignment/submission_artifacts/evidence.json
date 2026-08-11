@@ -1,0 +1,934 @@
+{
+  "bundle_hash": "e059b6a985958c92a7ddaa8bc6eef8f2f80b23069356456e16bfdab173d62e92",
+  "config_hash": "64e6d552b44e38e9dc001221c77b36e830638a775e2b0d36168fceb0d924fef6",
+  "generated_by": "tdes.evidence.build (derived from computed audit values)",
+  "raw_audits": {
+    "continuity": {
+      "batch_ids_contiguous_from_zero": true,
+      "duplicate_batch_ids": [],
+      "duplicate_steps": [],
+      "n_batches": 40,
+      "no_skips_or_repeats": true,
+      "steps_contiguous_from_zero": true,
+      "unexpected_gaps": []
+    },
+    "firewall": {
+      "blocked_shard_ids": [
+        "eval_math-0000",
+        "val_web-0000"
+      ],
+      "breach_attempt_blocked": true,
+      "canary_hits": [],
+      "canary_scan_clean": true,
+      "detector_positive_control": true,
+      "held_out_lanes": [
+        "eval_math",
+        "val_web"
+      ],
+      "n_batches_scanned": 2889,
+      "n_blocked_events": 2,
+      "no_heldout_lane_in_packs": true
+    },
+    "fork": {
+      "diverges_after_fork": true,
+      "first_divergent_step": 10,
+      "fork_step": 10,
+      "identical_fork_reproduces_parent": true,
+      "lineage": {
+        "child_config_hash": "76cb13507af9da95",
+        "child_run_id": "v5-tdes-demo-fork",
+        "fork_step": 10,
+        "parent_checkpoint_hash": "5f76ef4901b05de3",
+        "parent_run_id": "v5-tdes-demo"
+      },
+      "parent_checkpoint_hash": "5f76ef4901b05de3cb9861624d43ea9de3547271cf3d9bee822bb447c1fe8cef",
+      "parent_state_matches": true
+    },
+    "learning": {
+      "all_losses_finite": true,
+      "distinct_documents_attributed": 77,
+      "every_learning_record_linked_to_consumption": true,
+      "first_loss": 6.96611968,
+      "last_loss": 5.60639187,
+      "loss_decreased": true,
+      "mean_first_fifth": 6.730068,
+      "mean_last_fifth": 6.007355,
+      "n_records": 40,
+      "per_document_attribution_present": true
+    },
+    "ledger_integrity": {
+      "all_chains_valid": true,
+      "consumption": {
+        "chain_valid": true,
+        "first_bad_seq": null,
+        "n_records": 40
+      },
+      "learning": {
+        "chain_valid": true,
+        "first_bad_seq": null,
+        "n_records": 40
+      },
+      "opus": {
+        "chain_valid": true,
+        "first_bad_seq": null,
+        "n_records": 334
+      }
+    },
+    "masks": {
+      "masks_correct": true,
+      "n_problems": 0,
+      "packs_checked": 24,
+      "problems": []
+    },
+    "mixture": {
+      "floors_respected_everywhere": true,
+      "max_abs_error": 0.005,
+      "stages": {
+        "stage_a_broad": {
+          "abs_error": {
+            "code": 0.0,
+            "indic": 0.0,
+            "math": 0.0,
+            "web_en": 0.0
+          },
+          "actual": {
+            "code": 0.25,
+            "indic": 0.15,
+            "math": 0.2,
+            "web_en": 0.4
+          },
+          "floors": {
+            "indic": 0.14
+          },
+          "floors_respected": {
+            "indic": true
+          },
+          "max_abs_error": 0.0,
+          "n_packs": 80,
+          "planned": {
+            "code": 0.25,
+            "indic": 0.15,
+            "math": 0.2,
+            "web_en": 0.4
+          },
+          "token_share": {
+            "code": 0.250514,
+            "indic": 0.150308,
+            "math": 0.198356,
+            "web_en": 0.400822
+          }
+        },
+        "stage_b_reasoning": {
+          "abs_error": {
+            "code": 0.0,
+            "indic": 0.005,
+            "math": 0.005,
+            "web_en": 0.0
+          },
+          "actual": {
+            "code": 0.3,
+            "indic": 0.125,
+            "math": 0.325,
+            "web_en": 0.25
+          },
+          "floors": {
+            "indic": 0.11
+          },
+          "floors_respected": {
+            "indic": true
+          },
+          "max_abs_error": 0.005,
+          "n_packs": 80,
+          "planned": {
+            "code": 0.3,
+            "indic": 0.12,
+            "math": 0.33,
+            "web_en": 0.25
+          },
+          "token_share": {
+            "code": 0.295793,
+            "indic": 0.126121,
+            "math": 0.325845,
+            "web_en": 0.252242
+          }
+        }
+      }
+    },
+    "opus": {
+      "all_decision_types_present": true,
+      "audit_trail_complete": true,
+      "missing_decision_types": [],
+      "n_protected_floor_overrides": 4,
+      "overrides_sample": [
+        {
+          "lane": "indic",
+          "pack_id": "indic-p00004",
+          "reason": "protected_floor_override(was=DEFER:relative_loss_in_defer_band)",
+          "score": 6.230284,
+          "step": 7,
+          "would_have_been": "DEFER"
+        },
+        {
+          "lane": "indic",
+          "pack_id": "indic-p00018",
+          "reason": "protected_floor_override(was=DEFER:relative_loss_in_defer_band)",
+          "score": 5.619721,
+          "step": 22,
+          "would_have_been": "DEFER"
+        },
+        {
+          "lane": "indic",
+          "pack_id": "indic-p00019",
+          "reason": "protected_floor_override(was=REJECT:relative_loss_below_reject_threshold_already_learned)",
+          "score": 5.447114,
+          "step": 24,
+          "would_have_been": "REJECT"
+        },
+        {
+          "lane": "indic",
+          "pack_id": "indic-p00020",
+          "reason": "protected_floor_override(was=REJECT:relative_loss_below_reject_threshold_already_learned)",
+          "score": 5.380802,
+          "step": 27,
+          "would_have_been": "REJECT"
+        }
+      ],
+      "tally": {
+        "ACCEPT": 156,
+        "DEFER": 143,
+        "FORCED_ACCEPT": 4,
+        "REJECT": 31
+      },
+      "total_decisions": 334,
+      "unjustified_overrides": []
+    },
+    "packing": {
+      "consumed_loss_tokens": 16307,
+      "consumed_real_tokens": 20368,
+      "consumed_slots": 20480,
+      "loss_bearing_fraction": 0.79624,
+      "pad_fraction": 0.005469,
+      "per_lane_pack_build": {
+        "code": {
+          "loss_token_fraction": 0.943175,
+          "loss_tokens": 150908,
+          "n_packs": 1250,
+          "policy": "whole_doc_bestfit",
+          "real_tokens": 152158,
+          "slots": 160000,
+          "utilisation": 0.950987
+        },
+        "indic": {
+          "loss_token_fraction": 0.989764,
+          "loss_tokens": 96791,
+          "n_packs": 764,
+          "policy": "concat_split",
+          "real_tokens": 97689,
+          "slots": 97792,
+          "utilisation": 0.998947
+        },
+        "math": {
+          "loss_token_fraction": 0.269252,
+          "loss_tokens": 4825,
+          "n_packs": 140,
+          "policy": "prompt_masked",
+          "real_tokens": 17782,
+          "slots": 17920,
+          "utilisation": 0.992299
+        },
+        "web_en": {
+          "loss_token_fraction": 0.989722,
+          "loss_tokens": 93113,
+          "n_packs": 735,
+          "policy": "concat_split",
+          "real_tokens": 94006,
+          "slots": 94080,
+          "utilisation": 0.999213
+        }
+      },
+      "policies": {
+        "code": "whole_doc_bestfit",
+        "indic": "concat_split",
+        "math": "prompt_masked",
+        "web_en": "concat_split"
+      },
+      "utilisation": 0.994531
+    },
+    "perf": {
+      "config_hash": "64e6d552b44e38e9dc001221c77b36e830638a775e2b0d36168fceb0d924fef6",
+      "data_plane_fraction": 0.399345,
+      "efficiency": {
+        "loss_bearing_fraction_of_slots": 0.79624,
+        "packing_utilisation": 0.994531,
+        "pad_fraction": 0.005469,
+        "wasted_slot_fraction": 0.20376
+      },
+      "n_steps": 40,
+      "per_lane_pack_build": {
+        "code": {
+          "loss_token_fraction": 0.943175,
+          "loss_tokens": 150908,
+          "n_packs": 1250,
+          "policy": "whole_doc_bestfit",
+          "real_tokens": 152158,
+          "slots": 160000,
+          "utilisation": 0.950987
+        },
+        "indic": {
+          "loss_token_fraction": 0.989764,
+          "loss_tokens": 96791,
+          "n_packs": 764,
+          "policy": "concat_split",
+          "real_tokens": 97689,
+          "slots": 97792,
+          "utilisation": 0.998947
+        },
+        "math": {
+          "loss_token_fraction": 0.269252,
+          "loss_tokens": 4825,
+          "n_packs": 140,
+          "policy": "prompt_masked",
+          "real_tokens": 17782,
+          "slots": 17920,
+          "utilisation": 0.992299
+        },
+        "web_en": {
+          "loss_token_fraction": 0.989722,
+          "loss_tokens": 93113,
+          "n_packs": 735,
+          "policy": "concat_split",
+          "real_tokens": 94006,
+          "slots": 94080,
+          "utilisation": 0.999213
+        }
+      },
+      "per_step_s": {
+        "max": 0.105374,
+        "mean": 0.073037,
+        "median": 0.071862,
+        "min": 0.05496,
+        "p95": 0.092566
+      },
+      "reconstruction": {
+        "note": "all figures above are sums/means of per-step fields in ledgers/learning*.jsonl and ledgers/consumption*.jsonl",
+        "source_fields": [
+          "step_s",
+          "data_s",
+          "compute_s",
+          "n_slots",
+          "n_real_tokens",
+          "n_loss_tokens"
+        ]
+      },
+      "throughput": {
+        "real_tokens_per_s": 6971.79,
+        "slots_per_s": 7010.126,
+        "useful_loss_bearing_tokens_per_s": 5581.745
+      },
+      "time_breakdown_s": {
+        "data_plane": 1.166682,
+        "forward_backward_update": 1.754807
+      },
+      "tokens": {
+        "loss_bearing_tokens": 16307,
+        "pad_tokens": 112,
+        "real_tokens": 20368,
+        "slots_total": 20480
+      },
+      "wall_time_s": 2.921488
+    },
+    "provenance": {
+      "all_spans_trainable_and_in_range": true,
+      "non_train_spans": [],
+      "out_of_range_spans": [],
+      "shards_touched": [
+        "code-0000",
+        "indic-0000",
+        "math-0000",
+        "web_en-0000"
+      ],
+      "spans_checked": 171
+    },
+    "replay": {
+      "all_match": true,
+      "comparisons": [
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "4b4708f2983780eb",
+          "pack_refs_match": true,
+          "replay_hash": "4b4708f2983780eb",
+          "spans_match": true,
+          "step": 10
+        },
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "67b214916ca87608",
+          "pack_refs_match": true,
+          "replay_hash": "67b214916ca87608",
+          "spans_match": true,
+          "step": 11
+        },
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "98533e6e91dc391f",
+          "pack_refs_match": true,
+          "replay_hash": "98533e6e91dc391f",
+          "spans_match": true,
+          "step": 12
+        },
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "46694dcda69500df",
+          "pack_refs_match": true,
+          "replay_hash": "46694dcda69500df",
+          "spans_match": true,
+          "step": 13
+        },
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "a6253104eb3befc8",
+          "pack_refs_match": true,
+          "replay_hash": "a6253104eb3befc8",
+          "spans_match": true,
+          "step": 14
+        },
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "7f8d8f85e0f77fc7",
+          "pack_refs_match": true,
+          "replay_hash": "7f8d8f85e0f77fc7",
+          "spans_match": true,
+          "step": 15
+        },
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "ddcc2c5c193110a0",
+          "pack_refs_match": true,
+          "replay_hash": "ddcc2c5c193110a0",
+          "spans_match": true,
+          "step": 16
+        },
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "66aafc93b789493a",
+          "pack_refs_match": true,
+          "replay_hash": "66aafc93b789493a",
+          "spans_match": true,
+          "step": 17
+        },
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "c2b5af251bec8171",
+          "pack_refs_match": true,
+          "replay_hash": "c2b5af251bec8171",
+          "spans_match": true,
+          "step": 18
+        },
+        {
+          "batch_id_match": true,
+          "hash_match": true,
+          "loss_token_match": true,
+          "original_hash": "c7f80a5b4abfccdc",
+          "pack_refs_match": true,
+          "replay_hash": "c7f80a5b4abfccdc",
+          "spans_match": true,
+          "step": 19
+        }
+      ],
+      "interval": [
+        10,
+        20
+      ],
+      "n_steps_compared": 10,
+      "probe_order_mismatches": [],
+      "run_id": "v5-tdes-demo",
+      "scan_order_reproduced": true
+    },
+    "resume": {
+      "actual_batch_hash": "26a1ac72fbf7d86fcaf5adbf4b04e7a9663d1bd4f1bfefaaa51ff3ab816bdf5e",
+      "actual_batch_id": 20,
+      "crash_step": 27,
+      "expected_batch_hash": "26a1ac72fbf7d86fcaf5adbf4b04e7a9663d1bd4f1bfefaaa51ff3ab816bdf5e",
+      "expected_batch_id": 20,
+      "full_stream_matches_reference": true,
+      "mismatched_steps": [],
+      "next_batch_matched": true,
+      "records_at_crash": 27,
+      "resume_step": 20,
+      "uncommitted_records_discarded": 7
+    },
+    "run": {
+      "all_checks_passed": true,
+      "checks_failed_so_far": 0,
+      "checks_recorded_so_far": 35,
+      "completed_all_phases": true,
+      "config_hash": "64e6d552b44e38e9dc001221c77b36e830638a775e2b0d36168fceb0d924fef6",
+      "numpy_version": "2.4.6",
+      "phases": [
+        "tokenizer_freeze",
+        "shards_and_manifests",
+        "firewall",
+        "mixture_and_packing",
+        "reference_run",
+        "crash",
+        "resume",
+        "replay",
+        "fork"
+      ],
+      "run_id": "v5-tdes-demo",
+      "total_steps": 40
+    },
+    "shards": {
+      "all_verified": true,
+      "n_shards": 14,
+      "overwrite_refused": true,
+      "tamper_detected": true,
+      "total_tokens": 433303
+    },
+    "tokenizer": {
+      "hash": "4bfc6e2141e28a1b2134c5a97c1e0a38c3d716aa9d30fbb0e103f0c584277a48",
+      "hash_matches_all_manifests": true,
+      "retrained_hash_stable": true,
+      "roundtrip_lossless": true,
+      "vocab_size": 1024
+    }
+  },
+  "requirements": [
+    {
+      "artifacts": [
+        "run.log"
+      ],
+      "evidence": {
+        "checks_failed_so_far": 0,
+        "phases": [
+          "tokenizer_freeze",
+          "shards_and_manifests",
+          "firewall",
+          "mixture_and_packing",
+          "reference_run",
+          "crash",
+          "resume",
+          "replay",
+          "fork"
+        ],
+        "phases_completed": 9,
+        "total_steps": 40
+      },
+      "key": "end_to_end",
+      "requirement": "End-to-end execution",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "manifests/",
+        "manifests/tokenizer.json"
+      ],
+      "evidence": {
+        "corrupted_shard_rejected": true,
+        "decode_encode_lossless": true,
+        "immutable_overwrite_refused": true,
+        "manifests_agree": true,
+        "n_shards": 14,
+        "rebuild_is_bit_identical": true,
+        "tokenizer_hash": "4bfc6e2141e28a1b2134c5a97c1e0a38c3d716aa9d30fbb0e103f0c584277a48",
+        "vocab_size": 1024
+      },
+      "key": "tokenizer_integrity",
+      "requirement": "Tokenizer integrity",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "run.log",
+        "evidence.json"
+      ],
+      "evidence": {
+        "batches_canary_scanned": 2889,
+        "blocked_events": 2,
+        "blocked_shards": [
+          "eval_math-0000",
+          "val_web-0000"
+        ],
+        "canary_hits": [],
+        "held_out_lanes": [
+          "eval_math",
+          "val_web"
+        ]
+      },
+      "key": "eval_firewall",
+      "requirement": "Evaluation firewall",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "ledgers/consumption.jsonl",
+        "performance.json"
+      ],
+      "evidence": {
+        "checks": [
+          "no_cross_segment_attention",
+          "causal_only",
+          "position_ids_restart_per_segment",
+          "no_loss_on_padding",
+          "no_loss_across_document_boundary",
+          "prompt_tokens_masked",
+          "labels_are_next_token"
+        ],
+        "mask_problems": 0,
+        "packs_checked": 24,
+        "policies": {
+          "code": "whole_doc_bestfit",
+          "indic": "concat_split",
+          "math": "prompt_masked",
+          "web_en": "concat_split"
+        },
+        "spans_checked": 171
+      },
+      "key": "packing_correctness",
+      "requirement": "Packing correctness (masks, labels, position ids)",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "ledgers/consumption.jsonl"
+      ],
+      "evidence": {
+        "max_abs_error_planned_vs_actual": 0.005,
+        "stages": {
+          "stage_a_broad": {
+            "abs_error": {
+              "code": 0.0,
+              "indic": 0.0,
+              "math": 0.0,
+              "web_en": 0.0
+            },
+            "actual": {
+              "code": 0.25,
+              "indic": 0.15,
+              "math": 0.2,
+              "web_en": 0.4
+            },
+            "floors": {
+              "indic": 0.14
+            },
+            "floors_respected": {
+              "indic": true
+            },
+            "max_abs_error": 0.0,
+            "n_packs": 80,
+            "planned": {
+              "code": 0.25,
+              "indic": 0.15,
+              "math": 0.2,
+              "web_en": 0.4
+            },
+            "token_share": {
+              "code": 0.250514,
+              "indic": 0.150308,
+              "math": 0.198356,
+              "web_en": 0.400822
+            }
+          },
+          "stage_b_reasoning": {
+            "abs_error": {
+              "code": 0.0,
+              "indic": 0.005,
+              "math": 0.005,
+              "web_en": 0.0
+            },
+            "actual": {
+              "code": 0.3,
+              "indic": 0.125,
+              "math": 0.325,
+              "web_en": 0.25
+            },
+            "floors": {
+              "indic": 0.11
+            },
+            "floors_respected": {
+              "indic": true
+            },
+            "max_abs_error": 0.005,
+            "n_packs": 80,
+            "planned": {
+              "code": 0.3,
+              "indic": 0.12,
+              "math": 0.33,
+              "web_en": 0.25
+            },
+            "token_share": {
+              "code": 0.295793,
+              "indic": 0.126121,
+              "math": 0.325845,
+              "web_en": 0.252242
+            }
+          }
+        },
+        "tolerance": 0.1
+      },
+      "key": "mixture_compliance",
+      "requirement": "Mixture compliance and protected floors",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "ledgers/opus.jsonl"
+      ],
+      "evidence": {
+        "every_record_has_score_reason_thresholds": true,
+        "override_examples": [
+          {
+            "lane": "indic",
+            "pack_id": "indic-p00004",
+            "reason": "protected_floor_override(was=DEFER:relative_loss_in_defer_band)",
+            "score": 6.230284,
+            "step": 7,
+            "would_have_been": "DEFER"
+          },
+          {
+            "lane": "indic",
+            "pack_id": "indic-p00018",
+            "reason": "protected_floor_override(was=DEFER:relative_loss_in_defer_band)",
+            "score": 5.619721,
+            "step": 22,
+            "would_have_been": "DEFER"
+          },
+          {
+            "lane": "indic",
+            "pack_id": "indic-p00019",
+            "reason": "protected_floor_override(was=REJECT:relative_loss_below_reject_threshold_already_learned)",
+            "score": 5.447114,
+            "step": 24,
+            "would_have_been": "REJECT"
+          }
+        ],
+        "protected_floor_overrides": 4,
+        "tally": {
+          "ACCEPT": 156,
+          "DEFER": 143,
+          "FORCED_ACCEPT": 4,
+          "REJECT": 31
+        },
+        "total_decisions": 334
+      },
+      "key": "opus_audit",
+      "requirement": "OPUS audit trail",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "checkpoints/",
+        "ledgers/consumption.jsonl"
+      ],
+      "evidence": {
+        "actual_next_batch_hash": "26a1ac72fbf7d86fcaf5adbf4b04e7a9663d1bd4f1bfefaaa51ff3ab816bdf5e",
+        "actual_next_batch_id": 20,
+        "all_steps_match_crashfree_reference": true,
+        "batch_ids_contiguous": true,
+        "crashed_at_step": 27,
+        "duplicates": [],
+        "expected_next_batch_hash": "26a1ac72fbf7d86fcaf5adbf4b04e7a9663d1bd4f1bfefaaa51ff3ab816bdf5e",
+        "expected_next_batch_id": 20,
+        "records_rolled_back": 7,
+        "resumed_from_checkpoint_step": 20
+      },
+      "key": "crash_recovery",
+      "requirement": "Crash recovery (no skipped or repeated batches)",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "ledgers/consumption.jsonl"
+      ],
+      "evidence": {
+        "all_hashes_match": true,
+        "interval": [
+          10,
+          20
+        ],
+        "sample": [
+          {
+            "batch_id_match": true,
+            "hash_match": true,
+            "loss_token_match": true,
+            "original_hash": "4b4708f2983780eb",
+            "pack_refs_match": true,
+            "replay_hash": "4b4708f2983780eb",
+            "spans_match": true,
+            "step": 10
+          },
+          {
+            "batch_id_match": true,
+            "hash_match": true,
+            "loss_token_match": true,
+            "original_hash": "67b214916ca87608",
+            "pack_refs_match": true,
+            "replay_hash": "67b214916ca87608",
+            "spans_match": true,
+            "step": 11
+          },
+          {
+            "batch_id_match": true,
+            "hash_match": true,
+            "loss_token_match": true,
+            "original_hash": "98533e6e91dc391f",
+            "pack_refs_match": true,
+            "replay_hash": "98533e6e91dc391f",
+            "spans_match": true,
+            "step": 12
+          }
+        ],
+        "scan_order_reproduced": true,
+        "steps_compared": 10
+      },
+      "key": "replay",
+      "requirement": "Replay of a historical interval",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "checkpoints/",
+        "ledgers/consumption.fork.jsonl"
+      ],
+      "evidence": {
+        "changed_config_fork_diverges": true,
+        "first_divergent_step": 10,
+        "forked_from_step": 10,
+        "lineage": {
+          "child_config_hash": "76cb13507af9da95",
+          "child_run_id": "v5-tdes-demo-fork",
+          "fork_step": 10,
+          "parent_checkpoint_hash": "5f76ef4901b05de3",
+          "parent_run_id": "v5-tdes-demo"
+        },
+        "parent_checkpoint_hash": "5f76ef4901b05de3cb9861624d43ea9de3547271cf3d9bee822bb447c1fe8cef",
+        "same_config_fork_reproduces_original": true
+      },
+      "key": "fork",
+      "requirement": "Fork from an earlier checkpoint",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "ledgers/learning.jsonl"
+      ],
+      "evidence": {
+        "documents_with_attributed_loss": 77,
+        "learning_records": 40,
+        "linked_to_consumption_by_batch_hash": true,
+        "loss_decreased": true,
+        "mean_loss_first_fifth": 6.730068,
+        "mean_loss_last_fifth": 6.007355
+      },
+      "key": "learning_trace",
+      "requirement": "Learning trace linked to source data",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "ledgers/"
+      ],
+      "evidence": {
+        "consumption": {
+          "chain_valid": true,
+          "first_bad_seq": null,
+          "n_records": 40
+        },
+        "learning": {
+          "chain_valid": true,
+          "first_bad_seq": null,
+          "n_records": 40
+        },
+        "opus": {
+          "chain_valid": true,
+          "first_bad_seq": null,
+          "n_records": 334
+        }
+      },
+      "key": "ledger_integrity",
+      "requirement": "Ledger integrity (append-only hash chains)",
+      "result": "PASS"
+    },
+    {
+      "artifacts": [
+        "performance.json"
+      ],
+      "evidence": {
+        "loss_bearing_fraction": 0.79624,
+        "packing_utilisation": 0.994531,
+        "pad_fraction": 0.005469,
+        "per_lane": {
+          "code": {
+            "loss_token_fraction": 0.943175,
+            "loss_tokens": 150908,
+            "n_packs": 1250,
+            "policy": "whole_doc_bestfit",
+            "real_tokens": 152158,
+            "slots": 160000,
+            "utilisation": 0.950987
+          },
+          "indic": {
+            "loss_token_fraction": 0.989764,
+            "loss_tokens": 96791,
+            "n_packs": 764,
+            "policy": "concat_split",
+            "real_tokens": 97689,
+            "slots": 97792,
+            "utilisation": 0.998947
+          },
+          "math": {
+            "loss_token_fraction": 0.269252,
+            "loss_tokens": 4825,
+            "n_packs": 140,
+            "policy": "prompt_masked",
+            "real_tokens": 17782,
+            "slots": 17920,
+            "utilisation": 0.992299
+          },
+          "web_en": {
+            "loss_token_fraction": 0.989722,
+            "loss_tokens": 93113,
+            "n_packs": 735,
+            "policy": "concat_split",
+            "real_tokens": 94006,
+            "slots": 94080,
+            "utilisation": 0.999213
+          }
+        },
+        "real_tokens_per_s": 6971.79,
+        "steps": 40,
+        "useful_loss_bearing_tokens_per_s": 5581.745,
+        "wall_time_s": 2.921488
+      },
+      "key": "throughput",
+      "requirement": "Throughput and packing efficiency",
+      "result": "PASS"
+    }
+  ],
+  "run_id": "v5-tdes-demo",
+  "schema": "tdes-evidence/1",
+  "summary": {
+    "all_passed": true,
+    "failed": 0,
+    "passed": 12,
+    "requirements": 12
+  }
+}

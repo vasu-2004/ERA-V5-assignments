@@ -1,0 +1,1402 @@
+{
+  "bytes": 159796,
+  "content_hash": "2098fe47400e94c2db92e3ffe354e1d7e22259a0584e3cf2e4724cc7e33e4626",
+  "created_at_utc": "2026-08-11T17:06:26Z",
+  "docs": [
+    {
+      "doc_id": "d3c86911ffd767bd",
+      "end": 152,
+      "license": "MIT",
+      "prompt_len": 78,
+      "source": "github:openai/grade-school-math",
+      "start": 0,
+      "structured": true
+    },
+    {
+      "doc_id": "3f9528d665e84b00",
+      "end": 268,
+      "license": "MIT",
+      "prompt_len": 55,
+      "source": "github:openai/grade-school-math",
+      "start": 152,
+      "structured": true
+    },
+    {
+      "doc_id": "9aacc09233dd5922",
+      "end": 486,
+      "license": "MIT",
+      "prompt_len": 116,
+      "source": "github:openai/grade-school-math",
+      "start": 268,
+      "structured": true
+    },
+    {
+      "doc_id": "b3335008c153fd09",
+      "end": 735,
+      "license": "MIT",
+      "prompt_len": 96,
+      "source": "github:openai/grade-school-math",
+      "start": 486,
+      "structured": true
+    },
+    {
+      "doc_id": "0cf09ec22c3b390b",
+      "end": 875,
+      "license": "MIT",
+      "prompt_len": 51,
+      "source": "github:openai/grade-school-math",
+      "start": 735,
+      "structured": true
+    },
+    {
+      "doc_id": "892ca81d0dc42c7a",
+      "end": 1169,
+      "license": "MIT",
+      "prompt_len": 115,
+      "source": "github:openai/grade-school-math",
+      "start": 875,
+      "structured": true
+    },
+    {
+      "doc_id": "65565e5d7a9200f1",
+      "end": 1382,
+      "license": "MIT",
+      "prompt_len": 110,
+      "source": "github:openai/grade-school-math",
+      "start": 1169,
+      "structured": true
+    },
+    {
+      "doc_id": "03f9eb5367a03fec",
+      "end": 1776,
+      "license": "MIT",
+      "prompt_len": 210,
+      "source": "github:openai/grade-school-math",
+      "start": 1382,
+      "structured": true
+    },
+    {
+      "doc_id": "93eaafbdc8acc6b4",
+      "end": 2105,
+      "license": "MIT",
+      "prompt_len": 187,
+      "source": "github:openai/grade-school-math",
+      "start": 1776,
+      "structured": true
+    },
+    {
+      "doc_id": "c9f50e501aa121db",
+      "end": 2602,
+      "license": "MIT",
+      "prompt_len": 103,
+      "source": "github:openai/grade-school-math",
+      "start": 2105,
+      "structured": true
+    },
+    {
+      "doc_id": "caedcde4d94034da",
+      "end": 2962,
+      "license": "MIT",
+      "prompt_len": 154,
+      "source": "github:openai/grade-school-math",
+      "start": 2602,
+      "structured": true
+    },
+    {
+      "doc_id": "807b957c1cff430a",
+      "end": 3300,
+      "license": "MIT",
+      "prompt_len": 167,
+      "source": "github:openai/grade-school-math",
+      "start": 2962,
+      "structured": true
+    },
+    {
+      "doc_id": "6f129bc3e6c3ffb9",
+      "end": 3473,
+      "license": "MIT",
+      "prompt_len": 72,
+      "source": "github:openai/grade-school-math",
+      "start": 3300,
+      "structured": true
+    },
+    {
+      "doc_id": "e379cee1daf3a806",
+      "end": 3699,
+      "license": "MIT",
+      "prompt_len": 134,
+      "source": "github:openai/grade-school-math",
+      "start": 3473,
+      "structured": true
+    },
+    {
+      "doc_id": "3c7cb90feec86807",
+      "end": 3818,
+      "license": "MIT",
+      "prompt_len": 40,
+      "source": "github:openai/grade-school-math",
+      "start": 3699,
+      "structured": true
+    },
+    {
+      "doc_id": "f693b810ca7ca043",
+      "end": 4124,
+      "license": "MIT",
+      "prompt_len": 102,
+      "source": "github:openai/grade-school-math",
+      "start": 3818,
+      "structured": true
+    },
+    {
+      "doc_id": "15ccbc759404fd6d",
+      "end": 4372,
+      "license": "MIT",
+      "prompt_len": 109,
+      "source": "github:openai/grade-school-math",
+      "start": 4124,
+      "structured": true
+    },
+    {
+      "doc_id": "7d363c8ff8747795",
+      "end": 4848,
+      "license": "MIT",
+      "prompt_len": 143,
+      "source": "github:openai/grade-school-math",
+      "start": 4372,
+      "structured": true
+    },
+    {
+      "doc_id": "9e4a17a624b804e8",
+      "end": 5139,
+      "license": "MIT",
+      "prompt_len": 116,
+      "source": "github:openai/grade-school-math",
+      "start": 4848,
+      "structured": true
+    },
+    {
+      "doc_id": "3d315ae931ec67cd",
+      "end": 5353,
+      "license": "MIT",
+      "prompt_len": 100,
+      "source": "github:openai/grade-school-math",
+      "start": 5139,
+      "structured": true
+    },
+    {
+      "doc_id": "75b2937f1f8f94a1",
+      "end": 5617,
+      "license": "MIT",
+      "prompt_len": 170,
+      "source": "github:openai/grade-school-math",
+      "start": 5353,
+      "structured": true
+    },
+    {
+      "doc_id": "5e077b8666139feb",
+      "end": 5861,
+      "license": "MIT",
+      "prompt_len": 75,
+      "source": "github:openai/grade-school-math",
+      "start": 5617,
+      "structured": true
+    },
+    {
+      "doc_id": "7c4b325a184a960d",
+      "end": 6115,
+      "license": "MIT",
+      "prompt_len": 132,
+      "source": "github:openai/grade-school-math",
+      "start": 5861,
+      "structured": true
+    },
+    {
+      "doc_id": "2f23ce122fcc1dd1",
+      "end": 6377,
+      "license": "MIT",
+      "prompt_len": 99,
+      "source": "github:openai/grade-school-math",
+      "start": 6115,
+      "structured": true
+    },
+    {
+      "doc_id": "b0524a12c59d8656",
+      "end": 6605,
+      "license": "MIT",
+      "prompt_len": 156,
+      "source": "github:openai/grade-school-math",
+      "start": 6377,
+      "structured": true
+    },
+    {
+      "doc_id": "114a1e739e9d7271",
+      "end": 6978,
+      "license": "MIT",
+      "prompt_len": 168,
+      "source": "github:openai/grade-school-math",
+      "start": 6605,
+      "structured": true
+    },
+    {
+      "doc_id": "8fb3693abbfa733a",
+      "end": 7193,
+      "license": "MIT",
+      "prompt_len": 103,
+      "source": "github:openai/grade-school-math",
+      "start": 6978,
+      "structured": true
+    },
+    {
+      "doc_id": "4235267643df3203",
+      "end": 7632,
+      "license": "MIT",
+      "prompt_len": 172,
+      "source": "github:openai/grade-school-math",
+      "start": 7193,
+      "structured": true
+    },
+    {
+      "doc_id": "0114b19d80c5ac16",
+      "end": 7795,
+      "license": "MIT",
+      "prompt_len": 78,
+      "source": "github:openai/grade-school-math",
+      "start": 7632,
+      "structured": true
+    },
+    {
+      "doc_id": "c51cc98d5a66e38b",
+      "end": 8155,
+      "license": "MIT",
+      "prompt_len": 108,
+      "source": "github:openai/grade-school-math",
+      "start": 7795,
+      "structured": true
+    },
+    {
+      "doc_id": "e312526c2d2a9341",
+      "end": 8422,
+      "license": "MIT",
+      "prompt_len": 105,
+      "source": "github:openai/grade-school-math",
+      "start": 8155,
+      "structured": true
+    },
+    {
+      "doc_id": "c1a026687cf9c27f",
+      "end": 8714,
+      "license": "MIT",
+      "prompt_len": 125,
+      "source": "github:openai/grade-school-math",
+      "start": 8422,
+      "structured": true
+    },
+    {
+      "doc_id": "b066c31343eb6f0c",
+      "end": 9028,
+      "license": "MIT",
+      "prompt_len": 196,
+      "source": "github:openai/grade-school-math",
+      "start": 8714,
+      "structured": true
+    },
+    {
+      "doc_id": "097354e5b2af7503",
+      "end": 9351,
+      "license": "MIT",
+      "prompt_len": 137,
+      "source": "github:openai/grade-school-math",
+      "start": 9028,
+      "structured": true
+    },
+    {
+      "doc_id": "f1c53730396c9215",
+      "end": 9499,
+      "license": "MIT",
+      "prompt_len": 81,
+      "source": "github:openai/grade-school-math",
+      "start": 9351,
+      "structured": true
+    },
+    {
+      "doc_id": "03b13132268989d4",
+      "end": 9684,
+      "license": "MIT",
+      "prompt_len": 83,
+      "source": "github:openai/grade-school-math",
+      "start": 9499,
+      "structured": true
+    },
+    {
+      "doc_id": "8f3d722e62be3fb6",
+      "end": 9863,
+      "license": "MIT",
+      "prompt_len": 95,
+      "source": "github:openai/grade-school-math",
+      "start": 9684,
+      "structured": true
+    },
+    {
+      "doc_id": "d8868b7a019aa596",
+      "end": 10178,
+      "license": "MIT",
+      "prompt_len": 129,
+      "source": "github:openai/grade-school-math",
+      "start": 9863,
+      "structured": true
+    },
+    {
+      "doc_id": "ac900a2170c43561",
+      "end": 10368,
+      "license": "MIT",
+      "prompt_len": 122,
+      "source": "github:openai/grade-school-math",
+      "start": 10178,
+      "structured": true
+    },
+    {
+      "doc_id": "3c2d08a717dc8ee2",
+      "end": 10704,
+      "license": "MIT",
+      "prompt_len": 165,
+      "source": "github:openai/grade-school-math",
+      "start": 10368,
+      "structured": true
+    },
+    {
+      "doc_id": "2accbe5016c46a77",
+      "end": 11009,
+      "license": "MIT",
+      "prompt_len": 80,
+      "source": "github:openai/grade-school-math",
+      "start": 10704,
+      "structured": true
+    },
+    {
+      "doc_id": "6c7d146a715ec0bf",
+      "end": 11245,
+      "license": "MIT",
+      "prompt_len": 132,
+      "source": "github:openai/grade-school-math",
+      "start": 11009,
+      "structured": true
+    },
+    {
+      "doc_id": "51315b764677ebc4",
+      "end": 11549,
+      "license": "MIT",
+      "prompt_len": 126,
+      "source": "github:openai/grade-school-math",
+      "start": 11245,
+      "structured": true
+    },
+    {
+      "doc_id": "f883306b4f6914b8",
+      "end": 11878,
+      "license": "MIT",
+      "prompt_len": 148,
+      "source": "github:openai/grade-school-math",
+      "start": 11549,
+      "structured": true
+    },
+    {
+      "doc_id": "efd49482d1d4aa59",
+      "end": 12143,
+      "license": "MIT",
+      "prompt_len": 129,
+      "source": "github:openai/grade-school-math",
+      "start": 11878,
+      "structured": true
+    },
+    {
+      "doc_id": "43f658c65115ddfe",
+      "end": 12424,
+      "license": "MIT",
+      "prompt_len": 143,
+      "source": "github:openai/grade-school-math",
+      "start": 12143,
+      "structured": true
+    },
+    {
+      "doc_id": "e26a81fdf7ec979a",
+      "end": 12728,
+      "license": "MIT",
+      "prompt_len": 84,
+      "source": "github:openai/grade-school-math",
+      "start": 12424,
+      "structured": true
+    },
+    {
+      "doc_id": "03dbe4c40f283733",
+      "end": 12941,
+      "license": "MIT",
+      "prompt_len": 98,
+      "source": "github:openai/grade-school-math",
+      "start": 12728,
+      "structured": true
+    },
+    {
+      "doc_id": "09e6410dcf6f2969",
+      "end": 13109,
+      "license": "MIT",
+      "prompt_len": 112,
+      "source": "github:openai/grade-school-math",
+      "start": 12941,
+      "structured": true
+    },
+    {
+      "doc_id": "8f63ebad06071e3a",
+      "end": 13289,
+      "license": "MIT",
+      "prompt_len": 126,
+      "source": "github:openai/grade-school-math",
+      "start": 13109,
+      "structured": true
+    },
+    {
+      "doc_id": "c5708f6e33e5558e",
+      "end": 13555,
+      "license": "MIT",
+      "prompt_len": 130,
+      "source": "github:openai/grade-school-math",
+      "start": 13289,
+      "structured": true
+    },
+    {
+      "doc_id": "963e56c86c0d43d5",
+      "end": 13926,
+      "license": "MIT",
+      "prompt_len": 118,
+      "source": "github:openai/grade-school-math",
+      "start": 13555,
+      "structured": true
+    },
+    {
+      "doc_id": "f96cf7ec8b72e926",
+      "end": 14120,
+      "license": "MIT",
+      "prompt_len": 102,
+      "source": "github:openai/grade-school-math",
+      "start": 13926,
+      "structured": true
+    },
+    {
+      "doc_id": "7ad6ab0b0d9837ac",
+      "end": 14326,
+      "license": "MIT",
+      "prompt_len": 105,
+      "source": "github:openai/grade-school-math",
+      "start": 14120,
+      "structured": true
+    },
+    {
+      "doc_id": "d7e4ded56a5805b6",
+      "end": 14616,
+      "license": "MIT",
+      "prompt_len": 141,
+      "source": "github:openai/grade-school-math",
+      "start": 14326,
+      "structured": true
+    },
+    {
+      "doc_id": "9b46b4d91502ef67",
+      "end": 14776,
+      "license": "MIT",
+      "prompt_len": 59,
+      "source": "github:openai/grade-school-math",
+      "start": 14616,
+      "structured": true
+    },
+    {
+      "doc_id": "8045404670bbff31",
+      "end": 15066,
+      "license": "MIT",
+      "prompt_len": 118,
+      "source": "github:openai/grade-school-math",
+      "start": 14776,
+      "structured": true
+    },
+    {
+      "doc_id": "2feb2a3ee9f006b5",
+      "end": 15451,
+      "license": "MIT",
+      "prompt_len": 139,
+      "source": "github:openai/grade-school-math",
+      "start": 15066,
+      "structured": true
+    },
+    {
+      "doc_id": "dcc2baa68a95e870",
+      "end": 15835,
+      "license": "MIT",
+      "prompt_len": 143,
+      "source": "github:openai/grade-school-math",
+      "start": 15451,
+      "structured": true
+    },
+    {
+      "doc_id": "88315f78c031a49b",
+      "end": 16142,
+      "license": "MIT",
+      "prompt_len": 155,
+      "source": "github:openai/grade-school-math",
+      "start": 15835,
+      "structured": true
+    },
+    {
+      "doc_id": "c8d4e24978057e12",
+      "end": 16497,
+      "license": "MIT",
+      "prompt_len": 125,
+      "source": "github:openai/grade-school-math",
+      "start": 16142,
+      "structured": true
+    },
+    {
+      "doc_id": "91bf271e995f92b6",
+      "end": 16872,
+      "license": "MIT",
+      "prompt_len": 205,
+      "source": "github:openai/grade-school-math",
+      "start": 16497,
+      "structured": true
+    },
+    {
+      "doc_id": "e004482812440125",
+      "end": 17051,
+      "license": "MIT",
+      "prompt_len": 59,
+      "source": "github:openai/grade-school-math",
+      "start": 16872,
+      "structured": true
+    },
+    {
+      "doc_id": "aeb00dd0622a632e",
+      "end": 17314,
+      "license": "MIT",
+      "prompt_len": 148,
+      "source": "github:openai/grade-school-math",
+      "start": 17051,
+      "structured": true
+    },
+    {
+      "doc_id": "b8b41ea94cd18570",
+      "end": 17572,
+      "license": "MIT",
+      "prompt_len": 92,
+      "source": "github:openai/grade-school-math",
+      "start": 17314,
+      "structured": true
+    },
+    {
+      "doc_id": "908102d8d8ffe78b",
+      "end": 17734,
+      "license": "MIT",
+      "prompt_len": 84,
+      "source": "github:openai/grade-school-math",
+      "start": 17572,
+      "structured": true
+    },
+    {
+      "doc_id": "8f76ed42590257b0",
+      "end": 18120,
+      "license": "MIT",
+      "prompt_len": 124,
+      "source": "github:openai/grade-school-math",
+      "start": 17734,
+      "structured": true
+    },
+    {
+      "doc_id": "af0a22d45895bc9a",
+      "end": 18511,
+      "license": "MIT",
+      "prompt_len": 127,
+      "source": "github:openai/grade-school-math",
+      "start": 18120,
+      "structured": true
+    },
+    {
+      "doc_id": "859b1faaea41566a",
+      "end": 18798,
+      "license": "MIT",
+      "prompt_len": 78,
+      "source": "github:openai/grade-school-math",
+      "start": 18511,
+      "structured": true
+    },
+    {
+      "doc_id": "1c86938cba8d8ef7",
+      "end": 18965,
+      "license": "MIT",
+      "prompt_len": 61,
+      "source": "github:openai/grade-school-math",
+      "start": 18798,
+      "structured": true
+    },
+    {
+      "doc_id": "a91434730d8ab05c",
+      "end": 19072,
+      "license": "MIT",
+      "prompt_len": 60,
+      "source": "github:openai/grade-school-math",
+      "start": 18965,
+      "structured": true
+    },
+    {
+      "doc_id": "9563fe34a859c5b6",
+      "end": 19357,
+      "license": "MIT",
+      "prompt_len": 148,
+      "source": "github:openai/grade-school-math",
+      "start": 19072,
+      "structured": true
+    },
+    {
+      "doc_id": "8f0d4822d57f252c",
+      "end": 19780,
+      "license": "MIT",
+      "prompt_len": 170,
+      "source": "github:openai/grade-school-math",
+      "start": 19357,
+      "structured": true
+    },
+    {
+      "doc_id": "1fea8af2f48be5ff",
+      "end": 20015,
+      "license": "MIT",
+      "prompt_len": 138,
+      "source": "github:openai/grade-school-math",
+      "start": 19780,
+      "structured": true
+    },
+    {
+      "doc_id": "4fd4e9e5431a1889",
+      "end": 20236,
+      "license": "MIT",
+      "prompt_len": 122,
+      "source": "github:openai/grade-school-math",
+      "start": 20015,
+      "structured": true
+    },
+    {
+      "doc_id": "7250dffc56d78743",
+      "end": 20493,
+      "license": "MIT",
+      "prompt_len": 106,
+      "source": "github:openai/grade-school-math",
+      "start": 20236,
+      "structured": true
+    },
+    {
+      "doc_id": "76a6877b9c7e7224",
+      "end": 20706,
+      "license": "MIT",
+      "prompt_len": 68,
+      "source": "github:openai/grade-school-math",
+      "start": 20493,
+      "structured": true
+    },
+    {
+      "doc_id": "25ad01de6c48d118",
+      "end": 20856,
+      "license": "MIT",
+      "prompt_len": 83,
+      "source": "github:openai/grade-school-math",
+      "start": 20706,
+      "structured": true
+    },
+    {
+      "doc_id": "ceac8b18eb1acd47",
+      "end": 21067,
+      "license": "MIT",
+      "prompt_len": 111,
+      "source": "github:openai/grade-school-math",
+      "start": 20856,
+      "structured": true
+    },
+    {
+      "doc_id": "7adadd36ae78baf9",
+      "end": 21184,
+      "license": "MIT",
+      "prompt_len": 54,
+      "source": "github:openai/grade-school-math",
+      "start": 21067,
+      "structured": true
+    },
+    {
+      "doc_id": "e277e28420d33733",
+      "end": 21440,
+      "license": "MIT",
+      "prompt_len": 119,
+      "source": "github:openai/grade-school-math",
+      "start": 21184,
+      "structured": true
+    },
+    {
+      "doc_id": "1ce8a82f02134974",
+      "end": 21825,
+      "license": "MIT",
+      "prompt_len": 197,
+      "source": "github:openai/grade-school-math",
+      "start": 21440,
+      "structured": true
+    },
+    {
+      "doc_id": "6ae3b62dc2a27b1f",
+      "end": 22029,
+      "license": "MIT",
+      "prompt_len": 72,
+      "source": "github:openai/grade-school-math",
+      "start": 21825,
+      "structured": true
+    },
+    {
+      "doc_id": "9d5bc649923338fa",
+      "end": 22356,
+      "license": "MIT",
+      "prompt_len": 109,
+      "source": "github:openai/grade-school-math",
+      "start": 22029,
+      "structured": true
+    },
+    {
+      "doc_id": "5f7eef323f422c67",
+      "end": 22577,
+      "license": "MIT",
+      "prompt_len": 120,
+      "source": "github:openai/grade-school-math",
+      "start": 22356,
+      "structured": true
+    },
+    {
+      "doc_id": "064f3a0d69bd8c39",
+      "end": 22781,
+      "license": "MIT",
+      "prompt_len": 124,
+      "source": "github:openai/grade-school-math",
+      "start": 22577,
+      "structured": true
+    },
+    {
+      "doc_id": "a7b330467947e50d",
+      "end": 22922,
+      "license": "MIT",
+      "prompt_len": 73,
+      "source": "github:openai/grade-school-math",
+      "start": 22781,
+      "structured": true
+    },
+    {
+      "doc_id": "9a42e3c626d2b3a2",
+      "end": 23104,
+      "license": "MIT",
+      "prompt_len": 90,
+      "source": "github:openai/grade-school-math",
+      "start": 22922,
+      "structured": true
+    },
+    {
+      "doc_id": "414f304508d904ac",
+      "end": 23234,
+      "license": "MIT",
+      "prompt_len": 63,
+      "source": "github:openai/grade-school-math",
+      "start": 23104,
+      "structured": true
+    },
+    {
+      "doc_id": "b06ca7b6a3fb811b",
+      "end": 23505,
+      "license": "MIT",
+      "prompt_len": 113,
+      "source": "github:openai/grade-school-math",
+      "start": 23234,
+      "structured": true
+    },
+    {
+      "doc_id": "e0a4f5c07569bddb",
+      "end": 23777,
+      "license": "MIT",
+      "prompt_len": 96,
+      "source": "github:openai/grade-school-math",
+      "start": 23505,
+      "structured": true
+    },
+    {
+      "doc_id": "5303155c4af4eac2",
+      "end": 24090,
+      "license": "MIT",
+      "prompt_len": 131,
+      "source": "github:openai/grade-school-math",
+      "start": 23777,
+      "structured": true
+    },
+    {
+      "doc_id": "8fd51986f07676e2",
+      "end": 24430,
+      "license": "MIT",
+      "prompt_len": 122,
+      "source": "github:openai/grade-school-math",
+      "start": 24090,
+      "structured": true
+    },
+    {
+      "doc_id": "11d536479da962de",
+      "end": 24622,
+      "license": "MIT",
+      "prompt_len": 83,
+      "source": "github:openai/grade-school-math",
+      "start": 24430,
+      "structured": true
+    },
+    {
+      "doc_id": "304db40922aaa6da",
+      "end": 24723,
+      "license": "MIT",
+      "prompt_len": 45,
+      "source": "github:openai/grade-school-math",
+      "start": 24622,
+      "structured": true
+    },
+    {
+      "doc_id": "b5893325feef6a59",
+      "end": 25073,
+      "license": "MIT",
+      "prompt_len": 106,
+      "source": "github:openai/grade-school-math",
+      "start": 24723,
+      "structured": true
+    },
+    {
+      "doc_id": "8bd253b56e34a213",
+      "end": 25275,
+      "license": "MIT",
+      "prompt_len": 115,
+      "source": "github:openai/grade-school-math",
+      "start": 25073,
+      "structured": true
+    },
+    {
+      "doc_id": "f4566185b9dd4f8a",
+      "end": 25626,
+      "license": "MIT",
+      "prompt_len": 184,
+      "source": "github:openai/grade-school-math",
+      "start": 25275,
+      "structured": true
+    },
+    {
+      "doc_id": "9e6a4bba6ed77bd3",
+      "end": 25933,
+      "license": "MIT",
+      "prompt_len": 136,
+      "source": "github:openai/grade-school-math",
+      "start": 25626,
+      "structured": true
+    },
+    {
+      "doc_id": "efa6d6d5d4838666",
+      "end": 26297,
+      "license": "MIT",
+      "prompt_len": 172,
+      "source": "github:openai/grade-school-math",
+      "start": 25933,
+      "structured": true
+    },
+    {
+      "doc_id": "c55c574f1fc7443e",
+      "end": 26509,
+      "license": "MIT",
+      "prompt_len": 98,
+      "source": "github:openai/grade-school-math",
+      "start": 26297,
+      "structured": true
+    },
+    {
+      "doc_id": "a7861ec29d5e7d05",
+      "end": 26827,
+      "license": "MIT",
+      "prompt_len": 200,
+      "source": "github:openai/grade-school-math",
+      "start": 26509,
+      "structured": true
+    },
+    {
+      "doc_id": "8f604dd329fab318",
+      "end": 27023,
+      "license": "MIT",
+      "prompt_len": 116,
+      "source": "github:openai/grade-school-math",
+      "start": 26827,
+      "structured": true
+    },
+    {
+      "doc_id": "dac4b867de449e7d",
+      "end": 27494,
+      "license": "MIT",
+      "prompt_len": 169,
+      "source": "github:openai/grade-school-math",
+      "start": 27023,
+      "structured": true
+    },
+    {
+      "doc_id": "631348f0fc34818e",
+      "end": 27673,
+      "license": "MIT",
+      "prompt_len": 72,
+      "source": "github:openai/grade-school-math",
+      "start": 27494,
+      "structured": true
+    },
+    {
+      "doc_id": "8c6581b1fee95593",
+      "end": 27801,
+      "license": "MIT",
+      "prompt_len": 55,
+      "source": "github:openai/grade-school-math",
+      "start": 27673,
+      "structured": true
+    },
+    {
+      "doc_id": "6297118802872991",
+      "end": 27908,
+      "license": "MIT",
+      "prompt_len": 64,
+      "source": "github:openai/grade-school-math",
+      "start": 27801,
+      "structured": true
+    },
+    {
+      "doc_id": "b089076cd392068b",
+      "end": 28310,
+      "license": "MIT",
+      "prompt_len": 163,
+      "source": "github:openai/grade-school-math",
+      "start": 27908,
+      "structured": true
+    },
+    {
+      "doc_id": "4a337b55b2494921",
+      "end": 28538,
+      "license": "MIT",
+      "prompt_len": 76,
+      "source": "github:openai/grade-school-math",
+      "start": 28310,
+      "structured": true
+    },
+    {
+      "doc_id": "e960a4c100bd5503",
+      "end": 28809,
+      "license": "MIT",
+      "prompt_len": 79,
+      "source": "github:openai/grade-school-math",
+      "start": 28538,
+      "structured": true
+    },
+    {
+      "doc_id": "b4708aab1a669a85",
+      "end": 29094,
+      "license": "MIT",
+      "prompt_len": 133,
+      "source": "github:openai/grade-school-math",
+      "start": 28809,
+      "structured": true
+    },
+    {
+      "doc_id": "247989737c191662",
+      "end": 29279,
+      "license": "MIT",
+      "prompt_len": 99,
+      "source": "github:openai/grade-school-math",
+      "start": 29094,
+      "structured": true
+    },
+    {
+      "doc_id": "1ad448b61fa0c78d",
+      "end": 29677,
+      "license": "MIT",
+      "prompt_len": 150,
+      "source": "github:openai/grade-school-math",
+      "start": 29279,
+      "structured": true
+    },
+    {
+      "doc_id": "5b743fe10cf60eeb",
+      "end": 29916,
+      "license": "MIT",
+      "prompt_len": 88,
+      "source": "github:openai/grade-school-math",
+      "start": 29677,
+      "structured": true
+    },
+    {
+      "doc_id": "4797304bfb7c9557",
+      "end": 30067,
+      "license": "MIT",
+      "prompt_len": 49,
+      "source": "github:openai/grade-school-math",
+      "start": 29916,
+      "structured": true
+    },
+    {
+      "doc_id": "57bb2479a0a4ad9f",
+      "end": 30233,
+      "license": "MIT",
+      "prompt_len": 101,
+      "source": "github:openai/grade-school-math",
+      "start": 30067,
+      "structured": true
+    },
+    {
+      "doc_id": "4ddceab67292fc23",
+      "end": 30680,
+      "license": "MIT",
+      "prompt_len": 207,
+      "source": "github:openai/grade-school-math",
+      "start": 30233,
+      "structured": true
+    },
+    {
+      "doc_id": "4f37d666b3acd245",
+      "end": 31075,
+      "license": "MIT",
+      "prompt_len": 181,
+      "source": "github:openai/grade-school-math",
+      "start": 30680,
+      "structured": true
+    },
+    {
+      "doc_id": "5507a79d8c0419b1",
+      "end": 31285,
+      "license": "MIT",
+      "prompt_len": 96,
+      "source": "github:openai/grade-school-math",
+      "start": 31075,
+      "structured": true
+    },
+    {
+      "doc_id": "bb01df097048c2bf",
+      "end": 31470,
+      "license": "MIT",
+      "prompt_len": 70,
+      "source": "github:openai/grade-school-math",
+      "start": 31285,
+      "structured": true
+    },
+    {
+      "doc_id": "fd6cbe98552b2f5a",
+      "end": 31837,
+      "license": "MIT",
+      "prompt_len": 115,
+      "source": "github:openai/grade-school-math",
+      "start": 31470,
+      "structured": true
+    },
+    {
+      "doc_id": "217643f6d37f012d",
+      "end": 32352,
+      "license": "MIT",
+      "prompt_len": 114,
+      "source": "github:openai/grade-school-math",
+      "start": 31837,
+      "structured": true
+    },
+    {
+      "doc_id": "2361dd4fd1598916",
+      "end": 32659,
+      "license": "MIT",
+      "prompt_len": 152,
+      "source": "github:openai/grade-school-math",
+      "start": 32352,
+      "structured": true
+    },
+    {
+      "doc_id": "8ec58e5b4de35d46",
+      "end": 32922,
+      "license": "MIT",
+      "prompt_len": 117,
+      "source": "github:openai/grade-school-math",
+      "start": 32659,
+      "structured": true
+    },
+    {
+      "doc_id": "b2302faed54895f4",
+      "end": 33134,
+      "license": "MIT",
+      "prompt_len": 113,
+      "source": "github:openai/grade-school-math",
+      "start": 32922,
+      "structured": true
+    },
+    {
+      "doc_id": "30307ef8f47590f3",
+      "end": 33291,
+      "license": "MIT",
+      "prompt_len": 57,
+      "source": "github:openai/grade-school-math",
+      "start": 33134,
+      "structured": true
+    },
+    {
+      "doc_id": "e0099f782c5dba69",
+      "end": 33417,
+      "license": "MIT",
+      "prompt_len": 60,
+      "source": "github:openai/grade-school-math",
+      "start": 33291,
+      "structured": true
+    },
+    {
+      "doc_id": "8640da8c9597459f",
+      "end": 33736,
+      "license": "MIT",
+      "prompt_len": 130,
+      "source": "github:openai/grade-school-math",
+      "start": 33417,
+      "structured": true
+    },
+    {
+      "doc_id": "c88958ad80834b14",
+      "end": 33969,
+      "license": "MIT",
+      "prompt_len": 158,
+      "source": "github:openai/grade-school-math",
+      "start": 33736,
+      "structured": true
+    },
+    {
+      "doc_id": "f96bda1aae4e96ff",
+      "end": 34107,
+      "license": "MIT",
+      "prompt_len": 80,
+      "source": "github:openai/grade-school-math",
+      "start": 33969,
+      "structured": true
+    },
+    {
+      "doc_id": "5a530419f6c566b4",
+      "end": 34392,
+      "license": "MIT",
+      "prompt_len": 112,
+      "source": "github:openai/grade-school-math",
+      "start": 34107,
+      "structured": true
+    },
+    {
+      "doc_id": "3a870173c0847729",
+      "end": 34736,
+      "license": "MIT",
+      "prompt_len": 172,
+      "source": "github:openai/grade-school-math",
+      "start": 34392,
+      "structured": true
+    },
+    {
+      "doc_id": "2e2f6b36b9d4002b",
+      "end": 34844,
+      "license": "MIT",
+      "prompt_len": 55,
+      "source": "github:openai/grade-school-math",
+      "start": 34736,
+      "structured": true
+    },
+    {
+      "doc_id": "fc9a44e48fdd5d41",
+      "end": 35058,
+      "license": "MIT",
+      "prompt_len": 75,
+      "source": "github:openai/grade-school-math",
+      "start": 34844,
+      "structured": true
+    },
+    {
+      "doc_id": "5fab3768b7ece52e",
+      "end": 35352,
+      "license": "MIT",
+      "prompt_len": 111,
+      "source": "github:openai/grade-school-math",
+      "start": 35058,
+      "structured": true
+    },
+    {
+      "doc_id": "614bac5e29317404",
+      "end": 35543,
+      "license": "MIT",
+      "prompt_len": 86,
+      "source": "github:openai/grade-school-math",
+      "start": 35352,
+      "structured": true
+    },
+    {
+      "doc_id": "a2a2c28612b4b0ca",
+      "end": 35817,
+      "license": "MIT",
+      "prompt_len": 142,
+      "source": "github:openai/grade-school-math",
+      "start": 35543,
+      "structured": true
+    },
+    {
+      "doc_id": "e7f776c43f386f6d",
+      "end": 36137,
+      "license": "MIT",
+      "prompt_len": 129,
+      "source": "github:openai/grade-school-math",
+      "start": 35817,
+      "structured": true
+    },
+    {
+      "doc_id": "62390af3dc920dc1",
+      "end": 36397,
+      "license": "MIT",
+      "prompt_len": 100,
+      "source": "github:openai/grade-school-math",
+      "start": 36137,
+      "structured": true
+    },
+    {
+      "doc_id": "ca4de30a12588f8e",
+      "end": 36700,
+      "license": "MIT",
+      "prompt_len": 157,
+      "source": "github:openai/grade-school-math",
+      "start": 36397,
+      "structured": true
+    },
+    {
+      "doc_id": "f877061f0dc02005",
+      "end": 37119,
+      "license": "MIT",
+      "prompt_len": 110,
+      "source": "github:openai/grade-school-math",
+      "start": 36700,
+      "structured": true
+    },
+    {
+      "doc_id": "d4b6f5c9ac02f251",
+      "end": 37298,
+      "license": "MIT",
+      "prompt_len": 78,
+      "source": "github:openai/grade-school-math",
+      "start": 37119,
+      "structured": true
+    },
+    {
+      "doc_id": "d1987024e98966d6",
+      "end": 37587,
+      "license": "MIT",
+      "prompt_len": 131,
+      "source": "github:openai/grade-school-math",
+      "start": 37298,
+      "structured": true
+    },
+    {
+      "doc_id": "317b993cadac8072",
+      "end": 37804,
+      "license": "MIT",
+      "prompt_len": 104,
+      "source": "github:openai/grade-school-math",
+      "start": 37587,
+      "structured": true
+    },
+    {
+      "doc_id": "1898ed93f37fb72f",
+      "end": 38225,
+      "license": "MIT",
+      "prompt_len": 223,
+      "source": "github:openai/grade-school-math",
+      "start": 37804,
+      "structured": true
+    },
+    {
+      "doc_id": "119a73b145302770",
+      "end": 38447,
+      "license": "MIT",
+      "prompt_len": 81,
+      "source": "github:openai/grade-school-math",
+      "start": 38225,
+      "structured": true
+    },
+    {
+      "doc_id": "3c0334b83f2378da",
+      "end": 38721,
+      "license": "MIT",
+      "prompt_len": 121,
+      "source": "github:openai/grade-school-math",
+      "start": 38447,
+      "structured": true
+    },
+    {
+      "doc_id": "a4eaeb0727df6327",
+      "end": 38888,
+      "license": "MIT",
+      "prompt_len": 84,
+      "source": "github:openai/grade-school-math",
+      "start": 38721,
+      "structured": true
+    },
+    {
+      "doc_id": "eb8a246b93a011a6",
+      "end": 39064,
+      "license": "MIT",
+      "prompt_len": 64,
+      "source": "github:openai/grade-school-math",
+      "start": 38888,
+      "structured": true
+    },
+    {
+      "doc_id": "cff9bcd515d9b70b",
+      "end": 39196,
+      "license": "MIT",
+      "prompt_len": 59,
+      "source": "github:openai/grade-school-math",
+      "start": 39064,
+      "structured": true
+    },
+    {
+      "doc_id": "e730f86caae349cc",
+      "end": 39401,
+      "license": "MIT",
+      "prompt_len": 86,
+      "source": "github:openai/grade-school-math",
+      "start": 39196,
+      "structured": true
+    },
+    {
+      "doc_id": "ef8c2c6cd250de58",
+      "end": 39582,
+      "license": "MIT",
+      "prompt_len": 81,
+      "source": "github:openai/grade-school-math",
+      "start": 39401,
+      "structured": true
+    },
+    {
+      "doc_id": "25d96a48cdb15691",
+      "end": 39737,
+      "license": "MIT",
+      "prompt_len": 75,
+      "source": "github:openai/grade-school-math",
+      "start": 39582,
+      "structured": true
+    },
+    {
+      "doc_id": "4fa961d450833dfc",
+      "end": 39949,
+      "license": "MIT",
+      "prompt_len": 102,
+      "source": "github:openai/grade-school-math",
+      "start": 39737,
+      "structured": true
+    }
+  ],
+  "file": "math-0000.bin",
+  "lane": "math",
+  "n_docs": 154,
+  "n_tokens": 39949,
+  "policy": "prompt_masked",
+  "shard_id": "math-0000",
+  "split": "train",
+  "token_sha256": "75d46abb3cc06bb04692b3bec865e3362289f4a42408517d6110def369699e42",
+  "tokenizer_hash": "4bfc6e2141e28a1b2134c5a97c1e0a38c3d716aa9d30fbb0e103f0c584277a48"
+}

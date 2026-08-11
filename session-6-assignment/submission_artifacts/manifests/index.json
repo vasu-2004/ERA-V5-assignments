@@ -1,0 +1,48 @@
+{
+  "by_lane": {
+    "code": [
+      "code-0000",
+      "code-0001",
+      "code-0002",
+      "code-0003"
+    ],
+    "eval_math": [
+      "eval_math-0000"
+    ],
+    "indic": [
+      "indic-0000",
+      "indic-0001",
+      "indic-0002"
+    ],
+    "math": [
+      "math-0000",
+      "math-0001"
+    ],
+    "val_web": [
+      "val_web-0000"
+    ],
+    "web_en": [
+      "web_en-0000",
+      "web_en-0001",
+      "web_en-0002"
+    ]
+  },
+  "n_shards": 14,
+  "shards": [
+    "code-0000",
+    "code-0001",
+    "code-0002",
+    "code-0003",
+    "eval_math-0000",
+    "indic-0000",
+    "indic-0001",
+    "indic-0002",
+    "math-0000",
+    "math-0001",
+    "val_web-0000",
+    "web_en-0000",
+    "web_en-0001",
+    "web_en-0002"
+  ],
+  "tokenizer_hash": "4bfc6e2141e28a1b2134c5a97c1e0a38c3d716aa9d30fbb0e103f0c584277a48"
+}

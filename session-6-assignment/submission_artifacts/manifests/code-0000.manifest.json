@@ -1,0 +1,358 @@
+{
+  "bytes": 159472,
+  "content_hash": "9c57a45b88613eea26a9cbbc04ce484b45c89cd30cbd9a82f7305c87ef27668e",
+  "created_at_utc": "2026-08-11T17:06:25Z",
+  "docs": [
+    {
+      "doc_id": "96e79502c436e739",
+      "end": 1738,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 0,
+      "structured": false
+    },
+    {
+      "doc_id": "a268af0a4570bb7c",
+      "end": 4570,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 1738,
+      "structured": false
+    },
+    {
+      "doc_id": "37aee583cf3cb995",
+      "end": 5396,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 4570,
+      "structured": false
+    },
+    {
+      "doc_id": "b2a6e80e1a78acb0",
+      "end": 6980,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 5396,
+      "structured": false
+    },
+    {
+      "doc_id": "3dd0be1ec4bd10a0",
+      "end": 8119,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 6980,
+      "structured": false
+    },
+    {
+      "doc_id": "3a58eec6a015fb3d",
+      "end": 8476,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 8119,
+      "structured": false
+    },
+    {
+      "doc_id": "2734d95e1c411f7c",
+      "end": 9418,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 8476,
+      "structured": false
+    },
+    {
+      "doc_id": "a0e30b4a03574771",
+      "end": 10939,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 9418,
+      "structured": false
+    },
+    {
+      "doc_id": "cf38c398a300e90b",
+      "end": 11745,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 10939,
+      "structured": false
+    },
+    {
+      "doc_id": "550976921574ff00",
+      "end": 12473,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 11745,
+      "structured": false
+    },
+    {
+      "doc_id": "8e00488660a1fb29",
+      "end": 13095,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 12473,
+      "structured": false
+    },
+    {
+      "doc_id": "b61fc47f667f1080",
+      "end": 13565,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:attrs",
+      "start": 13095,
+      "structured": false
+    },
+    {
+      "doc_id": "9517209966ecb460",
+      "end": 14513,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 13565,
+      "structured": false
+    },
+    {
+      "doc_id": "a105e12c2fc7cb0f",
+      "end": 15247,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 14513,
+      "structured": false
+    },
+    {
+      "doc_id": "e62aab1f4c590f1d",
+      "end": 16459,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 15247,
+      "structured": false
+    },
+    {
+      "doc_id": "f81b6136c8460c01",
+      "end": 17442,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 16459,
+      "structured": false
+    },
+    {
+      "doc_id": "78272a7e1332ac93",
+      "end": 18464,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 17442,
+      "structured": false
+    },
+    {
+      "doc_id": "a73ae7048bdbf65f",
+      "end": 19756,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 18464,
+      "structured": false
+    },
+    {
+      "doc_id": "e7cf3022885c6314",
+      "end": 20743,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 19756,
+      "structured": false
+    },
+    {
+      "doc_id": "458f7317fd945797",
+      "end": 22592,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 20743,
+      "structured": false
+    },
+    {
+      "doc_id": "6e322b1fa194d000",
+      "end": 24475,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 22592,
+      "structured": false
+    },
+    {
+      "doc_id": "9a495dd91aba66d0",
+      "end": 25303,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 24475,
+      "structured": false
+    },
+    {
+      "doc_id": "60e776ea051fd72d",
+      "end": 26035,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 25303,
+      "structured": false
+    },
+    {
+      "doc_id": "69898f9c32575a3e",
+      "end": 27819,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:black",
+      "start": 26035,
+      "structured": false
+    },
+    {
+      "doc_id": "2491c9ef9b6b3fcf",
+      "end": 28697,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 27819,
+      "structured": false
+    },
+    {
+      "doc_id": "b8683e959b6b5ba4",
+      "end": 30451,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 28697,
+      "structured": false
+    },
+    {
+      "doc_id": "ed5a662b049f4f3e",
+      "end": 30969,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 30451,
+      "structured": false
+    },
+    {
+      "doc_id": "6793115aba9e92eb",
+      "end": 31750,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 30969,
+      "structured": false
+    },
+    {
+      "doc_id": "5ad021ea3776f5a5",
+      "end": 34218,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 31750,
+      "structured": false
+    },
+    {
+      "doc_id": "e0be0d7c1ac633bb",
+      "end": 34997,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 34218,
+      "structured": false
+    },
+    {
+      "doc_id": "c4205afd04de64e3",
+      "end": 35582,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 34997,
+      "structured": false
+    },
+    {
+      "doc_id": "d9bcf595a7814234",
+      "end": 36708,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 35582,
+      "structured": false
+    },
+    {
+      "doc_id": "624b35fe3357577b",
+      "end": 37418,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 36708,
+      "structured": false
+    },
+    {
+      "doc_id": "9e06d1131448d023",
+      "end": 38220,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 37418,
+      "structured": false
+    },
+    {
+      "doc_id": "8ac0950f5b45af22",
+      "end": 38641,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 38220,
+      "structured": false
+    },
+    {
+      "doc_id": "4142c5c7fe7c69da",
+      "end": 39127,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:click",
+      "start": 38641,
+      "structured": false
+    },
+    {
+      "doc_id": "d2813b22dba4127c",
+      "end": 39486,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:django",
+      "start": 39127,
+      "structured": false
+    },
+    {
+      "doc_id": "14ee8ec732fc6584",
+      "end": 39868,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:django",
+      "start": 39486,
+      "structured": false
+    }
+  ],
+  "file": "code-0000.bin",
+  "lane": "code",
+  "n_docs": 38,
+  "n_tokens": 39868,
+  "policy": "whole_doc_bestfit",
+  "shard_id": "code-0000",
+  "split": "train",
+  "token_sha256": "09af2c6fbe4667f2125e5d1c9f0c2f35e6a0b67ef0aaf009185a9e307b528a0a",
+  "tokenizer_hash": "4bfc6e2141e28a1b2134c5a97c1e0a38c3d716aa9d30fbb0e103f0c584277a48"
+}

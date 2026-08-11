@@ -1,0 +1,664 @@
+{
+  "bytes": 156376,
+  "content_hash": "6fa4c064361a69082cc875fe61f566512357670e68a01bf0d19e96f47ccc7a48",
+  "created_at_utc": "2026-08-11T17:06:25Z",
+  "docs": [
+    {
+      "doc_id": "f8520c7b1f05adf9",
+      "end": 1278,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 0,
+      "structured": false
+    },
+    {
+      "doc_id": "278684e2efeb0f74",
+      "end": 1451,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 1278,
+      "structured": false
+    },
+    {
+      "doc_id": "2932688a2c6ebc33",
+      "end": 1654,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 1451,
+      "structured": false
+    },
+    {
+      "doc_id": "90bf13cac99c5dbc",
+      "end": 2857,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 1654,
+      "structured": false
+    },
+    {
+      "doc_id": "192166970bf333f9",
+      "end": 3641,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 2857,
+      "structured": false
+    },
+    {
+      "doc_id": "f7063606efbd2daf",
+      "end": 4260,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 3641,
+      "structured": false
+    },
+    {
+      "doc_id": "276e18e6dc72f522",
+      "end": 4455,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 4260,
+      "structured": false
+    },
+    {
+      "doc_id": "7a2aa328f73490bc",
+      "end": 5072,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 4455,
+      "structured": false
+    },
+    {
+      "doc_id": "fef1e4e13ac42c35",
+      "end": 6013,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 5072,
+      "structured": false
+    },
+    {
+      "doc_id": "5a477dbceb7199e2",
+      "end": 6396,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 6013,
+      "structured": false
+    },
+    {
+      "doc_id": "dd983a9f38dd1027",
+      "end": 6636,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 6396,
+      "structured": false
+    },
+    {
+      "doc_id": "1031bba11f402e2d",
+      "end": 7031,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 6636,
+      "structured": false
+    },
+    {
+      "doc_id": "c847b87aa6c923d4",
+      "end": 7473,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 7031,
+      "structured": false
+    },
+    {
+      "doc_id": "5cc5077abaa243a6",
+      "end": 7965,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 7473,
+      "structured": false
+    },
+    {
+      "doc_id": "6e762f799d7a7aec",
+      "end": 8640,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 7965,
+      "structured": false
+    },
+    {
+      "doc_id": "87a39092c9c00ca4",
+      "end": 9428,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 8640,
+      "structured": false
+    },
+    {
+      "doc_id": "e4dbd7bd601aafd8",
+      "end": 10230,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 9428,
+      "structured": false
+    },
+    {
+      "doc_id": "924ee0e827436a7b",
+      "end": 10807,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 10230,
+      "structured": false
+    },
+    {
+      "doc_id": "9c29fd5882ee80d6",
+      "end": 11749,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 10807,
+      "structured": false
+    },
+    {
+      "doc_id": "e695913df613b955",
+      "end": 12250,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 11749,
+      "structured": false
+    },
+    {
+      "doc_id": "eee9ff943d4cbd70",
+      "end": 12765,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 12250,
+      "structured": false
+    },
+    {
+      "doc_id": "597ddbcaba47ac22",
+      "end": 13257,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 12765,
+      "structured": false
+    },
+    {
+      "doc_id": "c68731d203b3444d",
+      "end": 13421,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 13257,
+      "structured": false
+    },
+    {
+      "doc_id": "3ed845076cb6ad34",
+      "end": 13960,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 13421,
+      "structured": false
+    },
+    {
+      "doc_id": "c7009bd9e85520af",
+      "end": 14455,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 13960,
+      "structured": false
+    },
+    {
+      "doc_id": "b4cc82b83ec13a2d",
+      "end": 15039,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 14455,
+      "structured": false
+    },
+    {
+      "doc_id": "6ec64f80b74f188a",
+      "end": 15357,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 15039,
+      "structured": false
+    },
+    {
+      "doc_id": "2da6712e85bb41b7",
+      "end": 15879,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 15357,
+      "structured": false
+    },
+    {
+      "doc_id": "a2103bfd3ca0fc2c",
+      "end": 16349,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 15879,
+      "structured": false
+    },
+    {
+      "doc_id": "f74b12b700f71334",
+      "end": 16888,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 16349,
+      "structured": false
+    },
+    {
+      "doc_id": "13807f4bb9be0e9f",
+      "end": 17097,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 16888,
+      "structured": false
+    },
+    {
+      "doc_id": "a87d9cb5076397d6",
+      "end": 18031,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 17097,
+      "structured": false
+    },
+    {
+      "doc_id": "571823a6dc9a35ec",
+      "end": 18550,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 18031,
+      "structured": false
+    },
+    {
+      "doc_id": "08c08463d86a9e80",
+      "end": 19221,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 18550,
+      "structured": false
+    },
+    {
+      "doc_id": "0bd4b869a55d35f3",
+      "end": 19554,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 19221,
+      "structured": false
+    },
+    {
+      "doc_id": "c962b4413e28b07d",
+      "end": 19764,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 19554,
+      "structured": false
+    },
+    {
+      "doc_id": "4e9ce630e9156f6a",
+      "end": 20502,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 19764,
+      "structured": false
+    },
+    {
+      "doc_id": "cc72df362ab553f5",
+      "end": 20674,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 20502,
+      "structured": false
+    },
+    {
+      "doc_id": "b59088e4862498d1",
+      "end": 21487,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 20674,
+      "structured": false
+    },
+    {
+      "doc_id": "36ef9a06b29d40a1",
+      "end": 22636,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 21487,
+      "structured": false
+    },
+    {
+      "doc_id": "c2a8fcc3d8c874ce",
+      "end": 22861,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 22636,
+      "structured": false
+    },
+    {
+      "doc_id": "a037c9f660a0fa28",
+      "end": 23414,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 22861,
+      "structured": false
+    },
+    {
+      "doc_id": "bb4e5b4ec8201086",
+      "end": 23680,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 23414,
+      "structured": false
+    },
+    {
+      "doc_id": "190aa39194cc361d",
+      "end": 24393,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 23680,
+      "structured": false
+    },
+    {
+      "doc_id": "e034e5847d3e0b40",
+      "end": 25126,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 24393,
+      "structured": false
+    },
+    {
+      "doc_id": "899e15b73ac2b6f3",
+      "end": 25527,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 25126,
+      "structured": false
+    },
+    {
+      "doc_id": "9baddcc77cd20dc5",
+      "end": 25982,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 25527,
+      "structured": false
+    },
+    {
+      "doc_id": "9703802a60ed3364",
+      "end": 26217,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 25982,
+      "structured": false
+    },
+    {
+      "doc_id": "66425a3223a20d90",
+      "end": 26447,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 26217,
+      "structured": false
+    },
+    {
+      "doc_id": "e9fb4ea8ec153edf",
+      "end": 27085,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 26447,
+      "structured": false
+    },
+    {
+      "doc_id": "055588fcb8369ed6",
+      "end": 27440,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 27085,
+      "structured": false
+    },
+    {
+      "doc_id": "75aca7a0e42609ac",
+      "end": 27760,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 27440,
+      "structured": false
+    },
+    {
+      "doc_id": "4e1f108635434e70",
+      "end": 28140,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 27760,
+      "structured": false
+    },
+    {
+      "doc_id": "92eb461a23828df2",
+      "end": 28664,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 28140,
+      "structured": false
+    },
+    {
+      "doc_id": "d5c6d58641422c22",
+      "end": 28989,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 28664,
+      "structured": false
+    },
+    {
+      "doc_id": "612bb19404d2b7d6",
+      "end": 29262,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 28989,
+      "structured": false
+    },
+    {
+      "doc_id": "69fbf0cf89851e60",
+      "end": 29564,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 29262,
+      "structured": false
+    },
+    {
+      "doc_id": "45424f2dfd541ef3",
+      "end": 30193,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 29564,
+      "structured": false
+    },
+    {
+      "doc_id": "9ad4429f3b0e86b1",
+      "end": 31365,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 30193,
+      "structured": false
+    },
+    {
+      "doc_id": "dbc077a22b0983dd",
+      "end": 32231,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 31365,
+      "structured": false
+    },
+    {
+      "doc_id": "94d71404054d5702",
+      "end": 32473,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 32231,
+      "structured": false
+    },
+    {
+      "doc_id": "244fa09d087638c7",
+      "end": 32898,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 32473,
+      "structured": false
+    },
+    {
+      "doc_id": "59eb2b4e5b54130f",
+      "end": 33193,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 32898,
+      "structured": false
+    },
+    {
+      "doc_id": "ef8cd4aabe6f8540",
+      "end": 34249,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 33193,
+      "structured": false
+    },
+    {
+      "doc_id": "8aafb60f1c79716b",
+      "end": 34691,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 34249,
+      "structured": false
+    },
+    {
+      "doc_id": "e2fb88cc462f313f",
+      "end": 35868,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 34691,
+      "structured": false
+    },
+    {
+      "doc_id": "e6ed30cc03eb9f30",
+      "end": 37134,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 35868,
+      "structured": false
+    },
+    {
+      "doc_id": "bb7efa6a0974a14c",
+      "end": 37609,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 37134,
+      "structured": false
+    },
+    {
+      "doc_id": "f5d9ed8c7c726056",
+      "end": 37990,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 37609,
+      "structured": false
+    },
+    {
+      "doc_id": "fe06f35577dd5d40",
+      "end": 38247,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 37990,
+      "structured": false
+    },
+    {
+      "doc_id": "4fe2732542a3f2bc",
+      "end": 38536,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 38247,
+      "structured": false
+    },
+    {
+      "doc_id": "1e06805b36d13460",
+      "end": 39094,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:India(en)",
+      "start": 38536,
+      "structured": false
+    }
+  ],
+  "file": "web_en-0001.bin",
+  "lane": "web_en",
+  "n_docs": 72,
+  "n_tokens": 39094,
+  "policy": "concat_split",
+  "shard_id": "web_en-0001",
+  "split": "train",
+  "token_sha256": "9c68dc4ee6ef48ba2e343132050d66f05845fcb63758b80184e7de925767b11b",
+  "tokenizer_hash": "4bfc6e2141e28a1b2134c5a97c1e0a38c3d716aa9d30fbb0e103f0c584277a48"
+}

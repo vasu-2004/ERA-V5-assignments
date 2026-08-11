@@ -1,0 +1,110 @@
+[INFO ] config_hash=64e6d552b44e38e9 numpy=2.4.6
+[INFO ] lanes trainable=['web_en', 'indic', 'code', 'math'] held_out=['eval_math', 'val_web']
+
+=== PHASE 1  tokenizer freeze ===
+[EVENT] tokenizer_trained vocab_size=1024 merges=764 content_hash=4bfc6e2141e28a1b docs=711
+[PASS] tokenizer_hash_verified hash=4bfc6e2141e28a1b retrain_identical=True reload_identical=True
+[PASS] tokenizer_roundtrip_lossless probe_chars=92
+
+=== PHASE 2  immutable shards and manifests ===
+[EVENT] shard_created shard_id=web_en-0000 lane=web_en split=train n_docs=58 n_tokens=39774 content_hash=6f55f930f178906e
+[EVENT] shard_created shard_id=web_en-0001 lane=web_en split=train n_docs=72 n_tokens=39094 content_hash=6fa4c064361a6908
+[EVENT] shard_created shard_id=web_en-0002 lane=web_en split=train n_docs=29 n_tokens=15138 content_hash=e2c31801745e1a2d
+[EVENT] shard_created shard_id=indic-0000 lane=indic split=train n_docs=53 n_tokens=39947 content_hash=777ee5ee2a8e4a3d
+[EVENT] shard_created shard_id=indic-0001 lane=indic split=train n_docs=60 n_tokens=39597 content_hash=56263356284bdf85
+[EVENT] shard_created shard_id=indic-0002 lane=indic split=train n_docs=24 n_tokens=18145 content_hash=cc053bd3b0962b0b
+[EVENT] shard_created shard_id=code-0000 lane=code split=train n_docs=38 n_tokens=39868 content_hash=9c57a45b88613eea
+[EVENT] shard_created shard_id=code-0001 lane=code split=train n_docs=49 n_tokens=39745 content_hash=2334ed51ff058303
+[EVENT] shard_created shard_id=code-0002 lane=code split=train n_docs=28 n_tokens=39671 content_hash=bc54b944561c2da4
+[EVENT] shard_created shard_id=code-0003 lane=code split=train n_docs=35 n_tokens=32925 content_hash=0ebef092e99f45fe
+[EVENT] shard_created shard_id=math-0000 lane=math split=train n_docs=154 n_tokens=39949 content_hash=2098fe47400e94c2
+[EVENT] shard_created shard_id=math-0001 lane=math split=train n_docs=46 n_tokens=12037 content_hash=9a0782efc192d9a9
+[EVENT] shard_created shard_id=eval_math-0000 lane=eval_math split=eval n_docs=40 n_tokens=10924 content_hash=dbdbb8d67bda58fe
+[EVENT] shard_created shard_id=val_web-0000 lane=val_web split=val n_docs=25 n_tokens=26489 content_hash=12068fed86648dd4
+[EVENT] shards_created n_shards=14 total_tokens=433303
+[PASS] manifests_validated shards_verified=14 tokenizer_hash_agrees=True
+[EVENT] tamper_rejected shard_id=code-0000 error=ShardIntegrityError
+[PASS] corrupted_shard_rejected shard_id=code-0000
+[PASS] shard_immutability_enforced shard_id=code-0000
+
+=== PHASE 3  evaluation firewall ===
+[EVENT] eval_shard_blocked shard_id=eval_math-0000 split=eval reason=non_train_split_refused_for_loss_bearing_path
+[EVENT] eval_shard_blocked shard_id=val_web-0000 split=val reason=non_train_split_refused_for_loss_bearing_path
+[PASS] eval_shard_blocked attempted=2 blocked=2
+[PASS] canary_detector_positive_control shard_id=eval_math-0000 canaries=['eval_math', 'val_web']
+
+=== PHASE 4  mixture compiled and lanes packed ===
+[EVENT] mixture_compiled stage=stage_a_broad until_step=20 weights={"web_en":0.4,"code":0.25,"math":0.2,"indic":0.15} floors={"indic":0.14}
+[EVENT] mixture_compiled stage=stage_b_reasoning until_step=10000 weights={"web_en":0.25,"code":0.3,"math":0.33,"indic":0.12} floors={"indic":0.11}
+[EVENT] lane_packed lane=web_en policy=concat_split n_packs=735 utilisation=0.999213 loss_token_fraction=0.989722
+[EVENT] lane_packed lane=indic policy=concat_split n_packs=764 utilisation=0.998947 loss_token_fraction=0.989764
+[EVENT] lane_packed lane=code policy=whole_doc_bestfit n_packs=1250 utilisation=0.950987 loss_token_fraction=0.943175
+[EVENT] lane_packed lane=math policy=prompt_masked n_packs=140 utilisation=0.992299 loss_token_fraction=0.269252
+[EVENT] batches_packed lanes=4 total_packs=2889
+[PASS] no_heldout_data_in_trainable_packs packs_scanned=2889 canary_hits=0 trainable_lanes_only=True
+
+=== PHASE 5  reference run (crash-free ground truth) ===
+[EVENT] checkpoint_saved run_id=v5-tdes-demo-ref step=10 checkpoint_hash=800f82dad5a54095 consumption_records=10 learning_records=10
+[PASS] checkpoint_saved run_id=v5-tdes-demo-ref step=10 hash=800f82dad5a54095
+[EVENT] checkpoint_saved run_id=v5-tdes-demo-ref step=20 checkpoint_hash=d02a0bb6b7914138 consumption_records=20 learning_records=20
+[PASS] checkpoint_saved run_id=v5-tdes-demo-ref step=20 hash=d02a0bb6b7914138
+[EVENT] checkpoint_saved run_id=v5-tdes-demo-ref step=30 checkpoint_hash=484bcc69bfb27b9c consumption_records=30 learning_records=30
+[PASS] checkpoint_saved run_id=v5-tdes-demo-ref step=30 hash=484bcc69bfb27b9c
+[EVENT] checkpoint_saved run_id=v5-tdes-demo-ref step=40 checkpoint_hash=be04425c9768eac7 consumption_records=40 learning_records=40
+[PASS] checkpoint_saved run_id=v5-tdes-demo-ref step=40 hash=be04425c9768eac7
+[EVENT] reference_run_complete steps=40 batches=40 final_loss=5.60639187
+
+=== PHASE 6  main run with deliberate crash ===
+[EVENT] checkpoint_saved run_id=v5-tdes-demo step=10 checkpoint_hash=5f76ef4901b05de3 consumption_records=10 learning_records=10
+[PASS] checkpoint_saved run_id=v5-tdes-demo step=10 hash=5f76ef4901b05de3
+[EVENT] checkpoint_saved run_id=v5-tdes-demo step=20 checkpoint_hash=4eb0e14e13362c55 consumption_records=20 learning_records=20
+[PASS] checkpoint_saved run_id=v5-tdes-demo step=20 hash=4eb0e14e13362c55
+[EVENT] crash_injected run_id=v5-tdes-demo step=27 reason=deliberate_fault_injection
+[EVENT] crash_simulated step=27 detail=simulated crash at step 27 consumption_records=27 learning_records=27
+[PASS] crash_simulated at_step=27
+
+=== PHASE 7  resume from checkpoint ===
+[EVENT] resume_started run_id=v5-tdes-demo from_checkpoint_step=20 crashed_at=27
+[EVENT] uncommitted_records_rolled_back consumption=7 learning=7 opus=41
+[PASS] ledger_rolled_back_to_checkpoint consumption_records=20 expected=20 discarded=7
+[PASS] resume_next_batch_matched expected_batch_id=20 actual_batch_id=20 expected_hash=26a1ac72fbf7d86f actual_hash=26a1ac72fbf7d86f
+[EVENT] checkpoint_saved run_id=v5-tdes-demo step=30 checkpoint_hash=d90115ae1de7c732 consumption_records=30 learning_records=30
+[PASS] checkpoint_saved run_id=v5-tdes-demo step=30 hash=d90115ae1de7c732
+[EVENT] checkpoint_saved run_id=v5-tdes-demo step=40 checkpoint_hash=b465266aac1ce7c8 consumption_records=40 learning_records=40
+[PASS] checkpoint_saved run_id=v5-tdes-demo step=40 hash=b465266aac1ce7c8
+[EVENT] run_resumed_to_completion steps=40
+[PASS] resumed_stream_matches_reference steps_compared=40 mismatched=0
+[PASS] no_skipped_or_repeated_batches n_batches=40 duplicates=0 gaps=0
+
+=== PHASE 8  replay of a historical interval ===
+[EVENT] historical_stream_replayed interval=[10,20) steps=10
+[PASS] replay_hash_matched interval=[10,20) steps=10 scan_order_reproduced=True
+
+=== PHASE 9  fork from an earlier checkpoint ===
+[PASS] control_fork_reproduces_parent steps=6 from_step=10
+[EVENT] checkpoint_saved run_id=v5-tdes-demo-fork step=16 checkpoint_hash=8cf202678a0cc009 consumption_records=6 learning_records=6
+[PASS] checkpoint_saved run_id=v5-tdes-demo-fork step=16 hash=8cf202678a0cc009
+[EVENT] branch_forked child_run_id=v5-tdes-demo-fork parent_run_id=v5-tdes-demo fork_step=10 parent_checkpoint_hash=5f76ef4901b05de3 child_config_hash=76cb13507af9da95
+[PASS] fork_diverges_after_fork_point first_divergent_step=10 fork_steps=6
+
+=== PHASE 10  audit, performance, evidence ===
+[PASS] ledger_chains_valid consumption=40 learning=40 opus=334
+[PASS] every_consumed_span_traceable spans=171 shards=4
+[PASS] mixture_within_tolerance max_abs_error=0.005 tolerance=0.1
+[PASS] protected_floors_respected stage_a_broad={"indic":true} stage_b_reasoning={"indic":true}
+[EVENT] opus_decisions_recorded ACCEPT=156 DEFER=143 FORCED_ACCEPT=4 REJECT=31 total=334
+[PASS] opus_all_decision_types_exercised tally={"ACCEPT":156,"DEFER":143,"FORCED_ACCEPT":4,"REJECT":31} missing=[]
+[PASS] opus_protected_floor_override_recorded overrides=4
+[PASS] learning_linked_to_source_data records=40 documents_attributed=77
+[PASS] loss_decreased first_fifth=6.730068 last_fifth=6.007355
+[PASS] masks_labels_positions_correct packs_checked=24 problems=0
+[EVENT] performance_measured utilisation=0.994531 useful_tokens_per_s=5581.745 wall_time_s=2.921488
+[PASS] throughput_measured useful_tokens_per_s=5581.745 utilisation=0.994531
+[EVENT] audit_completed requirements=12 passed=12 failed=0 bundle_hash=e059b6a985958c92
+[PASS] evidence_bundle_generated requirements_passed=12 requirements_total=12
+
+=== RESULT ===
+[INFO ] requirements passed: 12/12
+[INFO ] artifacts written to /home/user/ERA-V5-assignments/session-6-assignment/submission_artifacts
+
+[INFO ] checks_passed=36/36 elapsed_s=29.27

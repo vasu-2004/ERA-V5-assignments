@@ -1,0 +1,83 @@
+{
+  "config_hash": "64e6d552b44e38e9dc001221c77b36e830638a775e2b0d36168fceb0d924fef6",
+  "data_plane_fraction": 0.399345,
+  "efficiency": {
+    "loss_bearing_fraction_of_slots": 0.79624,
+    "packing_utilisation": 0.994531,
+    "pad_fraction": 0.005469,
+    "wasted_slot_fraction": 0.20376
+  },
+  "n_steps": 40,
+  "per_lane_pack_build": {
+    "code": {
+      "loss_token_fraction": 0.943175,
+      "loss_tokens": 150908,
+      "n_packs": 1250,
+      "policy": "whole_doc_bestfit",
+      "real_tokens": 152158,
+      "slots": 160000,
+      "utilisation": 0.950987
+    },
+    "indic": {
+      "loss_token_fraction": 0.989764,
+      "loss_tokens": 96791,
+      "n_packs": 764,
+      "policy": "concat_split",
+      "real_tokens": 97689,
+      "slots": 97792,
+      "utilisation": 0.998947
+    },
+    "math": {
+      "loss_token_fraction": 0.269252,
+      "loss_tokens": 4825,
+      "n_packs": 140,
+      "policy": "prompt_masked",
+      "real_tokens": 17782,
+      "slots": 17920,
+      "utilisation": 0.992299
+    },
+    "web_en": {
+      "loss_token_fraction": 0.989722,
+      "loss_tokens": 93113,
+      "n_packs": 735,
+      "policy": "concat_split",
+      "real_tokens": 94006,
+      "slots": 94080,
+      "utilisation": 0.999213
+    }
+  },
+  "per_step_s": {
+    "max": 0.105374,
+    "mean": 0.073037,
+    "median": 0.071862,
+    "min": 0.05496,
+    "p95": 0.092566
+  },
+  "reconstruction": {
+    "note": "all figures above are sums/means of per-step fields in ledgers/learning*.jsonl and ledgers/consumption*.jsonl",
+    "source_fields": [
+      "step_s",
+      "data_s",
+      "compute_s",
+      "n_slots",
+      "n_real_tokens",
+      "n_loss_tokens"
+    ]
+  },
+  "throughput": {
+    "real_tokens_per_s": 6971.79,
+    "slots_per_s": 7010.126,
+    "useful_loss_bearing_tokens_per_s": 5581.745
+  },
+  "time_breakdown_s": {
+    "data_plane": 1.166682,
+    "forward_backward_update": 1.754807
+  },
+  "tokens": {
+    "loss_bearing_tokens": 16307,
+    "pad_tokens": 112,
+    "real_tokens": 20368,
+    "slots_total": 20480
+  },
+  "wall_time_s": 2.921488
+}

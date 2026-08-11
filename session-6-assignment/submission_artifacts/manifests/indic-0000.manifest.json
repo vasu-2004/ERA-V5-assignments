@@ -1,0 +1,493 @@
+{
+  "bytes": 159788,
+  "content_hash": "777ee5ee2a8e4a3d10a62d5bd565519b7a1759b21ca05edec40ad45ac7c6aad0",
+  "created_at_utc": "2026-08-11T17:06:25Z",
+  "docs": [
+    {
+      "doc_id": "3bbf13ef8031b3fc",
+      "end": 1618,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 0,
+      "structured": false
+    },
+    {
+      "doc_id": "657b227b1fd2d2d7",
+      "end": 3017,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 1618,
+      "structured": false
+    },
+    {
+      "doc_id": "ffe4dc6612be1b08",
+      "end": 3635,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 3017,
+      "structured": false
+    },
+    {
+      "doc_id": "6efedeeab1f8d60a",
+      "end": 5274,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 3635,
+      "structured": false
+    },
+    {
+      "doc_id": "300bdbe611a1c581",
+      "end": 6929,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 5274,
+      "structured": false
+    },
+    {
+      "doc_id": "5f1665852733b557",
+      "end": 8242,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 6929,
+      "structured": false
+    },
+    {
+      "doc_id": "98625f5ea91ea816",
+      "end": 8548,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 8242,
+      "structured": false
+    },
+    {
+      "doc_id": "f3237f1282e91958",
+      "end": 8883,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 8548,
+      "structured": false
+    },
+    {
+      "doc_id": "2850dd331579d759",
+      "end": 9249,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 8883,
+      "structured": false
+    },
+    {
+      "doc_id": "e1fe4dc1fcb44783",
+      "end": 10858,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 9249,
+      "structured": false
+    },
+    {
+      "doc_id": "0243f67c033bc73b",
+      "end": 11771,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 10858,
+      "structured": false
+    },
+    {
+      "doc_id": "ef4b900abca7fae5",
+      "end": 13397,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 11771,
+      "structured": false
+    },
+    {
+      "doc_id": "19121c631165cad5",
+      "end": 14813,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 13397,
+      "structured": false
+    },
+    {
+      "doc_id": "b043140b93d3af98",
+      "end": 16044,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 14813,
+      "structured": false
+    },
+    {
+      "doc_id": "65ccbd7f675f14ed",
+      "end": 16764,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 16044,
+      "structured": false
+    },
+    {
+      "doc_id": "1eabf44cf184fc19",
+      "end": 17734,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 16764,
+      "structured": false
+    },
+    {
+      "doc_id": "e8e2400a8cd37e46",
+      "end": 19182,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 17734,
+      "structured": false
+    },
+    {
+      "doc_id": "59e6381c08347454",
+      "end": 19454,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 19182,
+      "structured": false
+    },
+    {
+      "doc_id": "b5bf77186f4c0d55",
+      "end": 21010,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 19454,
+      "structured": false
+    },
+    {
+      "doc_id": "c9a7bc9c4b3846c5",
+      "end": 21465,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 21010,
+      "structured": false
+    },
+    {
+      "doc_id": "13db75602e94e78c",
+      "end": 21717,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 21465,
+      "structured": false
+    },
+    {
+      "doc_id": "4417ae515112e06c",
+      "end": 22113,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 21717,
+      "structured": false
+    },
+    {
+      "doc_id": "f8d09a5544f65f27",
+      "end": 22291,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 22113,
+      "structured": false
+    },
+    {
+      "doc_id": "01da90287fc38bc3",
+      "end": 22564,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 22291,
+      "structured": false
+    },
+    {
+      "doc_id": "10176000138ee23c",
+      "end": 23365,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 22564,
+      "structured": false
+    },
+    {
+      "doc_id": "fcd4d1de9a5fc579",
+      "end": 23719,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 23365,
+      "structured": false
+    },
+    {
+      "doc_id": "4bd65dc67a38c830",
+      "end": 24605,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 23719,
+      "structured": false
+    },
+    {
+      "doc_id": "65a5a6da7d8bd5cd",
+      "end": 25536,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 24605,
+      "structured": false
+    },
+    {
+      "doc_id": "fa9c5bbb9ff72e61",
+      "end": 26291,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 25536,
+      "structured": false
+    },
+    {
+      "doc_id": "fd6441679b2c8b26",
+      "end": 26746,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 26291,
+      "structured": false
+    },
+    {
+      "doc_id": "18bc0c2468622d2a",
+      "end": 27086,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 26746,
+      "structured": false
+    },
+    {
+      "doc_id": "e6fb8fc200ef9c06",
+      "end": 27325,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 27086,
+      "structured": false
+    },
+    {
+      "doc_id": "58ad155626b5c069",
+      "end": 27966,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 27325,
+      "structured": false
+    },
+    {
+      "doc_id": "69baec4bca00d3ac",
+      "end": 28202,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 27966,
+      "structured": false
+    },
+    {
+      "doc_id": "6490022435c58413",
+      "end": 28737,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 28202,
+      "structured": false
+    },
+    {
+      "doc_id": "c4d95f33d359e39f",
+      "end": 28977,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 28737,
+      "structured": false
+    },
+    {
+      "doc_id": "e3f305fbc6a9ef75",
+      "end": 29198,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 28977,
+      "structured": false
+    },
+    {
+      "doc_id": "75197af6855e50f0",
+      "end": 29429,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 29198,
+      "structured": false
+    },
+    {
+      "doc_id": "d97f0a83d3220b4f",
+      "end": 29861,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 29429,
+      "structured": false
+    },
+    {
+      "doc_id": "ef3cdd3505accaf7",
+      "end": 30120,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 29861,
+      "structured": false
+    },
+    {
+      "doc_id": "c15a8b83f5de7f5b",
+      "end": 30542,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 30120,
+      "structured": false
+    },
+    {
+      "doc_id": "3d81bada0f9c6409",
+      "end": 30930,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 30542,
+      "structured": false
+    },
+    {
+      "doc_id": "08e3e081637aeb3b",
+      "end": 31838,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 30930,
+      "structured": false
+    },
+    {
+      "doc_id": "c720315be47e3df7",
+      "end": 33013,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 31838,
+      "structured": false
+    },
+    {
+      "doc_id": "82dca106f711c777",
+      "end": 34113,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 33013,
+      "structured": false
+    },
+    {
+      "doc_id": "b9ee78bd6e2eff62",
+      "end": 35929,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 34113,
+      "structured": false
+    },
+    {
+      "doc_id": "43d76eed84009559",
+      "end": 36204,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 35929,
+      "structured": false
+    },
+    {
+      "doc_id": "db4125a93a768637",
+      "end": 37270,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 36204,
+      "structured": false
+    },
+    {
+      "doc_id": "1371b4f4aa69a246",
+      "end": 38009,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 37270,
+      "structured": false
+    },
+    {
+      "doc_id": "22e6f9c918b37bf7",
+      "end": 38621,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 38009,
+      "structured": false
+    },
+    {
+      "doc_id": "f0ee0e7c08d3741b",
+      "end": 39419,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 38621,
+      "structured": false
+    },
+    {
+      "doc_id": "cb4b4b27cb6ca459",
+      "end": 39701,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 39419,
+      "structured": false
+    },
+    {
+      "doc_id": "b9595571f477e8fe",
+      "end": 39947,
+      "license": "CC-BY-SA-3.0",
+      "prompt_len": 0,
+      "source": "wikipedia:भारत(hi)",
+      "start": 39701,
+      "structured": false
+    }
+  ],
+  "file": "indic-0000.bin",
+  "lane": "indic",
+  "n_docs": 53,
+  "n_tokens": 39947,
+  "policy": "concat_split",
+  "shard_id": "indic-0000",
+  "split": "train",
+  "token_sha256": "7b7f87bd736f25b44954ada3ff18fce8054748b305172def69de03fb551799ef",
+  "tokenizer_hash": "4bfc6e2141e28a1b2134c5a97c1e0a38c3d716aa9d30fbb0e103f0c584277a48"
+}

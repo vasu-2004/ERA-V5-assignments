@@ -1,0 +1,268 @@
+{
+  "bytes": 158684,
+  "content_hash": "bc54b944561c2da498b3622eeff58ce4350c47e80244a6e15df38ce5f1e07ed3",
+  "created_at_utc": "2026-08-11T17:06:26Z",
+  "docs": [
+    {
+      "doc_id": "c5b6879dcf401c0e",
+      "end": 782,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:jinja2",
+      "start": 0,
+      "structured": false
+    },
+    {
+      "doc_id": "96f9d2ab7bb9464d",
+      "end": 2653,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:jinja2",
+      "start": 782,
+      "structured": false
+    },
+    {
+      "doc_id": "2ff843119313f03a",
+      "end": 3884,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:jinja2",
+      "start": 2653,
+      "structured": false
+    },
+    {
+      "doc_id": "41048abc078a24b9",
+      "end": 4674,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:jinja2",
+      "start": 3884,
+      "structured": false
+    },
+    {
+      "doc_id": "4195b93a0beb775f",
+      "end": 5417,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:jinja2",
+      "start": 4674,
+      "structured": false
+    },
+    {
+      "doc_id": "3cb3f4425bf9a3e9",
+      "end": 7322,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:jinja2",
+      "start": 5417,
+      "structured": false
+    },
+    {
+      "doc_id": "3ab4f11db5777c05",
+      "end": 9070,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:jinja2",
+      "start": 7322,
+      "structured": false
+    },
+    {
+      "doc_id": "2600a8ca343f7dc3",
+      "end": 10729,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:jinja2",
+      "start": 9070,
+      "structured": false
+    },
+    {
+      "doc_id": "67d9c2c5815c8c7c",
+      "end": 11445,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:jinja2",
+      "start": 10729,
+      "structured": false
+    },
+    {
+      "doc_id": "d2ecdd30318ca2de",
+      "end": 12248,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 11445,
+      "structured": false
+    },
+    {
+      "doc_id": "4d4235878f6122a4",
+      "end": 13116,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 12248,
+      "structured": false
+    },
+    {
+      "doc_id": "4d4235878f6122a4",
+      "end": 15396,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 13116,
+      "structured": false
+    },
+    {
+      "doc_id": "4d4235878f6122a4",
+      "end": 17309,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 15396,
+      "structured": false
+    },
+    {
+      "doc_id": "0140698302560690",
+      "end": 19300,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 17309,
+      "structured": false
+    },
+    {
+      "doc_id": "937a97cc8b3a5851",
+      "end": 20235,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 19300,
+      "structured": false
+    },
+    {
+      "doc_id": "4d4235878f6122a4",
+      "end": 21649,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 20235,
+      "structured": false
+    },
+    {
+      "doc_id": "fa558ac7515becbb",
+      "end": 22710,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 21649,
+      "structured": false
+    },
+    {
+      "doc_id": "5619eaf3874b672e",
+      "end": 24021,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 22710,
+      "structured": false
+    },
+    {
+      "doc_id": "e4eba7a05f3e272b",
+      "end": 24727,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 24021,
+      "structured": false
+    },
+    {
+      "doc_id": "da131a92cb65fd88",
+      "end": 25992,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 24727,
+      "structured": false
+    },
+    {
+      "doc_id": "a05179ad97df905a",
+      "end": 27590,
+      "license": "BSD-3-Clause",
+      "prompt_len": 0,
+      "source": "pypi:markdown",
+      "start": 25992,
+      "structured": false
+    },
+    {
+      "doc_id": "454dc6bbce4dddfa",
+      "end": 28634,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:pydantic",
+      "start": 27590,
+      "structured": false
+    },
+    {
+      "doc_id": "00ab115e3adde0da",
+      "end": 30523,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:pydantic",
+      "start": 28634,
+      "structured": false
+    },
+    {
+      "doc_id": "0357e0746f8a2915",
+      "end": 32141,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:pydantic",
+      "start": 30523,
+      "structured": false
+    },
+    {
+      "doc_id": "9f1655b0a9a46155",
+      "end": 33900,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:pydantic",
+      "start": 32141,
+      "structured": false
+    },
+    {
+      "doc_id": "9a81626e791b8fa4",
+      "end": 35593,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:pydantic",
+      "start": 33900,
+      "structured": false
+    },
+    {
+      "doc_id": "7e06b28dc6ff75dd",
+      "end": 37627,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:pydantic",
+      "start": 35593,
+      "structured": false
+    },
+    {
+      "doc_id": "37d413866cdbb4bd",
+      "end": 39671,
+      "license": "MIT",
+      "prompt_len": 0,
+      "source": "pypi:pydantic",
+      "start": 37627,
+      "structured": false
+    }
+  ],
+  "file": "code-0002.bin",
+  "lane": "code",
+  "n_docs": 28,
+  "n_tokens": 39671,
+  "policy": "whole_doc_bestfit",
+  "shard_id": "code-0002",
+  "split": "train",
+  "token_sha256": "7ba2b960a65f390b619180229ecee3274c69e47146ad0b1f2ef74fb1aa1eab2d",
+  "tokenizer_hash": "4bfc6e2141e28a1b2134c5a97c1e0a38c3d716aa9d30fbb0e103f0c584277a48"
+}

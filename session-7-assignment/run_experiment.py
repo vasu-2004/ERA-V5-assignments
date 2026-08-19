@@ -147,6 +147,8 @@ def main() -> int:
                      "Kronecker byte-position codec",
             "dp": DEFAULT_DP,
             "training_performed": False,
+            "repo_url": "https://github.com/vasu-2004/ERA-V5-assignments/tree/"
+                        "claude/neural-network-fundamentals-9xgeps/session-7-assignment",
             "elapsed_s": round(time.time() - t0, 3),
         },
         "dataset": ds,

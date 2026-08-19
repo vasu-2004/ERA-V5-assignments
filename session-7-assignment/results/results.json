@@ -3,7 +3,8 @@
     "title": "Morphological segmentation as a training-free prior for the Kronecker byte-position codec",
     "dp": 32,
     "training_performed": false,
-    "elapsed_s": 40.234
+    "repo_url": "https://github.com/vasu-2004/ERA-V5-assignments/tree/claude/neural-network-fundamentals-9xgeps/session-7-assignment",
+    "elapsed_s": 49.978
   },
   "dataset": {
     "n_compounds": 54,

@@ -9,8 +9,10 @@ python run_experiment.py            # ~40s -> results/results.json + results/rep
 python -m pytest tests -q           # 40 tests
 ```
 
-Open **`results/report/index.html`** for the visual report (charts, an interactive
-byte-level explorer for all 54 words, and the full limitations section).
+Open **`results/report/index.html`** for the interactive report (a byte-level explorer
+for all 54 words, hover detail on every chart, and the full limitations section).
+Every figure below is also written to **`results/plots/*.png`** by the same command —
+GitHub strips the report's inline SVG/JS, so the PNGs are what you are looking at here.
 
 ---
 
@@ -51,6 +53,11 @@ Crucially the pairs are split by **where** the shared morpheme sits — initial 
 rigid codec can already align) vs non-initial (which it cannot). That contrast is the
 experiment.
 
+![ROC curves for non-initial shared morphemes](results/plots/roc_non_initial.png)
+
+Raw and the midpoint control sit on nearly the same curve. The two morphological
+conditions sit on a different one.
+
 ## What I found
 
 | condition | bytes lost | words colliding | AUC initial | **AUC non-initial** | Δ vs raw (95% CI) |
@@ -62,10 +69,19 @@ experiment.
 
 *95% percentile bootstrap, 2000 resamples, paired over the same word pairs.*
 
+![AUC by morpheme position, four conditions, with 95% bootstrap CIs](results/plots/auc_by_position.png)
+
+Read the dark bars. Raw drops from 0.860 to 0.665 the moment the shared morpheme stops
+being word-initial — that gap *is* positional rigidity. Under `sandhi` the gap inverts and
+closes (0.963 / 0.983): once every morpheme starts at position 0, where it used to sit
+stops mattering.
+
 **1. The gain is morphological, not just "shorter pieces."** The midpoint control gets
 *identical* truncation relief (0.00% bytes lost, 0 collisions) yet its AUC improvement is
 statistically indistinguishable from zero. The morphological split moves it +0.318. So the
 gain comes from **where** the cut falls, not from the fact that a cut was made.
+
+![Paired AUC deltas vs raw: midpoint crosses zero, sandhi and gold do not](results/plots/delta_vs_raw.png)
 
 **2. The retrieval failure is not a truncation problem.** In the dp sweep, at `dp=48`
 nothing is truncated at all (0.00%, zero collisions) — and raw AUC on non-initial
@@ -73,9 +89,16 @@ morphemes is *still* 0.656 vs 0.983 segmented. Enlarging the window does not fix
 alignment. Truncation and rigidity are two independent defects; segmentation addresses
 both, a bigger `dp` only the first.
 
+![dp sweep: truncation falls to zero while raw AUC stays flat](results/plots/dp_sweep.png)
+
+The left panel is the defect that more budget fixes. The right panel is the defect it
+never touches — raw is flat across the whole sweep.
+
 **3. Real collisions, eliminated.** At `dp=32`, `विश्वविद्यालय` / `विश्वविद्यालयों` /
 `विश्वविद्यार्थी` share all 32 surviving bytes and map to **one identical vector** —
 indistinguishable to anything downstream. Segmentation: 0 collisions.
+
+![Truncation and collision counts at dp=32](results/plots/truncation_collisions.png)
 
 **4. An unplanned finding — the UTF-8 script floor.** A test I wrote asserting
 `cos(देवालय, आलय) == 0` failed at 0.393. The reason: every Devanagari codepoint is
@@ -88,6 +111,8 @@ cos(देवालय, आलय)        = 0.393   <- its own morpheme
 cos(देवालय, कमलकमल)     = 0.611   <- a completely unrelated word
 Latin control: cos(devalaya, alaya) = 0.000   <- rigidity in its pure form
 ```
+
+![Devanagari cosine floor: own morpheme ranks below unrelated words](results/plots/script_floor.png)
 
 Under raw encoding a word's own morpheme ranks **below** unrelated words. Raw Devanagari
 similarity largely measures *script*, not content — which is why every claim here uses
@@ -126,10 +151,11 @@ kron/codec.py        the codec — ~20 lines of actual encoding, no parameters
 kron/sandhi.py       inverse-sandhi rules + lexicon splitter, + Morfessor/gold/control adapters
 kron/dataset.py      54 compounds with gold splits, morpheme families, pair classes
 kron/experiments.py  truncation, collisions, retrieval, AUC, bootstrap CIs, dp sweep
-kron/report.py       builds the visual report from the results bundle
+kron/report.py       builds the interactive report from the results bundle
+make_plots.py        renders the six static PNGs above from results.json
 run_experiment.py    one command, runs everything
 tests/               40 tests: codec properties, sandhi rules, dataset sanity, conclusions
-results/             generated: results.json + report/index.html
+results/             generated: results.json + report/index.html + plots/*.png
 ```
 
 The codec's two structural claims are **proved as property tests**, not asserted:

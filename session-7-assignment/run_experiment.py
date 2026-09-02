@@ -165,8 +165,19 @@ def main() -> int:
                                       encoding="utf-8")
     report_mod.build(bundle, OUT / "report")
 
+    # Static PNGs of the same charts. GitHub strips the report's inline SVG/JS,
+    # so these are what makes the evidence visible on the repository page.
+    # matplotlib is the one optional dependency: skip, never fail.
+    try:
+        import make_plots
+        print()
+        make_plots.main()
+    except ImportError as exc:
+        print(f"\nskipping static plots ({exc}) -- pip install matplotlib to render them")
+
     print(f"\nwrote {OUT/'results.json'}")
     print(f"wrote {OUT/'report'/'index.html'}")
+    print(f"wrote {OUT/'plots'}/*.png")
     print(f"done in {bundle['meta']['elapsed_s']}s -- no training was performed")
     return 0
 

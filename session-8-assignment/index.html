@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Attention Learned to Pay Less</title>
+<style>
+:root{
+  --bg:#f7f6f3; --ink:#1b1b1f; --muted:#6b6b76; --line:#dedee6; --card:#ffffff;
+  --accent:#1f6f4a; --accent-ink:#ffffff; --pill:#eeeef4;
+  --baseline:#b3261e; --position:#4a5fb8; --memory:#1f6f4a; --compute:#c07a1e; --engineering:#8a3fb8;
+  --code-bg:#f0f0f6;
+}
+:root[data-theme="dark"]{
+  --bg:#15151a; --ink:#eeeef2; --muted:#9a9aa6; --line:#2c2c34; --card:#1c1c22;
+  --pill:#26262e; --code-bg:#20202a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15151a; --ink:#eeeef2; --muted:#9a9aa6; --line:#2c2c34; --card:#1c1c22;
+    --pill:#26262e; --code-bg:#20202a;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+header.hero{padding:56px 0 32px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.08;margin:0 0 16px;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);max-width:64ch;margin:0 0 22px}
+.hero-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.hero-links a{font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:99px;border:1px solid var(--line);text-decoration:none;background:var(--card)}
+.hero-links a.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.themebtn{position:fixed;top:16px;right:16px;z-index:50;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:8px 12px;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink)}
+
+section{padding:44px 0;border-bottom:1px solid var(--line)}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.01em}
+h2 .num{color:var(--muted);font-weight:600;margin-right:8px}
+.section-sub{color:var(--muted);font-size:14.5px;margin:0 0 24px;max-width:70ch}
+
+.story p{max-width:70ch;margin:0 0 16px}
+.story strong{color:var(--ink)}
+.axis-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:26px 0}
+.axis{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px}
+.axis b{display:block;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:4px}
+.axis span{font-size:13.5px}
+
+/* filter chips */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 28px;position:sticky;top:0;background:var(--bg);padding:14px 0;z-index:10}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.active .dot{filter:brightness(1.6)}
+
+/* timeline */
+.timeline{position:relative;padding-left:26px}
+.timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.year-mark{position:relative;margin:34px 0 14px;font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.03em}
+.year-mark::before{content:"";position:absolute;left:-26px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--ink)}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 16px}
+.card::before{content:"";position:absolute;left:-25.5px;top:26px;width:9px;height:9px;border-radius:50%;background:var(--cat-color,var(--muted))}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.card-title{font-size:18px;font-weight:800;margin:0 0 3px;letter-spacing:-.005em}
+.card-date{font-size:12.5px;color:var(--muted);font-weight:600}
+.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:6px;background:var(--pill);color:var(--cat-color,var(--muted))}
+.bonus-tag{background:#8a3fb822;color:var(--engineering);margin-left:6px}
+.headline{font-size:15.5px;font-weight:600;margin:12px 0 10px;color:var(--ink)}
+.context, .how{font-size:14.5px;color:var(--muted);margin:0 0 12px}
+.pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media (max-width:640px){.pc-grid{grid-template-columns:1fr}.axis-row{grid-template-columns:1fr 1fr}}
+.pc h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;margin:0 0 6px}
+.pc.pros h4{color:var(--memory)}
+.pc.cons h4{color:var(--baseline)}
+.pc ul{margin:0;padding-left:18px;font-size:14px}
+.pc li{margin-bottom:5px}
+.pick{font-size:14px;background:var(--code-bg);border-radius:9px;padding:10px 12px;margin:10px 0}
+.pick b{color:var(--ink)}
+.src{font-size:12.5px;margin-top:10px}
+.src a{text-decoration:none;border-bottom:1px dotted var(--muted)}
+
+footer{padding:40px 0 60px;color:var(--muted);font-size:13px}
+footer a{text-decoration:underline}
+.q2box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.q2box p{margin:0 0 14px;max-width:74ch}
+.q2box p:last-child{margin-bottom:0}
+</style>
+</head>
+<body>
+
+<button class="themebtn" id="themeBtn" type="button">Toggle theme</button>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">ERA V5 &middot; Session 8 &middot; Modern Attention Variants</p>
+    <h1>How attention learned to pay less</h1>
+    <p class="lede">Vanilla attention was never <em>wrong</em>. It was expensive. Every mechanism below is
+      someone looking at that bill and deciding which part of it they were no longer willing to pay &mdash;
+      compute, memory, exactness, or reach. Eighteen mechanisms, in the order they actually shipped.</p>
+    <div class="hero-links">
+      <a class="primary" href="#timeline">Jump to the timeline &darr;</a>
+      <a href="#q2">What the timeline shows</a>
+      <a href="https://github.com/vasu-2004/ERA-V5-assignments/tree/claude/neural-network-fundamentals-9xgeps/session-8-assignment" target="_blank" rel="noopener">GitHub repo</a>
+    </div>
+  </div>
+</header>
+
+<section class="story">
+  <div class="wrap">
+    <h2><span class="num">01</span>The bill</h2>
+    <p class="section-sub">Four things get expensive at once as a transformer scales, and every mechanism on
+      this page is a trade against one or more of them.</p>
+    <div class="axis-row">
+      <div class="axis"><b>Compute</b><span>The Q&middot;K&sup2; score matrix is O(n&sup2;) &mdash; 1M tokens is
+        a trillion multiply-adds, once, per layer.</span></div>
+      <div class="axis"><b>Memory</b><span>The KV cache grows with every generated token. 1M-token context
+        for a handful of concurrent users is measured in terabytes of GPU RAM.</span></div>
+      <div class="axis"><b>Position</b><span>Attention has no innate sense of order. Something has to tell
+        Q and K how far apart two tokens are &mdash; and whether that still works past training length.</span></div>
+      <div class="axis"><b>Exactness</b><span>Softmax gives an exact, fresh, competitive ranking over every
+        past token every time. Anything that speeds this up risks throwing that away.</span></div>
+    </div>
+    <p>Read the cards below in date order, not by family. The instructor's point &mdash; and it holds up &mdash;
+      is that grouping them by type hides the actual conversation the field has been having with itself since
+      2017. A list can't show you that. A timeline can.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">02</span>Eighteen mechanisms, in the order they shipped</h2>
+    <p class="section-sub">Plus one the instructor didn't cover. Every date below is the arXiv v1 submission,
+      a dated release, or (for the one community-origin entry) the original public post &mdash; see
+      <a href="#sources">Sources &amp; methodology</a> for how each was checked.</p>
+
+    <div class="filters" id="filters"></div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<section id="q2">
+  <div class="wrap">
+    <h2><span class="num">03</span>What the timeline actually shows</h2>
+    <div class="q2box" id="q2text"></div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <h2><span class="num">04</span>Sources &amp; methodology</h2>
+    <p class="section-sub" style="max-width:74ch">
+      Every date on this page is an arXiv v1 submission date, a dated blog/model release, or &mdash; for the one
+      mechanism that started as a community post rather than a paper &mdash; the original public post, checked
+      directly against the source page (title, ID, and date), not against a training-data recollection. Full
+      citation table with links is in the repository <code>README.md</code>. Two judgment calls worth being
+      explicit about:
+    </p>
+    <p class="section-sub" style="max-width:74ch">
+      <b style="color:var(--ink)">&ldquo;Absolute learned positions&rdquo;</b> is dated to GPT-1 (Jun 2018), the
+      first influential model to make trained-per-slot position vectors the standard approach, rather than to
+      the original Transformer paper, whose appendix mentions testing a learned variant as a footnote to its
+      real proposal (sinusoidal).
+      &nbsp;<b style="color:var(--ink)">&ldquo;Sliding window attention&rdquo;</b> is dated to Longformer
+      (Apr 2020), which named and formalized the mechanism, not to the 2019 Sparse Transformer, whose strided/fixed
+      patterns are closely related but distinct (and are credited separately, above, as the sparse/top-k entry).
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Built for ERA V5 (The School of AI), Session 8. No training performed on this page &mdash; it is a
+    referenced timeline, not a benchmark. Data used to build it:
+    <a href="https://github.com/vasu-2004/ERA-V5-assignments/tree/claude/neural-network-fundamentals-9xgeps/session-8-assignment" target="_blank" rel="noopener">github.com/vasu-2004/ERA-V5-assignments</a>.
+  </div>
+</footer>
+
+<script>
+const CATS = {
+  baseline:    {label:"Baseline",       color:"var(--baseline)"},
+  position:    {label:"Position",       color:"var(--position)"},
+  memory:      {label:"Memory / cache", color:"var(--memory)"},
+  compute:     {label:"Compute / sparsity", color:"var(--compute)"},
+  engineering: {label:"Exact + fast",   color:"var(--engineering)"}
+};
+
+const MECHANISMS = [
+{
+  id:"vanilla", name:"Standard (scaled dot-product) attention", cat:"baseline",
+  date:"1706.03762", dateLabel:"12 Jun 2017", year:"2017",
+  headline:"The starting point. Every token asks every other token &ldquo;are you relevant to me?&rdquo; and gets an exact answer.",
+  context:"Before this, sequence models were recurrent (RNN/LSTM) or convolutional: they saw tokens one at a time,\
+    in order, and long-range relationships had to survive being squeezed through a fixed-size hidden state one\
+    step at a time. That's slow to train (no parallelism across the sequence) and bad at long-range recall.",
+  how:"Every token is projected through three learned linear layers into a Query, a Key and a Value. Q&middot;Kᵀ\
+    gives a similarity score between every pair of tokens; dividing by &radic;d_k keeps the scores from blowing up\
+    as dimensionality grows; softmax turns scores into a probability distribution; and the output is that\
+    distribution's weighted sum over V. A causal mask blocks future tokens during training so the model can't\
+    cheat.",
+  pros:["Exact and fresh: every query re-ranks every key from scratch, every time &mdash; nothing is compressed away.",
+        "Fully parallel across the sequence during training, unlike an RNN which must run token by token.",
+        "No inductive bias about locality or recency baked in &mdash; the model decides what's relevant, at any distance."],
+  cons:["The attention matrix is O(n&sup2;) in both compute and memory. Double the sequence, quadruple the cost.",
+        "No built-in notion of token order &mdash; position has to be bolted on separately (see the next two cards).",
+        "The KV cache needed for autoregressive generation grows linearly with every token produced, and multiplies with model depth and head count."],
+  pick:"Pick it when the sequence is short enough that O(n&sup2;) is a rounding error &mdash; a few thousand tokens\
+    &mdash; and you want the ceiling on quality with the least architectural risk. Nearly everything else on this\
+    page is a bet that you can leave a little of this quality on the table to buy back compute, memory, or reach.",
+  src:{label:"Vaswani et al., “Attention Is All You Need”, arXiv:1706.03762", url:"https://arxiv.org/abs/1706.03762"}
+},
+{
+  id:"sinusoidal", name:"Sinusoidal positional encoding", cat:"position",
+  date:"1706.03762b", dateLabel:"12 Jun 2017", year:"2017",
+  headline:"Same paper, same day. Attention has no sense of order on its own &mdash; so add a fixed wave pattern to every embedding that encodes its position.",
+  context:"Self-attention is permutation-invariant: shuffle the input tokens and, absent something else, you get\
+    the same set of pairwise scores back. “The cat sat on the mat” and “mat the sat on cat the”\
+    would look identical to the attention block. Something outside the K/Q/V math has to carry position.",
+  how:"For each position and each embedding dimension, add a sine or cosine value whose frequency is fixed by a\
+    geometric progression across dimensions. Low dimensions oscillate fast (fine-grained local position), high\
+    dimensions oscillate slowly (coarse, long-range position). It's added directly to the token embedding before\
+    the first layer, once, and never learned.",
+  pros:["Zero learned parameters &mdash; nothing to train, nothing to overfit.",
+        "Deterministic and reproducible: position N always gets the same code, in any model, any run.",
+        "The paper's own argument (not fully borne out in practice) is that fixed sinusoids could let a model\
+         attend to relative offsets it never explicitly saw, because sin/cos of a sum decomposes linearly."],
+  cons:["It's added once, at the input, then mixed into the same residual stream as content &mdash; by deep\
+         layers, position and meaning are entangled and hard to recover cleanly.",
+        "Extrapolation past the trained length is theoretically motivated but empirically weak: models trained\
+         on short sequences do not reliably generalize to much longer ones from sinusoidal encoding alone.",
+        "It encodes absolute position, not relative distance, even though relative distance is usually what\
+         attention actually needs to reason with."],
+  pick:"Pick it when you want a zero-parameter, deterministic default and don't need serious length\
+    extrapolation &mdash; or when you're reproducing the original Transformer architecture exactly. Almost every\
+    modern LLM has moved to something else (see RoPE, below).",
+  src:{label:"Vaswani et al., “Attention Is All You Need”, arXiv:1706.03762 (§3.5)", url:"https://arxiv.org/abs/1706.03762"}
+},
+{
+  id:"abs-learned", name:"Absolute learned position embeddings", cat:"position",
+  date:"gpt1", dateLabel:"Jun 2018", year:"2018",
+  headline:"Instead of a fixed formula, give every position its own trainable vector and let backprop decide what it should encode.",
+  context:"The original Transformer paper tested a learned alternative to sinusoidal encoding as a footnote and\
+    found it performed about the same. GPT-1 is the model that made trainable absolute position vectors the\
+    default, and BERT (Oct 2018) cemented it as the standard for the next several years of pretrained language models.",
+  how:"Allocate one learned embedding vector per position, 0 through the maximum sequence length the model will\
+    ever see, stored exactly like a token embedding table. Add it to the token embedding at the input. Backprop\
+    shapes each position's vector over training, same as any other weight.",
+  pros:["More expressive than a fixed formula &mdash; the model can learn whatever positional structure the data actually rewards, not what a sinusoid assumes.",
+        "Simple to implement: it's just another embedding table, trained the normal way.",
+        "Empirically strong within the trained range &mdash; this is what GPT-1/2/3 and BERT shipped with."],
+  cons:["Hard length ceiling: position 4097 in a table trained to 4096 literally does not exist. The model has never seen it and has no vector for it &mdash; there is no graceful degradation, only a wall.",
+        "Every one of those position vectors has to be learned from data, which costs parameters and training signal that a fixed encoding gets for free.",
+        "Like sinusoidal encoding, it's absolute rather than relative, so “how far apart are these two tokens” isn't directly represented anywhere."],
+  pick:"Pick it when your deployment context length is fixed and known in advance and you're not chasing length\
+    extrapolation &mdash; e.g. a classifier or encoder with a hard, small max length. It's a poor choice for\
+    anything that needs to serve longer contexts than it trained on, which is most modern LLM use cases.",
+  src:{label:"Radford et al., “Improving Language Understanding by Generative Pre-Training” (GPT-1), OpenAI", url:"https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf"}
+},
+{
+  id:"sparse-transformer", name:"Sparse &amp; top-k attention", cat:"compute",
+  date:"1904.10509", dateLabel:"23 Apr 2019", year:"2019",
+  headline:"The first serious attack on O(n&sup2;): don't let every token attend to every other token &mdash; only to a chosen, much smaller subset.",
+  context:"By 2019 it was clear that full O(n&sup2;) attention was the wall standing between transformers and\
+    genuinely long sequences (the paper models sequences “tens of thousands” of steps long, on text,\
+    images and audio). Full attention was simply too much compute and memory to run at that length.",
+  how:"Instead of every token attending to every other, define a fixed sparse pattern: e.g. a strided pattern\
+    (attend to every k-th token, capturing periodic structure) combined with a local pattern (attend to nearby\
+    tokens). Together they approximate full attention's reach in O(n&radic;n) instead of O(n&sup2;). Later work\
+    in this family (Reformer's LSH attention, Routing Transformer's learned clusters) replaced the fixed pattern\
+    with a learned or hashed one that more directly resembles picking the top-k most relevant keys.",
+  pros:["Genuinely sub-quadratic: complexity drops from O(n&sup2;) toward O(n&radic;n) or better.",
+        "Fixed/strided variants need no extra learned routing machinery &mdash; the pattern is baked in and cheap to implement.",
+        "Established that the O(n&sup2;) matrix doesn't have to be fully materialized to get useful long-range modeling &mdash; the idea this entire lineage (down to DeepSeek's NSA/DSA in 2025) builds on."],
+  cons:["A fixed sparse pattern is a bet about which tokens matter, chosen by the architecture, not the content &mdash; it can miss a genuinely relevant token that falls outside the pattern.",
+        "Learned/top-k variants (Reformer, Routing Transformer) need extra machinery (hashing, clustering, a router) that adds its own training instability and overhead.",
+        "Too sparse and the model loses context it needed; tuning the sparsity budget is an empirical, per-task exercise, not a free parameter."],
+  pick:"Pick a sparse pattern when your sequences are long enough that full attention is genuinely infeasible\
+    and you can tolerate (or the data supports) an assumption about which tokens matter. In practice, this\
+    family has been mostly superseded by more content-aware descendants &mdash; sliding window, attention sinks,\
+    and DeepSeek's NSA/DSA later in this timeline &mdash; that select what to attend to rather than fixing it in advance.",
+  src:{label:"Child, Gray, Radford, Sutskever, “Generating Long Sequences with Sparse Transformers”, arXiv:1904.10509", url:"https://arxiv.org/abs/1904.10509"}
+},
+{
+  id:"mqa", name:"Multi-Query Attention (MQA)", cat:"memory",
+  date:"1911.02150", dateLabel:"6 Nov 2019", year:"2019",
+  headline:"Every query head keeps its own Q, but all heads share one K and one V &mdash; because at inference, K and V are what you have to store, not recompute.",
+  context:"Training multi-head attention is fast because it's fully parallel across the sequence. Generation is\
+    the opposite: tokens come out one at a time, and each new token needs the K and V of every previous token,\
+    for every head, kept resident in memory (the KV cache) so they don't have to be recomputed. With many heads,\
+    that cache gets large fast, and moving it in and out of GPU memory bandwidth-limits decoding speed.",
+  how:"Keep separate Q projections per head (so each head can still ask a different question), but project K and\
+    V through a single shared linear layer used by every head. The KV cache shrinks by a factor of (number of\
+    heads), because there's only one K/V pair to store instead of one per head.",
+  pros:["Large, direct cut to KV cache memory &mdash; roughly a num_heads-times reduction.",
+        "Faster incremental decoding: less K/V data has to move through memory bandwidth per generated token.",
+        "Simple to describe and implement: it's a sharing decision, not a new mechanism."],
+  cons:["All heads now reason over the exact same K/V representation, which is a real capacity cut &mdash; some\
+         of the diversity multi-head attention was designed to provide is gone.",
+         "Quality degradation is usually small but is not zero, and shows up more on tasks that benefit from\
+         heads specializing on different content.",
+         "It's an all-or-nothing choice at the architecture level: you can't share “a little” without moving to GQA."],
+  pick:"Pick MQA when you're serving many concurrent users at long context and inference memory bandwidth is\
+    the bottleneck you're optimizing for, and you can tolerate the small quality hit. Most modern models\
+    instead pick GQA (below), which recovers most of the quality at most of the memory saving.",
+  src:{label:"Shazeer, “Fast Transformer Decoding: One Write-Head is All You Need”, arXiv:1911.02150", url:"https://arxiv.org/abs/1911.02150"}
+},
+{
+  id:"sliding-window", name:"Sliding window attention", cat:"compute",
+  date:"2004.05150", dateLabel:"10 Apr 2020", year:"2020",
+  headline:"Only look at the last W tokens, plus a handful of global tokens that everyone can see &mdash; local context is usually most of what you need.",
+  context:"Full attention on long documents (Longformer targets documents in the thousands of tokens) is still\
+    O(n&sup2;), and the strided/fixed sparse patterns of 2019 weren't tailored to how language actually clusters\
+    &mdash; most relevant context for a given token is nearby, with a few genuinely long-range exceptions\
+    (a title, a question at the top of a document).",
+  how:"Each token attends only to tokens within a fixed window W around it (e.g. 512 tokens either side), which\
+    is O(n&middot;W) &mdash; linear in sequence length instead of quadratic. A small set of “global”\
+    tokens (task-specific, e.g. the [CLS] token or a question) are allowed to attend to, and be attended to by,\
+    every other token, so long-range signal isn't lost entirely.",
+  pros:["Linear cost in sequence length, a qualitative change from O(n&sup2;), while still using dense (exact,\
+         softmax) attention within the window &mdash; no approximation inside the window itself.",
+        "Matches a real property of language: most useful context genuinely is local.",
+        "Global tokens are cheap and let the architect inject exactly as much long-range reach as the task needs, no more."],
+  pros_extra:"",
+  cons:["Anything relevant outside the window and not marked global is invisible to a token &mdash; a fact\
+         mentioned once, 3,000 tokens ago, with no global token pointing to it, is simply gone.",
+        "Choosing the window size and which tokens are global is a manual, task-specific design decision.",
+        "Multiple layers of a small window do compound reach (each layer's receptive field stacks), but that's an indirect and harder-to-reason-about substitute for direct long-range attention."],
+  pick:"Pick a sliding window when your task's useful context is genuinely local (most text is) and you want a\
+    predictable, linear memory/compute budget. It shipped at production scale in Mistral 7B (Oct 2023) paired\
+    with GQA, and remains one of the most common “length” levers in open models today.",
+  src:{label:"Beltagy, Peters, Cohan, “Longformer: The Long-Document Transformer”, arXiv:2004.05150", url:"https://arxiv.org/abs/2004.05150"}
+},
+{
+  id:"linear-attention", name:"Linear attention", cat:"compute",
+  date:"2006.16236", dateLabel:"29 Jun 2020", year:"2020",
+  headline:"Remove softmax, and the algebra lets you regroup the whole computation into a fixed-size running state &mdash; attention becomes a recurrence, exactly like an RNN.",
+  context:"By 2020, sparsity and windowing were both bets about which tokens to look at. A different question:\
+    is there a way to keep looking at everything, but never materialize the O(n&sup2;) matrix at all? The answer\
+    turns on one specific piece of the equation &mdash; softmax &mdash; which locks Q, K and V together into one\
+    inseparable operation.",
+  how:"Without softmax, attention's output can be rewritten by associativity: instead of (Q&middot;Kᵀ)&middot;V\
+    computed left-to-right, compute Kᵀ&middot;V first into a fixed d&times;d state matrix S, then Q&middot;S.\
+    S can be built incrementally: for each new token, add its own KᵀV contribution to the running S. The\
+    state is a constant size regardless of how many tokens have been seen &mdash; the KV cache stops growing.",
+  pros:["Memory is O(1) in sequence length &mdash; the state matrix S never grows, whether you've seen 1,000 tokens or 1,000,000.",
+        "Compute per new token is constant, not growing with history &mdash; this is genuinely linear-time generation.",
+        "Formally equivalent to an RNN at inference time, so decades of recurrent-network intuition and hardware tricks transfer directly."],
+  cons:["Losing softmax loses its guarantees: scores are no longer forced positive, no longer sum to one, and\
+         each new token no longer gets a fresh, re-competed ranking over the full history &mdash; every query reads the same accumulated state.",
+        "The running state can only ever be updated by addition (S_new = S_old + new_contribution) &mdash; there\
+         is no way to overwrite or correct a specific piece of the past, only pile more on top of it. This is\
+         the exact gap the delta rule (below) exists to close.",
+        "In practice, plain linear attention noticeably underperforms softmax attention on tasks that need precise, long-range recall of specific facts."],
+  pick:"Pick linear attention when memory is the hard constraint &mdash; very long streaming context, tight\
+    inference budgets &mdash; and the task tolerates “gist” recall over exact recall. It's rarely used\
+    unmodified today; it's the mathematical ancestor of the entire DeltaNet/Gated DeltaNet/Mamba family later in\
+    this timeline, all of which exist to patch its additive-only weakness.",
+  src:{label:"Katharopoulos, Vyas, Pappas, Fleuret, “Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention”, arXiv:2006.16236 (ICML 2020)", url:"https://arxiv.org/abs/2006.16236"}
+},
+{
+  id:"rope", name:"RoPE (Rotary Position Embedding)", cat:"position",
+  date:"2104.09864", dateLabel:"20 Apr 2021", year:"2021",
+  headline:"Stop adding position to the embedding. Instead, rotate Q and K by an angle proportional to position &mdash; and the dot product between any two automatically encodes their distance.",
+  context:"By 2021 the ceiling on learned absolute position embeddings was well understood: a model trained to a\
+    fixed max length has no representation at all for anything past it, and adding position at the input entangles\
+    it with content by the time it reaches deep layers. Something that lived inside the attention computation\
+    itself, and encoded relative rather than absolute position, was needed.",
+  how:"Pair up each embedding's dimensions (1&amp;2, 3&amp;4, &hellip;) and treat each pair as a 2D point.\
+    Rotate that point by an angle proportional to the token's position (different, geometrically progressing\
+    rotation speeds per pair, echoing the sinusoidal frequencies of 2017) &mdash; applied directly to Q and K,\
+    never to V, never added to the raw embedding. Because rotating two vectors by their own angles and then\
+    taking their dot product is mathematically equivalent to rotating one of them by the angular <em>difference</em>,\
+    the Q&middot;K score ends up depending only on the relative distance between two tokens, not their absolute positions.",
+  pros:["Encodes relative position directly in the attention score itself, which is what attention actually needs to reason with, not absolute position as a side fact.",
+        "No extra parameters and no separate position vector added to the residual stream &mdash; it's applied as a rotation inside the attention computation.",
+        "Because the angle keeps rotating rather than hitting a hard table boundary, it degrades far more gracefully near and somewhat past the trained length than absolute embeddings do."],
+  cons:["Graceful is not unlimited: past roughly 8&ndash;16K tokens beyond training length the rotation angle has\
+         wrapped around so many times that distant tokens become hard for the model to distinguish from nearby ones &mdash; RoPE's own length-extrapolation failure mode.",
+        "The rotation frequencies are fixed by a hyperparameter (the base, &Theta;) chosen at pretraining time; changing your mind about target context length after training requires one of the interpolation tricks below (NTK-aware, YaRN) rather than a clean retrain.",
+        "The mechanism itself is genuinely harder to build an intuition for than “add a vector” &mdash; it took the field real time to develop confident mental models of what the rotation is doing."],
+  pick:"Pick RoPE by default for any new transformer today &mdash; it's what nearly every modern open LLM (Llama, Qwen, Mistral, DeepSeek) ships with. The interesting design decisions have moved to what you do with it after pretraining: interpolate it (NTK-aware, YaRN), replace it (ALiBi), or eventually drop it (DroPE).",
+  src:{label:"Su, Lu, Pan, Murtadha, Wen, Liu, “RoFormer: Enhanced Transformer with Rotary Position Embedding”, arXiv:2104.09864", url:"https://arxiv.org/abs/2104.09864"}
+},
+{
+  id:"alibi", name:"ALiBi (Attention with Linear Biases)", cat:"position",
+  date:"2108.12409", dateLabel:"27 Aug 2021", year:"2021",
+  headline:"Skip position embeddings entirely. Just subtract a penalty from the attention score proportional to how far apart two tokens are.",
+  context:"Four months after RoPE, a more radical question: what if the field's whole approach to position &mdash;\
+    encode it, then hope the model extrapolates &mdash; is the wrong shape of solution for the thing people\
+    actually cared about, which was training short and deploying long?",
+  how:"Add no positional information to Q, K, or V at all. Instead, after computing the raw Q&middot;Kᵀ\
+    attention scores, subtract a penalty equal to (distance between the two tokens) &times; a fixed, per-head\
+    slope m. Nearby tokens get almost no penalty; distant tokens get pushed down hard, monotonically, the same\
+    way at every sequence length the model will ever see, trained or not.",
+  pros:["The bias formula is identical at training length and at 10&times; that length &mdash; there is no learned or fitted component to run out of range, so extrapolation is close to free by construction.",
+        "The paper's headline result: a 1.3B model trained at 1024 tokens matches a sinusoidal model trained at 2048, while training 11% faster and using 11% less memory &mdash; it isn't just an extrapolation trick, it's cheaper during training too.",
+        "No extra parameters and almost no extra compute &mdash; it's one subtraction per attention score."],
+  cons:["The bias is a fixed, hand-specified recency prior (closer is presumed more relevant) baked in per head\
+         &mdash; it cannot express “the answer is far away and that's fine,” the way a learned or content-driven mechanism could.",
+        "In practice, extrapolation quality flattens and eventually degrades well past training length too &mdash; it pushes the wall back, it doesn't remove it.",
+        "It didn't become the industry default the way RoPE did; most large open models still ship RoPE (plus a scaling trick) rather than ALiBi."],
+  pick:"Pick ALiBi when you specifically want cheap, robust length extrapolation and can accept a built-in\
+    recency bias &mdash; it was popular in some open models (BLOOM, MPT) for exactly this reason. If you need the\
+    field's actual majority choice today, that's RoPE, not ALiBi.",
+  src:{label:"Press, Smith, Lewis, “Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation”, arXiv:2108.12409", url:"https://arxiv.org/abs/2108.12409"}
+},
+{
+  id:"flashattention", name:"FlashAttention", cat:"engineering", bonus:true,
+  date:"2205.14135", dateLabel:"27 May 2022", year:"2022",
+  headline:"The plot twist: don't approximate anything. Just stop writing the O(n&sup2;) matrix to slow GPU memory and the whole “exactness vs. speed” trade mostly disappears.",
+  context:"Not covered in Session 8, and it belongs on this timeline anyway &mdash; it's arguably the single most\
+    load-bearing entry here. Every mechanism up to this point (sparse patterns, windowing, linear attention) pays\
+    for speed with approximation: some tokens simply aren't looked at, or the softmax guarantee is given up. By\
+    2022 the actual bottleneck on GPUs wasn't raw FLOPs &mdash; modern GPUs have plenty &mdash; it was moving data\
+    between fast on-chip SRAM and slower high-bandwidth memory (HBM). Standard attention materializes the full\
+    n&times;n score matrix in HBM, which is exactly the expensive part.",
+  how:"Tile Q, K, and V into blocks small enough to fit in on-chip SRAM. Compute attention block-by-block, using\
+    an online (running) softmax that updates its normalization statistics incrementally as new blocks arrive, so\
+    the full n&times;n matrix is never written to HBM &mdash; only the small tiles and the final output are.\
+    Mathematically the result is bit-for-bit the same exact softmax attention as the original 2017 formula; the\
+    entire gain is from being smarter about where data lives during the computation, not from computing something different.",
+  pros:["Mathematically exact &mdash; identical output to standard softmax attention, not an approximation, so it carries zero quality cost.",
+        "Memory scales linearly in sequence length instead of quadratically (no n&times;n matrix ever materialized), and it is substantially faster in wall-clock time to boot.",
+        "It's a drop-in kernel replacement, not an architecture change &mdash; any existing model using standard attention can adopt it without retraining or redesign."],
+  cons:["It doesn't reduce the underlying O(n&sup2;) compute of the attention score itself &mdash; the algorithm is still doing the same number of multiply-adds, just moving less data while doing them. At truly extreme lengths, the compute term alone still dominates.",
+        "Gains are tied to specific hardware and kernel implementations (GPU SRAM size, tiling strategy); it took real, ongoing engineering work (FlashAttention-2, -3) to keep pace with new hardware generations.",
+        "Because it made exact quadratic attention fast enough in practice, it raised the bar every approximate method (sparse, linear, windowed) has to clear to be worth its quality cost &mdash; a real constraint on the rest of this timeline, not a limitation of FlashAttention itself."],
+  pick:"Use it always, by default, whenever you're running standard or windowed attention on a GPU &mdash; there\
+    is essentially no reason not to, since it changes nothing about model quality. It doesn't compete with the\
+    other mechanisms on this page so much as it changes the price everything else has to beat.",
+  src:{label:"Dao, Fu, Ermon, Rudra, Ré, “FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness”, arXiv:2205.14135 (NeurIPS 2022)", url:"https://arxiv.org/abs/2205.14135"}
+},
+{
+  id:"gqa", name:"GQA (Grouped-Query Attention)", cat:"memory",
+  date:"2305.13245", dateLabel:"22 May 2023", year:"2023",
+  headline:"MQA's memory savings, MHA's quality &mdash; split the difference by sharing K/V across small groups of query heads instead of all of them.",
+  context:"Nearly four years after MQA, the field had enough experience with it to know the trade wasn't free:\
+    sharing one K/V across every head measurably hurt quality on some models. The fix was obvious once framed\
+    correctly &mdash; MQA and MHA are the two endpoints of a spectrum, so pick a point in between.",
+  how:"Divide the query heads into G groups (e.g. 8 heads into 2 groups of 4). Each group shares one K and one V\
+    projection; heads within a group still have their own independent Q. G=1 recovers MQA exactly; G=(number of\
+    heads) recovers standard multi-head attention exactly &mdash; GQA is the tunable middle.",
+  pros:["A genuine dial, not a binary choice: pick the group count that fits your memory budget and quality bar, rather than being forced to the extreme of MQA.",
+        "Recovers most of MHA's quality while still cutting KV cache substantially &mdash; the paper's own framing is explicitly about this middle ground.",
+        "Existing MHA checkpoints can be converted to GQA cheaply via “uptraining” (a short continued-pretraining phase) rather than training from scratch, which is exactly what the paper demonstrates."],
+  cons:["It's still a quality/memory trade, just a better-tuned one &mdash; it does not recover full MHA quality at anything less than G = num_heads.",
+        "The right group count is empirical and model-specific; there's no formula that tells you the ideal G in advance.",
+        "It only addresses the KV-cache/memory axis of cost &mdash; it does nothing for the O(n&sup2;) compute axis, which is why it's routinely paired with sliding window or FlashAttention rather than used alone."],
+  pick:"This is the default for essentially every serving-scale open LLM since 2023 (Llama 2/3, Mistral, Qwen) &mdash;\
+    pick it whenever you're building anything meant to be served to real concurrent users at real context lengths,\
+    which is almost always. Use plain MHA only when quality is the only axis you're optimizing and memory truly doesn't matter.",
+  src:{label:"Ainslie, Lee-Thorp, de Jong, Zemlyanskiy, Lebrón, Sanghai, “GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints”, arXiv:2305.13245", url:"https://arxiv.org/abs/2305.13245"}
+},
+{
+  id:"ntk-aware", name:"NTK-aware RoPE scaling", cat:"position",
+  date:"reddit-ntk", dateLabel:"30 Jun 2023", year:"2023",
+  headline:"A community fix, not a lab's: stretch RoPE's rotation non-uniformly across frequencies, so it survives a longer context with zero fine-tuning.",
+  context:"By mid-2023 people were hitting RoPE's extrapolation wall in practice &mdash; open LLaMA-family models\
+    trained at 2K&ndash;4K tokens, with real demand to run them at 8K+ without paying for a full retrain. The fix\
+    that actually caught on came first from a Reddit post, not a paper, which is itself worth noting: this\
+    generation of context-length hacking happened in the open-source community in real time.",
+  how:"Naive linear interpolation (just squeeze all RoPE rotation angles down uniformly to fit a longer context)\
+    damages the high-frequency dimensions that encode fine-grained local position, because it compresses them the\
+    same amount as the low-frequency, long-range dimensions. Borrowing an idea from Neural Tangent Kernel theory,\
+    change RoPE's base frequency (&Theta;) itself so that high-frequency dimensions are barely touched (preserving\
+    local precision) while low-frequency dimensions stretch more (extending long-range reach) &mdash; a\
+    non-uniform, frequency-aware interpolation rather than one uniform scale.",
+  pros:["No fine-tuning required at all &mdash; it's a formula applied at inference time to an already-trained model's rotation angles.",
+        "Meaningfully better perplexity at extended context than naive linear position interpolation, for free.",
+        "Trivially cheap to try: it's a few lines of code against an existing checkpoint, which is exactly why it spread through the open-source community as fast as it did."],
+  cons:["It's a training-free patch, not a fix at the source &mdash; it stretches a rotation scheme that wasn't designed for the new range, rather than teaching the model the new range directly.",
+        "Origin as an informal community post (not a peer-reviewed paper) means the original write-up lacks the systematic ablations a lab publication would include; YaRN (below), two months later, is the more rigorous, published formalization of the same underlying idea.",
+        "Quality still degrades gradually as the extension ratio grows large; it buys real headroom, not unlimited headroom."],
+  pick:"Pick it as a zero-cost, zero-fine-tuning first move whenever you need more context out of an\
+    already-trained RoPE model right now. If you have any fine-tuning budget at all, YaRN's small amount of\
+    additional training gets you further for not much more effort.",
+  src:{label:"bloc97, “NTK-Aware Scaled RoPE allows LLaMA models to have extended (8k+) context size without any fine-tuning&hellip;”, r/LocalLLaMA", url:"https://www.reddit.com/r/LocalLLaMA/comments/14lz7j5/"}
+},
+{
+  id:"yarn", name:"YaRN (Yet another RoPE extensioN)", cat:"position",
+  date:"2309.00071", dateLabel:"31 Aug 2023", year:"2023",
+  headline:"Formalizes and improves on the NTK-aware idea, adds an attention-temperature correction, and gets there with a small amount of fine-tuning instead of none.",
+  context:"Two months after the NTK-aware Reddit post demonstrated the core idea worked, YaRN turned it into a\
+    published, ablated method &mdash; and found that a further correction (a temperature adjustment to the\
+    softmax, to account for the fact that a stretched context changes the natural entropy of the attention\
+    distribution) closed a real remaining quality gap.",
+  how:"Interpolate RoPE's rotation frequencies non-uniformly by dimension, similarly to NTK-aware scaling but with\
+    a more carefully derived ramp between “don't touch” and “stretch fully” across the\
+    frequency spectrum, and add a scalar temperature correction to the attention softmax to compensate for the\
+    change in the distribution's natural sharpness at the new length. Unlike the original NTK-aware post, YaRN\
+    is paired with a short, cheap fine-tuning phase (a small fraction of original pretraining compute) at the target length.",
+  pros:["Reaches longer, higher-quality context extension than the training-free NTK-aware baseline it builds on, with only a small fine-tuning cost (not a full retrain).",
+        "The published ablations give a principled, tested account of why each piece (frequency ramp, temperature correction) matters, rather than an informally-derived heuristic.",
+        "Became a widely adopted, citable standard &mdash; many open long-context models explicitly credit YaRN-style scaling."],
+  cons:["Unlike NTK-aware scaling, it does require some fine-tuning compute and target-length data, even if small &mdash; not a pure zero-cost, zero-touch trick.",
+        "Like every RoPE-interpolation method, it is still stretching a mechanism built for a shorter range rather than natively training for the long one &mdash; there is a real ceiling to how far interpolation alone can go.",
+        "Choosing the interpolation ramp and temperature correction still has hyperparameters to tune per model family, even if the paper gives good defaults."],
+  pick:"Pick YaRN over plain NTK-aware scaling whenever you have even a small fine-tuning budget &mdash; it's the\
+    better point on the same curve. It remains one of the most common ways open models advertise a context length\
+    well beyond what they originally pretrained at.",
+  src:{label:"Peng, Quesnelle, Fan, Shippole, “YaRN: Efficient Context Window Extension of Large Language Models”, arXiv:2309.00071", url:"https://arxiv.org/abs/2309.00071"}
+},
+{
+  id:"attention-sinks", name:"Attention sinks (StreamingLLM)", cat:"memory",
+  date:"2309.17453", dateLabel:"29 Sep 2023", year:"2023",
+  headline:"An accidental discovery: models dump a huge amount of attention onto the very first few tokens, regardless of content. Keep just those, evict everything else, and streaming works.",
+  context:"Sliding window attention (2020) caps memory but drops old tokens outright once they leave the window\
+    &mdash; and empirically, quality collapses the moment the very first tokens of a sequence are evicted, even\
+    though those tokens are rarely semantically important. The authors noticed this and asked why.",
+  how:"Because of the causal mask, the first few tokens are visible to every subsequent token, from every layer,\
+    for the entire sequence &mdash; while later tokens are progressively less globally visible. Softmax also\
+    forces attention weights to sum to 1 even when a query has nothing relevant to attend to, so the model learns\
+    to dump that unwanted probability mass somewhere cheap and always-available: the first tokens. StreamingLLM\
+    keeps a small, fixed “sink” of those initial tokens permanently in the KV cache, evicts everything\
+    outside a sliding window as usual, and gets stable, effectively-unbounded streaming generation out of a model\
+    that was never trained for it.",
+  pros:["Enables genuinely unbounded streaming generation with a small, constant-size KV cache, with no fine-tuning required on top of an existing model.",
+        "The underlying discovery (why models rely on sink tokens at all) is a real mechanistic insight about softmax attention, not just an engineering trick.",
+        "Extremely cheap to add: a few sink tokens plus a normal sliding window, no architecture change."],
+  cons:["It restores stability and streaming, not memory: content in the evicted middle of the sequence is genuinely gone, same as plain sliding window &mdash; a fact mentioned once far in the past and not near a sink token or in the current window is unrecoverable.",
+        "The number of sink tokens needed is small but non-zero and somewhat model-dependent; too few and stability isn't fully recovered.",
+        "It's a mitigation for a window-based cache's weak point, not a substitute for genuine long-range recall the way MLA or NSA aim to provide, later in this timeline."],
+  pick:"Pick attention sinks whenever you're already using a sliding window and need stable, indefinitely-long\
+    generation (a long-running chat or agent session) rather than perfect recall of everything ever said. It's a\
+    stability fix layered on top of windowing, not a replacement for it.",
+  src:{label:"Xiao, Tian, Chen, Han, Lewis, “Efficient Streaming Language Models with Attention Sinks”, arXiv:2309.17453 (ICLR 2024)", url:"https://arxiv.org/abs/2309.17453"}
+},
+{
+  id:"mla", name:"MLA (Multi-head Latent Attention)", cat:"memory",
+  date:"2405.04434", dateLabel:"7 May 2024", year:"2024",
+  headline:"Instead of choosing how many K/V heads to share (GQA), compress every head's K and V down into one small shared latent vector &mdash; and decompress on the fly.",
+  context:"GQA (2023) treats the memory problem as “how many heads should share a K/V” &mdash; a\
+    discrete choice with a hard quality/memory trade at every setting. DeepSeek-V2 asked a different question:\
+    can the K/V a token needs to expose be compressed the way any high-dimensional vector can be compressed,\
+    rather than merely shared?",
+  how:"Instead of projecting each token into full-size per-head K and V vectors, project it down into one small\
+    shared latent vector (far smaller than the concatenation of all heads' K/V would be) &mdash; this latent\
+    vector, not the full K/V, is what's cached. At attention time, up-projection matrices reconstruct each head's\
+    effective K and V from the shared latent on the fly. Because the up- and down-projections are learned\
+    end-to-end with the rest of the model (not applied to an already-trained model, unlike GQA's uptraining), the\
+    compression is shaped by what the model actually needs to preserve, not by a fixed sharing pattern.",
+  pros:["Reported by DeepSeek-V2 to shrink the KV cache far more aggressively than GQA at a comparable head count, while matching or exceeding standard MHA quality &mdash; not just approaching it, in their own benchmarks.",
+        "Because compression is learned jointly with the rest of the model from the start, it isn't constrained to the coarse “share across N heads” granularity GQA is limited to.",
+        "It's the mechanism that let DeepSeek-V2 credibly claim dramatically cheaper serving costs at long context, which is a large part of why the DeepSeek release mattered economically, not just architecturally."],
+  cons:["It's a from-scratch architectural choice, not a lightweight modification &mdash; you can't cheaply convert an existing MHA or GQA checkpoint into MLA the way GQA uptraining converts MHA, so adopting it means training a new model.",
+        "The extra up-projection at attention time is additional compute per attention call compared to just reading a raw cached K/V, even though the memory saved usually dominates in practice.",
+        "As a comparatively new and more mathematically involved mechanism (relative to GQA's simple head-sharing), it is less battle-tested elsewhere and harder to reason about or debug than the simpler alternatives."],
+  pick:"Pick MLA when you're training a new large model from scratch and serving cost at long context is a first-order\
+    design constraint &mdash; which is exactly DeepSeek's own stated motivation. It's not a retrofit for an\
+    existing MHA/GQA model the way sliding window or attention sinks can be.",
+  src:{label:"DeepSeek-AI, “DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model”, arXiv:2405.04434", url:"https://arxiv.org/abs/2405.04434"}
+},
+{
+  id:"deltanet", name:"The delta rule (DeltaNet)", cat:"compute",
+  date:"2406.06484", dateLabel:"10 Jun 2024", year:"2024",
+  headline:"Linear attention can only add to its running state, never correct it. The delta rule fixes that: write only the difference between what's there and what should be there.",
+  context:"Linear attention's (2020) running state S can only ever be updated by addition: S_new = S_old + (new\
+    contribution). If a key's associated value needs to change &mdash; the model got new information that should\
+    overwrite, not pile onto, something already stored &mdash; plain linear attention has no way to express that;\
+    it just keeps summing, and old, stale associations never leave. (The delta rule concept traces back further,\
+    to fast-weight-programmer formulations circa 2021; DeltaNet is the 2024 paper that made it work in a\
+    genuinely parallel, GPU-efficient training algorithm at scale.)",
+  how:"Before writing a new key/value pair into the state, first read out what the state currently associates\
+    with that key, compute the delta (difference) between that and the new value actually wanted, and write only\
+    that delta &mdash; a targeted correction, not a fresh, uncorrelated addition on top of everything already\
+    there. This is mathematically an update rule borrowed from classic associative-memory learning (the delta\
+    rule), applied inside a linear-attention-style recurrence. The paper's core contribution is a way to compute\
+    this efficiently in parallel across the whole sequence during training, rather than being forced into a slow, token-by-token recurrence.",
+  pros:["Restores a genuine “write/erase” capability to linear-time attention &mdash; the state can be corrected, not just accumulated onto, closing linear attention's most basic architectural gap.",
+        "Retains linear attention's O(1)-in-sequence-length memory and linear-time generation.",
+        "Outperforms plain linear attention and contemporaries like Mamba and GLA on perplexity and downstream benchmarks in the paper's own reported results, at comparable scale."],
+  cons:["Still a fixed-size state, so it remains fundamentally a compressed summary of the past, not the exact,\
+         losslessly-retrievable history that full softmax attention provides &mdash; it narrows the gap with\
+         softmax attention, it doesn't close it.",
+        "The parallel training algorithm, while a real advance over naive sequential recurrence, is more\
+         intricate to implement correctly than plain linear attention or standard softmax attention.",
+        "As a comparatively new mechanism (2024), it has far less production track record than GQA, MLA, or sliding window."],
+  pick:"Pick DeltaNet-style linear attention when you specifically need linear-time, constant-memory generation\
+    (extremely long streaming contexts, tight edge/inference budgets) and plain linear attention's inability to\
+    correct its state has been a measured problem for you. It is the direct ancestor of Gated DeltaNet, below,\
+    which is the more complete, more commonly deployed version of this idea.",
+  src:{label:"Yang, Wang, Zhang, Shen, Kim, “Parallelizing Linear Transformers with the Delta Rule over Sequence Length”, arXiv:2406.06484 (NeurIPS 2024)", url:"https://arxiv.org/abs/2406.06484"}
+},
+{
+  id:"gated-deltanet", name:"Gated DeltaNet", cat:"compute",
+  date:"2412.06464", dateLabel:"9 Dec 2024", year:"2024",
+  headline:"DeltaNet can correct the state; it still can't forget it. Add Mamba2's decay gate, and the state gets both precise write/erase and the ability to let old information fade.",
+  context:"DeltaNet fixed linear attention's inability to overwrite a specific association, but it still has no\
+    mechanism to let irrelevant old information decay away wholesale &mdash; a separate, well-understood strength\
+    of gated state-space models like Mamba2. Six months after DeltaNet, the natural next question: why not both?",
+  how:"Add a learned, content-dependent gating (decay) term to the delta-rule update: at every step, the model\
+    can choose to let the existing state fade by some learned factor before applying the new delta correction.\
+    This combines Mamba2's global forgetting (a gate that decays everything gradually) with DeltaNet's targeted\
+    correction (an exact write to one specific association) in a single update rule, with a training algorithm\
+    still efficient enough to parallelize across the sequence.",
+  pros:["Combines two previously-separate strengths &mdash; gated forgetting (Mamba2) and precise correction (DeltaNet) &mdash; that neither predecessor had alone.",
+        "The paper reports consistent improvements over both plain Mamba2 and plain DeltaNet across language modeling, common-sense reasoning, in-context retrieval, length extrapolation, and long-context benchmarks.",
+        "Still retains the linear-time, constant-memory generation profile that makes this whole family attractive over softmax attention in the first place."],
+  cons:["More moving parts (gate + delta correction, both learned) than either ancestor alone, which is more surface area to get wrong or to debug.",
+        "Newest mechanism on this entire timeline at the point this course covers it (Dec 2024) &mdash; it has the least production deployment history of anything here.",
+        "It is still, fundamentally, a compressed fixed-size state &mdash; a gate that forgets well is not the same guarantee as softmax attention's exact, uncompressed recall of the full history."],
+  pick:"Pick Gated DeltaNet when you want the best available point on the linear-attention family's quality curve\
+    and are willing to accept a comparatively unproven, more complex mechanism to get it. It's the entry the\
+    instructor's own team used as one repeating block (“DDDG”) in a real from-scratch architecture this year, mixed with plain DeltaNet and full attention blocks rather than used alone throughout.",
+  src:{label:"Yang, Kautz, Gu, “Gated Delta Networks: Improving Mamba2 with Delta Rule”, arXiv:2412.06464", url:"https://arxiv.org/abs/2412.06464"}
+},
+{
+  id:"nsa", name:"Compressed &amp; sparse attention, DeepSeek's way (NSA)", cat:"compute",
+  date:"2502.11089", dateLabel:"16 Feb 2025", year:"2025",
+  headline:"Don't pick one lever. Combine coarse compression of the distant past, a learned top-k selection of specific important blocks, and a local sliding window &mdash; natively, from pretraining, not bolted on after.",
+  context:"By 2025, DeepSeek had shipped MLA (compress the K/V representation) and the field had spent years on\
+    sparse/top-k selection (2019&rarr;) and sliding windows (2020&rarr;) as separate levers. Native Sparse\
+    Attention's actual contribution isn't any one of these ideas &mdash; it's combining all three into a single\
+    mechanism that's trained end-to-end from scratch (“natively trainable”) and designed around how GPUs\
+    actually move memory (“hardware-aligned”), rather than retrofitted onto an already-trained dense model.",
+  how:"Three parallel branches, whose outputs are combined per query: (1) a compression branch that pools distant\
+    tokens into coarse, block-level summary representations, cheap to attend over; (2) a selection branch that\
+    uses a lightweight scoring mechanism to pick a small number of individual fine-grained blocks worth attending\
+    to at full resolution (the top-k, sparse part); and (3) a local sliding-window branch for nearby tokens, so\
+    close context is never lost to coarse compression. All three are trained together from the start, and the\
+    kernel implementation is written to match GPU memory access patterns rather than treated as an afterthought.\
+    (DeepSeek followed this in Sep 2025 with DeepSeek Sparse Attention (DSA) in DeepSeek-V3.2-Exp, which drops the\
+    compression branch in favor of a lightweight “lightning indexer” that selects top-k tokens directly, at even lower cost.)",
+  pros:["Genuinely natively trainable &mdash; unlike many sparse methods applied to an already-pretrained dense model, NSA's own ablations show training with sparsity from scratch outperforms retrofitting it after the fact.",
+        "Combines the strengths of three separate lineages on this timeline (compression, selection, windowing) instead of forcing a single trade-off between them.",
+        "Explicitly hardware-aligned: the paper reports real wall-clock training and inference speedups, not just a lower asymptotic complexity that doesn't materialize on real GPUs."],
+  cons:["Meaningfully more architecturally complex than any single lever on this timeline &mdash; three branches, each with its own design and training dynamics, have to be tuned and kept in balance together.",
+        "As with any learned selection mechanism, the top-k branch can, in principle, miss something genuinely important that its scoring under-ranks &mdash; the same fundamental risk sparse/top-k attention has carried since 2019.",
+        "Extremely new (Feb 2025 at publication, superseded within DeepSeek's own lineup by DSA seven months later) &mdash; long-term production track record outside DeepSeek's own models is still thin."],
+  pick:"Pick this class of mechanism when you're training a new frontier-scale model from scratch and want\
+    long-context efficiency baked into pretraining itself, not retrofitted later &mdash; which is precisely\
+    DeepSeek's own stated design goal. It is not a lightweight modification you bolt onto an existing checkpoint\
+    the way sliding window or attention sinks are.",
+  src:{label:"DeepSeek-AI, “Native Sparse Attention: Hardware-Aligned and Natively Trainable Sparse Attention”, arXiv:2502.11089 (ACL 2025)", url:"https://arxiv.org/abs/2502.11089"}
+},
+{
+  id:"drope", name:"DroPE", cat:"position",
+  date:"2512.12167", dateLabel:"13 Dec 2025", year:"2025",
+  headline:"The newest twist in this entire timeline: RoPE turns out to matter mainly for getting training to converge. Once trained, drop it, briefly recalibrate, and length generalization gets better, not worse.",
+  context:"Every positional method on this timeline so far assumed position information has to be present at\
+    inference the same way it was during training &mdash; you might interpolate it (NTK-aware, YaRN) or make it\
+    naturally robust (ALiBi), but you kept it. DroPE asks whether that assumption was ever necessary at all, or\
+    whether positional embeddings are a training-time scaffold that can be removed once they've done their job.",
+  how:"Pretrain a model with RoPE as usual &mdash; the paper's own analysis argues explicit positional information\
+    is genuinely important for training to converge efficiently in the first place. After pretraining, remove RoPE\
+    entirely (falling back to NoPE &mdash; no explicit positional encoding, relying only on the causal mask, which\
+    itself carries some positional signal) and run a short recalibration phase, reportedly under 1% of the\
+    original pretraining compute, at the model's original training length. This recalibration is enough to\
+    recover RoPE-level performance at the original length while yielding meaningfully better length generalization\
+    than RoPE (with or without NTK-aware/YaRN-style scaling) beyond it.",
+  pros:["Reframes position as a training-time convergence aid rather than a permanent architectural commitment &mdash; a genuinely new way to think about the whole category, not just a new formula within it.",
+        "Reported recalibration cost is under 1% of original pretraining compute &mdash; far cheaper than a length-extension fine-tune, and the paper reports it outperforming established RoPE-scaling methods on long-context benchmarks (LongBench, RULER).",
+        "If the finding holds broadly, it suggests today's RoPE-scaling ecosystem (NTK-aware, YaRN, and everything built on interpolating a rotation formula) may be solving a problem that a different training recipe sidesteps rather than patches."],
+  cons:["Published Dec 2025 &mdash; this is the newest, least independently replicated mechanism on the entire timeline; broad community validation across model families and scales is still ongoing.",
+        "It still requires a recalibration phase, however cheap &mdash; not literally free, and the exact minimum recalibration budget and its sensitivity to model scale are still being established.",
+        "Removing explicit positional encoding leans on NoPE's finding that the causal mask alone carries usable positional signal at inference &mdash; a subtler, harder-to-verify property than an explicit rotation formula, and one that may behave differently across architectures."],
+  pick:"Watch this one rather than commit to it in production today &mdash; it's promising and cheap enough to be\
+    worth trying if you're training a new model and care about length generalization, but it's also the newest\
+    idea on this page by nine months, and “newest” is exactly the category the instructor warned this\
+    course about trusting on a confident sentence alone.",
+  src:{label:"Gelberg, Eguchi, Akiba, Cetin, “Extending the Context of Pretrained LLMs by Dropping Their Positional Embeddings” (DroPE), arXiv:2512.12167, Sakana AI", url:"https://arxiv.org/abs/2512.12167"}
+}
+];
+
+const Q2_HTML = `
+<p><b>What the timeline shows that a list of the same 18 names never would</b> is a field arguing with its own
+recent past, in public, in real time &mdash; and the argument keeps flipping which resource it's willing to spend.
+Laid out chronologically instead of by family, four separate swings show up:</p>
+<p><b>2017&ndash;2019, wants exactness.</b> The original Transformer keeps full softmax attention and pays whatever
+O(n&sup2;) costs &mdash; the only fights are over how to tell it where tokens are (sinusoidal, then learned).
+Nobody is trying to save compute yet; the architecture itself is the news.</p>
+<p><b>2019&ndash;2021, wants memory and reach back.</b> Sparse Transformers, MQA, Longformer, and linear attention
+all land inside 18 months of each other, and every one of them is the same move: stop looking at, or storing,
+everything. This is the field deciding exactness was a luxury it could partially sell off for length and cache
+headroom &mdash; the cheapest four years on this list, and also the point where quality starts visibly leaking out
+of the trade.</p>
+<p><b>2022, a genuine reversal.</b> FlashAttention doesn't belong to either camp. It proves the 2019&ndash;2021
+premise wrong for compute specifically &mdash; you don't have to approximate to go fast, you just have to stop
+moving data you don't need to move. It's the one entry on this page that gets something back for free, and it
+resets what every later entry has to beat: from 2022 on, an approximate method has to justify itself against an
+already-fast exact baseline, not against the original 2017 paper.</p>
+<p><b>2023, wants length again, cheaply.</b> NTK-aware scaling, YaRN, and attention sinks are all a different kind
+of cheap than 2019&ndash;2021: they're patches applied to an already-trained model, not architectural bets made at
+pretraining time. Notably, the fix that started this wave (NTK-aware) came from a Reddit post before it came from
+a lab &mdash; the community found the exploit before the literature formalized it, which the dates make visible
+in a way a citation list wouldn't.</p>
+<p><b>2024&ndash;2025, wants memory back again, but this time without giving up correctness the way 2019's tools
+did.</b> MLA compresses the KV cache with a jointly-learned latent instead of a fixed sharing rule. DeltaNet and
+Gated DeltaNet go back and specifically patch linear attention's original 2020 flaw &mdash; that its running state
+could only ever add, never correct &mdash; four years after that flaw first shipped. NSA fuses compression,
+selection, and windowing into one natively-trained mechanism instead of picking exactly one lever the way 2019
+did. The tools of this era look like the tools of 2019&ndash;2021, but each one is visibly built to avoid that
+era's specific failure mode.</p>
+<p><b>And then DroPE, at the very end, reframes the entire positional half of the story.</b> Every positional
+mechanism from sinusoidal through YaRN treats position as something that has to be present at inference because
+it was present at training. DroPE's finding &mdash; that RoPE is mainly a convergence aid you can remove after
+the fact &mdash; is the first entry on this page to question that shared assumption rather than build a better
+version of it.</p>
+<p><b>What you can guess from this, which the instructor asked for:</b> the pattern of the last three years is
+mechanisms that get back something an earlier mechanism gave up, without re-paying that mechanism's original
+cost &mdash; MLA vs. MQA/GQA, Gated DeltaNet vs. linear attention, NSA vs. plain sparse attention. If that pattern
+holds, the next entries on this timeline are more likely to be a second-generation fix to a 2023&ndash;2024 idea's
+specific weak point (a DSA-style successor to NSA that drops its compression branch already shipped in September
+2025, right on schedule) than a wholly new axis of attack. The other legible signal is that the gap between
+&ldquo;posted to a forum&rdquo; and &ldquo;in a frontier model's architecture&rdquo; has been shrinking &mdash;
+NTK-aware scaling went from Reddit to a formal paper (YaRN) in two months in 2023; whatever the community finds
+next may arrive on this timeline faster than the labs do.</p>
+<p><b>Extra mechanism found, not on the instructor's list:</b> <b>FlashAttention</b>
+(Dao, Fu, Ermon, Rudra, R&eacute;, <i>&ldquo;FlashAttention: Fast and Memory-Efficient Exact Attention with
+IO-Awareness&rdquo;</i>, arXiv:2205.14135, submitted 27 May 2022, NeurIPS 2022). It's included above with full
+pros/cons, marked as a bonus card.</p>
+`;
+
+/* ---------- render ---------- */
+function esc(s){return s}
+document.getElementById("q2text").innerHTML = Q2_HTML;
+
+const filtersEl = document.getElementById("filters");
+const timelineEl = document.getElementById("timeline");
+let activeCats = new Set(Object.keys(CATS));
+
+function renderFilters(){
+  filtersEl.innerHTML = "";
+  const allChip = document.createElement("button");
+  allChip.className = "chip active";
+  allChip.id = "chip-all";
+  allChip.innerHTML = `<span class="dot" style="background:var(--ink)"></span>All (${MECHANISMS.length})`;
+  allChip.onclick = () => { activeCats = new Set(Object.keys(CATS)); render(); };
+  filtersEl.appendChild(allChip);
+
+  Object.entries(CATS).forEach(([key,c])=>{
+    const count = MECHANISMS.filter(m=>m.cat===key).length;
+    const chip = document.createElement("button");
+    chip.className = "chip active";
+    chip.dataset.cat = key;
+    chip.innerHTML = `<span class="dot" style="background:${c.color}"></span>${c.label} (${count})`;
+    chip.onclick = () => {
+      if(activeCats.has(key) && activeCats.size===1){ activeCats = new Set(Object.keys(CATS)); }
+      else if(activeCats.size===Object.keys(CATS).length){ activeCats = new Set([key]); }
+      else if(activeCats.has(key)){ activeCats.delete(key); }
+      else { activeCats.add(key); }
+      render();
+    };
+    filtersEl.appendChild(chip);
+  });
+}
+
+function render(){
+  // chip states
+  document.querySelectorAll(".chip[data-cat]").forEach(el=>{
+    el.classList.toggle("active", activeCats.has(el.dataset.cat));
+  });
+  document.getElementById("chip-all").classList.toggle("active", activeCats.size===Object.keys(CATS).length);
+
+  const visible = MECHANISMS.filter(m=>activeCats.has(m.cat));
+  timelineEl.innerHTML = "";
+  let lastYear = null;
+  visible.forEach(m=>{
+    if(m.year !== lastYear){
+      const y = document.createElement("div");
+      y.className = "year-mark";
+      y.textContent = m.year;
+      timelineEl.appendChild(y);
+      lastYear = m.year;
+    }
+    const cat = CATS[m.cat];
+    const card = document.createElement("article");
+    card.className = "card";
+    card.style.setProperty("--cat-color", cat.color);
+    card.innerHTML = `
+      <div class="card-head">
+        <div>
+          <span class="tag">${cat.label}</span>${m.bonus?'<span class="tag bonus-tag">Bonus find</span>':''}
+          <h3 class="card-title">${m.name}</h3>
+        </div>
+        <div class="card-date">${m.dateLabel}</div>
+      </div>
+      <p class="headline">${m.headline}</p>
+      <p class="context"><b style="color:var(--ink)">Why then: </b>${m.context}</p>
+      <p class="how"><b style="color:var(--ink)">How it works: </b>${m.how}</p>
+      <div class="pc-grid">
+        <div class="pc pros"><h4>What it buys</h4><ul>${m.pros.map(p=>`<li>${p}</li>`).join("")}</ul></div>
+        <div class="pc cons"><h4>What it gives up</h4><ul>${m.cons.map(p=>`<li>${p}</li>`).join("")}</ul></div>
+      </div>
+      <div class="pick"><b>Pick it when: </b>${m.pick}</div>
+      <div class="src">Source: <a href="${m.src.url}" target="_blank" rel="noopener">${m.src.label}</a></div>
+    `;
+    timelineEl.appendChild(card);
+  });
+}
+
+renderFilters();
+render();
+
+/* theme toggle */
+const themeBtn = document.getElementById("themeBtn");
+function applyTheme(t){
+  if(t) document.documentElement.setAttribute("data-theme", t);
+  else document.documentElement.removeAttribute("data-theme");
+}
+try{
+  const saved = localStorage.getItem("theme");
+  if(saved) applyTheme(saved);
+}catch(e){}
+themeBtn.onclick = () => {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const next = cur === "dark" ? "light" : (cur === "light" ? null : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark"));
+  applyTheme(next);
+  try{ localStorage.setItem("theme", next || ""); }catch(e){}
+};
+</script>
+</body>
+</html>
